@@ -1,5 +1,5 @@
 # This is a new mehtod that i used for Jacobian matrix. The EE movement 
-# is circular and the argument of "f" in x = cos(f) is equal to a(t^3 - 1.5Tt^2)
+# is circular and the argument of "f" in x = cos(f) is equal to a(t**3 - 1.5Tt**2)
 
 
 # =================================================================================================
@@ -12,7 +12,9 @@
 import 	numpy as np 
 from 	numpy import sin, cos
 import 	math 
+from  	numpy import pi 
 import 	matplotlib.pyplot as plt 
+from 	scipy.optimize import fsolve
 
 
 # =================================================================================================
@@ -25,7 +27,7 @@ import 	matplotlib.pyplot as plt
 
 
 class Jacobian:
-	def __init__(self, EE_position, active_rod=0.2, passive_rod=0.46, base_side=0.3464101615, EE_radius=0.2563435195, alpha=[0, 120, 240]):
+	def __init__(self, EE_position, active_rod=0.2, passive_rod=0.46, base_side=0.3464101615, EE_side=0.2563435195, alpha=[0, 120, 240]):
 		## ***----------------*** THIS CLASS ALLOWS US TO FIND THE RELATION 
 		## *** IMPORTANT NOTE *** BETWEEN VELOCITY AND ANGULAR VELOCITY 
 		## ***----------------*** FOR ONE POINT IN 3D SPACE
@@ -40,7 +42,7 @@ class Jacobian:
 		self.EE_position_global = np.array(EE_position)		# end effoctor position (x_e, y_e, z_e) with respect to alpha_0								
 		self.active_rod = active_rod						# length of the active rod (the upper rod or r_f)
 		self.passive_rod = passive_rod						# length of the passive rod (the lower rod or r_e)
-		self.EE_radius = EE_radius							# side of EE traingle
+		self.EE_side = EE_side								# side of EE traingle
 		self.base_side = base_side							# side of base triangle 
 
 	def get_theta_ij(self): 
@@ -49,7 +51,7 @@ class Jacobian:
 		# assigning constants
 		alpha = math.pi/180*self.alpha 	# from deg to rad
 		R = self.base_side*(3**0.5/6)  	# calculating radius of the base 
-		r = self.EE_radius*(3**0.5/6)	# calculating radius of the EE
+		r = self.EE_side*(3**0.5/6)	# calculating radius of the EE
 		a = self.active_rod 			# active rod length
 		b = self.passive_rod			# passive rod length
 
@@ -108,29 +110,57 @@ class Jacobian:
 # =================================================================================================
 
 # we make the path of circular motion of the EE as following equations: 
-# x = R cos(t^3 - 1.5T*t^2)
-# y = R sin(t^3 - 1.5T*t^2)
+# x = R cos(t**3 - 1.5T*t**2)
+# y = R sin(t**3 - 1.5T*t**2)
 # z = constant
 
+def tm_calculator(R, v_max):
 
-def circle_generator
+	func = lambda t_m: v_max + 4*pi*R*(3*t_m - 3*t_m**2)*sin(4*pi*(1.5*t_m**2 - t_m**3))
+	t_m = np.linspace(0, 1, 100)
 
+	plt.plot(t_m, func(t_m))
+	plt.xlabel("t_m")
+	plt.ylabel("v_max - v")
+	plt.grid()
+	plt.show()
 
-# =================================================================================================
-# -- STEP 2: GENERATING TRAJECTORY ----------------------------------------------------------------
-# =================================================================================================
+	tm_initial_guess = 0.5 
+	tm_solution = fsolve(func, tm_initial_guess)[0]
 
+	print(tm_solution)
 
+	return tm_solution
 
+def a_and_T_calculator(R, v_max, t_m):
 
+	func = lambda a: v_max + R*a*3*t_m*(4*pi/a)**(3/2)*(1 - t_m)*sin(t_m**2*4*pi*(1.5 - t_m))
 
-# =================================================================================================
-# -- STEP 1: GENERATING TRAJECTORY ----------------------------------------------------------------
-# =================================================================================================
+	a = np.linspace(0.1, 50, 100)
+
+	plt.plot(a, func(a))
+
+	plt.xlabel("a")
+	plt.ylabel("v_max - v")
+	plt.grid()
+	plt.show()
+
+	a_initial_guess = 10
+	a_solution = fsolve(func, a_initial_guess)[0]
+
+	print(a_solution)
+
+	return a
 
 
 # =================================================================================================
 # -- MAIN -----------------------------------------------------------------------------------------
 # =================================================================================================
 
-circle_generator(1)
+# R = 5
+# v_max = 8
+
+# t_m = tm_calculator(R, v_max)
+# a_and_T_calculator(R, v_max, t_m)
+
+
