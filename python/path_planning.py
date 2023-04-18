@@ -84,6 +84,7 @@ class PathPlannerPTP:
 # -- main -------------------------------------------------------------------------------------
 # =================================================================================================
 
-delta_robot = DeltaRobot(0.2, 0.46, 0.1, 0.074)
-path_planner = PathPlannerPTP([0.05, 0.05, -0.31], [0, -0.15, -0.42], 4050)
-path_planner.point_to_point_467(delta_robot)
+if __name__ == "__main__":
+	delta_robot = DeltaRobot(0.2, 0.46, 0.1, 0.074)
+	path_planner = PathPlannerPTP([0.05, 0.05, -0.31], [0, -0.15, -0.42], 4050)
+	path_planner.point_to_point_467(delta_robot)
