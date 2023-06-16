@@ -26,7 +26,7 @@ challenges of generating a smooth path for the End-Effector
 
 <\br>
 
-Industrial robots can be categorized into four main types
+<ins>**Main Types of Controlable Robots:**</ins> Industrial robots can be categorized into four main types
 based on their control methods: remote controlled, sequence
 controlled, controllable track, and adaptive control. While
 remote-controlled robots are manually operated by an operator
@@ -37,8 +37,11 @@ applications. Adaptive control empowers robots to respond
 to real-time feedback and adapt their actions accordingly,
 enabling dynamic and adaptive behavior in complex envi-
 ronments. This article focuses on studying the third type of
-controller, specifically controllable track robots. [2]
-The trajectory-planning problem of a DPR can be tackled
+controller, specifically controllable track robots [2].
+
+<\br>
+
+<ins>**Some Algorithms:**</ins> The trajectory-planning problem of a DPR can be tackled
 using various algorithms. Some notable approaches include the
 Identify applicable funding agency here. If none, delete this.
 utilization of 5th and 7th order polynomials, which provide
@@ -48,8 +51,11 @@ offer a flexible and precise representation of robot trajectories,
 allowing for efficient path planning. Lame’s Curve, another
 method employed in trajectory planning, offers a parameter-
 ized curve that ensures smooth and continuous motion profiles
-while accommodating dynamic constraints. [3]
-In addition to these methods, Pythagorean-Hodograph
+while accommodating dynamic constraints [3].
+
+<\br>
+
+<ins>**Some More Algorithms:**</ins> In addition to these methods, Pythagorean-Hodograph
 Curves are worth mentioning as they provide a specialized
 class of curves that simplify the computation of differential
 properties, such as velocity and acceleration, for smoother and
@@ -66,9 +72,11 @@ the trajectory into multiple segments with constant velocity
 profiles. This approach ensures smooth transitions between
 different segments while satisfying dynamic constraints, of-
 fering a simple yet effective solution for trajectory planning
-[7]. 
+[7].
+
 </br>
-Efficient trajectory planning is a crucial aspect in maxi-
+
+<ins>**Importance of This Article-ish Page:**</ins> Efficient trajectory planning is a crucial aspect in maxi-
 mizing the performance and productivity of Delta robots in
 industrial automation. However, the generation of a smooth
 and accurate path for the end-effector while minimizing devi-
@@ -83,7 +91,10 @@ the challenge of creating a good trajectory with controlled
 jerk profiles becomes paramount for the effective utilization
 of Delta robots in various complex tasks, ultimately enhancing
 productivity and work quality in industrial automation.
-The primary goal of this research is to investigate and
+
+<\br>
+
+<ins>**Goal And Overview:**</ins> The primary goal of this research is to investigate and
 implement various trajectory planning algorithms for Delta
 robots, including the multi-point and single-point trapezoidal
 method, cubic spline, and higher-order polynomials such as
@@ -102,7 +113,10 @@ comparison of multiple trajectory planning algorithms pro-
 vides valuable insights into their relative performance and
 assists in identifying the most suitable approaches for Delta
 robot applications.
-To achieve these research objectives, this paper is organized
+
+<\br>
+
+<ins>**Organization of Paper:**</ins> To achieve these research objectives, this paper is organized
 as follows: we first begin by presenting a detailed description
 and implementation of each trajectory planning algorithm.
 Subsequently, we evaluate and compare their performance
@@ -116,7 +130,7 @@ robots in industrial automation settings.
 
 ## TRAJECTORY PLANNING
 
-Trajectory planning is a crucial step in achieving the desired
+<ins>**What is Trajectory Planning:**</ins> Trajectory planning is a crucial step in achieving the desired
 movement for a manipulator control system, ensuring the
 generation of reference inputs that conform to the given
 geometric path and comply with the kinematic and dynamic
@@ -131,7 +145,10 @@ of position, velocity, and acceleration values. The trajectory
 planning algorithm generates a time-based sequence of values,
 respecting the imposed constraints, to specify the position and
 orientation of the EE.
-This section focuses on two key aspects of trajectory plan-
+
+<\br>
+
+<ins>**What Trajectory Plannings We Look Into:**</ins> This section focuses on two key aspects of trajectory plan-
 ning: point-to-point and multi-point movements. For point-to-
 point trajectory planning, we explore three distinct algorithms:
 the 5th order polynomial, the 7th order polynomial, and the
@@ -148,7 +165,7 @@ their effectiveness in optimizing the motion of Delta robots in
 industrial automation settings.
 
 ### Point-to-Point Trajectory Planning
-Point-to-Point Trajectory Planning refers to the process of
+<ins>**What is Point-to-Point Trajectory Planning:**</ins> Point-to-Point Trajectory Planning refers to the process of
 generating smooth and coordinated paths for delta robots that
 involve moving from a starting point to a single target location.
 It focuses on determining the optimal trajectory that ensures
@@ -159,6 +176,8 @@ ning algorithms enable the seamless execution of movements
 from one specific location to another, enhancing the overall
 performance and accuracy of delta robots in industrial automa-
 tion settings
+
+#### 3-4-5 Interpolating Polynomial
 
 
 References: 
