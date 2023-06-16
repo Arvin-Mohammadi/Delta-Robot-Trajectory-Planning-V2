@@ -3,7 +3,7 @@ I wanted to make a controller for DPR, it was pretty hard and challenging, that 
 
 ## INTRODUCTION
 
-**Some History:** Delta Parallel Robots (DPRs) are widely used in industrial
+<ins>**Some History:**</ins> Delta Parallel Robots (DPRs) are widely used in industrial
 automation, offering significant enhancements in productivity
 and work quality for a variety of complex tasks. With their
 parallel kinematic structure and impressive speed capabilities,
