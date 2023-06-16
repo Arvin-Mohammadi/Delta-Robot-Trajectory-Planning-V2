@@ -196,6 +196,8 @@ In this context, it is important to note that $s(\tau)$ lies within the range of
 To establish desired constraints on the generated path, initial and final positions, velocities, and accelerations can be set. By applying the following conditions:
 
 $$s(0) = 0, s^\prime(0) = 0, s^{\prime\prime}(0) = 0$$
+
+
 $$s(1) = 1, s^\prime(1)=0, s^{\prime\prime}(1)=0$$
 
 a system of six equations with six unknowns can be solved. The resulting values are:
