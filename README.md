@@ -183,7 +183,7 @@ tion settings
 
 #### 2.1.1 - 3-4-5 Interpolating Polynomial
 ------
-
+Let's consider $\theta^I$ and $\theta^F$
 
 ## References: 
 ------
