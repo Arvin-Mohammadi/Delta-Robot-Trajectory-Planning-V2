@@ -4,6 +4,14 @@ I wanted to make a controller for DPR, it was pretty hard and challenging, that 
 
 ![delta_robot_urdf](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/delta_robot_urdf.PNG)
 
+Overview: 
+- Introduction
+- Trajectory Planning 
+    - point-to-point trajectory planning  
+        - 3-4-5 interpolating polynomial
+        - 4-5-6-7 interpolating polynomial
+    - multi-point trajectory planning 
+
 ## 1 - INTRODUCTION
 ------
 
