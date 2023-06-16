@@ -178,6 +178,7 @@ performance and accuracy of delta robots in industrial automa-
 tion settings
 
 #### 2.1.1 - 3-4-5 Interpolating Polynomial
+------
 
 
 ## References: 
