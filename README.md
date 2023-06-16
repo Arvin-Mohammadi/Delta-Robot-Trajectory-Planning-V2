@@ -181,12 +181,12 @@ tion settings
 
 
 References: 
-[1] doi: /10.1007/978-3-030-03538-9 23
-[2] doi: 10.32629/jai.v5i1.505
-[3] doi: 10.1109/CRC.2017.38
-[4] doi: 10.3390/app9214491
-[5] doi: 10.1007/s00170-019-04421-7
-[6] doi: 10.3390/app12168145
-[7] Research of Trajectory Planning for Delta Parallel Robots, 2013 International Confere
-[8] doi: 10.1007/s11786-012-0123-8
+[1] doi: /10.1007/978-3-030-03538-9 23 </br>
+[2] doi: 10.32629/jai.v5i1.505 </br>
+[3] doi: 10.1109/CRC.2017.38 </br>
+[4] doi: 10.3390/app9214491 </br>
+[5] doi: 10.1007/s00170-019-04421-7 </br>
+[6] doi: 10.3390/app12168145 </br>
+[7] Research of Trajectory Planning for Delta Parallel Robots, 2013 International Confere </br>
+[8] doi: 10.1007/s11786-012-0123-8 </br>
 
