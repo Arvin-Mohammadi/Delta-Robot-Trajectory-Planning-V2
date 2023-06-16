@@ -217,6 +217,7 @@ FIGURE
 
 #### 2.1.1 - 4-5-6-7 Interpolating Polynomial
 ------
+<ins>**Math:**</ins> 
 If we consider $\theta^I$ and $\theta^F$ to be the given initial and final values of the joint variable, and w ewant to interpolate the values in between, the 4-5-6-7 interpolating polynomial can be employed. The formula below represents the interpolation: 
 
 $$\theta(t) = \theta^I + (\theta^F - \theta^I)s(\tau)$$
@@ -234,6 +235,19 @@ $$s(1) = 1, s^\prime(1)=0, s^{\prime\prime}(1)=0, s^{\prime\prime\prime}(1)=0$$
 By solving this system of eight equations with eight unknowns, we can determine the values of the coefficients:
 
 $$a=-20, b = 70, c = -84, d = 35, e = 0, f = 0, g = 0, h=0$$
+
+As a result, the polynomial will take the form [9]: 
+
+$$s(\tau) = -20\tau^7 + 70\tau^6 - 84\tau^5 + 35\tau^4$$
+
+
+
+<ins>**Discussion:**</ins> 
+The 4-5-6-7 interpolating polynomial offers an improvement over the 3-4-5 interpolating polynomial by incorporating higher-order terms. This enables a more precise representation of the desired trajectory, leading to enhanced accuracy and control. Additionally, the inclusion of jerk constraints in the interpolation process ensures smoother robot movements, reducing mechanical stress and instability. From all the point-to-point methods, this one proves to be the most reliable.
+
+FIGURE
+
+
 
 ## References: 
 ------
