@@ -2,7 +2,7 @@
 ------
 I wanted to make a controller for DPR, it was pretty hard and challenging, that made me pretty angry so i decdied to drown myself in this rabbithole til I find a satisfying answer. So hope you enjoy. I've already made a repository like this before, but this is going to be a better and more complete version of that one. 
 
-
+![delta_robot_urdf](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/delta_robot_urdf.PNG)
 
 ## 1 - INTRODUCTION
 ------
