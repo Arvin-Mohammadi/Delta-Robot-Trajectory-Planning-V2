@@ -1,7 +1,9 @@
 # A Full guide to Delta Parallel Robot Trajectory Planning
+------
 I wanted to make a controller for DPR, it was pretty hard and challenging, that made me pretty angry so i decdied to drown myself in this rabbithole til I find a satisfying answer. So hope you enjoy.
 
 ## 1 - INTRODUCTION
+------
 
 <ins>**Some History:**</ins> Delta Parallel Robots (DPRs) are widely used in industrial
 automation, offering significant enhancements in productivity
@@ -129,6 +131,7 @@ enhancing our understanding of trajectory planning for Delta
 robots in industrial automation settings.
 
 ## 2 - TRAJECTORY PLANNING
+------
 
 <ins>**What is Trajectory Planning:**</ins> Trajectory planning is a crucial step in achieving the desired
 movement for a manipulator control system, ensuring the
@@ -165,6 +168,7 @@ their effectiveness in optimizing the motion of Delta robots in
 industrial automation settings.
 
 ### 2.1 - Point-to-Point Trajectory Planning
+------
 <ins>**What is Point-to-Point Trajectory Planning:**</ins> Point-to-Point Trajectory Planning refers to the process of
 generating smooth and coordinated paths for delta robots that
 involve moving from a starting point to a single target location.
@@ -182,6 +186,7 @@ tion settings
 
 
 ## References: 
+------
 [1] doi: /10.1007/978-3-030-03538-9 23 </br>
 [2] doi: 10.32629/jai.v5i1.505 </br>
 [3] doi: 10.1109/CRC.2017.38 </br>
