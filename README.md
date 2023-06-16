@@ -183,7 +183,32 @@ tion settings
 
 #### 2.1.1 - 3-4-5 Interpolating Polynomial
 ------
-Let's consider $\theta^I$ and $\theta^F$
+When interpolating between given initial and final values of the joint variable $\theta^I$ and $\theta^F$ respectively, the following can be employed:
+
+$$\theta(t) = \theta^I + (\theta^F - \theta^I)s(\tau)$$
+
+Here, $\tau$ represents the normalized time, where $\tau = \frac{t}{T} and $T$ denotes the overall time period. The function $s(\tau)$ is a fifth-order polynomial defined as: 
+
+$$s(\tau) = a\tau^5  b\tau^4 + c\tau^3 + d\tau^2 + e\tau + f$$
+
+In this context, it is important to note that $s(\tau)$ lies within the range of 0 to 1, and $\tau$ ranges from 0 to 1 as well. 
+
+To establish desired constraints on the generated path, initial and final positions, velocities, and accelerations can be set. By applying the following conditions:
+
+$$s(0) = 0, s\prime(0) = 0, s\pprime(0) = 0$$
+$$s(1) = 1, s\prime(1)=0, s\pprime(1)=0$$
+
+a system of six equations with six unknowns can be solved. The resulting values are:
+
+$$a = 6, b = -15, c = 10, d = 0, e = 0, f = 0$$
+
+Thus, the polynomial takes the form: 
+
+$$s(\tau) = 6\tau^5 - 15\tau^4 + 10\tau^3$$
+
+This representation allows for smooth and controlled joint variable interpolation, satisfying the prescribed constraints [9].
+
+The utilization of a fifth-order polynomial, such as the 3-4-5 interpolating polynomial, enables the generation of smooth and continuous trajectories for Delta robots. By incorporating higher-order terms, this polynomial minimizes abrupt changes in position, velocity, and acceleration during the interpolation process. While the 3-4-5 interpolating polynomial offers desirable smoothness and continuity, it is important to note its limitations. One significant drawback is the lack of explicit constraints on jerk, which refers to the rate of change of acceleration. The absence of jerk constraints can result in undesirable mechanical stress and instability, particularly at the start and end points of the trajectory where jerk values may be unbounded. As a result, caution must be exercised when applying the 3-4-5 interpolating polynomial in Delta Parallel Robots (DPR) applications, as uncontrolled jerk may affect the overall performance and quality of robot operations.
 
 ## References: 
 ------
