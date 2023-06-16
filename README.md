@@ -62,7 +62,8 @@ the trajectory into multiple segments with constant velocity
 profiles. This approach ensures smooth transitions between
 different segments while satisfying dynamic constraints, of-
 fering a simple yet effective solution for trajectory planning
-[7].
+[7]. 
+<\br>
 Efficient trajectory planning is a crucial aspect in maxi-
 mizing the performance and productivity of Delta robots in
 industrial automation. However, the generation of a smooth
