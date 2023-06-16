@@ -180,7 +180,7 @@ tion settings
 #### 1.1.1.1 - 3-4-5 Interpolating Polynomial
 
 
-References: 
+## References: 
 [1] doi: /10.1007/978-3-030-03538-9 23 </br>
 [2] doi: 10.32629/jai.v5i1.505 </br>
 [3] doi: 10.1109/CRC.2017.38 </br>
