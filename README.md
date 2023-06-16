@@ -2,7 +2,8 @@
 I wanted to make a controller for DPR, it was pretty hard and challenging, that made me pretty angry so i decdied to drown myself in this rabbithole til I find a satisfying answer. So hope you enjoy.
 
 ## INTRODUCTION
-Delta Parallel Robots (DPRs) are widely used in industrial
+
+**Some History:** Delta Parallel Robots (DPRs) are widely used in industrial
 automation, offering significant enhancements in productivity
 and work quality for a variety of complex tasks. With their
 parallel kinematic structure and impressive speed capabilities,
@@ -22,6 +23,9 @@ seamless robot motion. This article aims to explore the specific
 aspects of trajectory planning for DPRs, with a focus on the
 challenges of generating a smooth path for the End-Effector
 (EE) while minimizing deviation throughout the trajectory.
+
+<\br>
+
 Industrial robots can be categorized into four main types
 based on their control methods: remote controlled, sequence
 controlled, controllable track, and adaptive control. While
