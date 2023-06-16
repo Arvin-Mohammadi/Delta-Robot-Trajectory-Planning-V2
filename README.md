@@ -198,7 +198,6 @@ To establish desired constraints on the generated path, initial and final positi
 
 $$s(0) = 0, s^\prime(0) = 0, s^{\prime\prime}(0) = 0$$
 
-
 $$s(1) = 1, s^\prime(1)=0, s^{\prime\prime}(1)=0$$
 
 a system of six equations with six unknowns can be solved. The resulting values are:
@@ -213,6 +212,28 @@ This representation allows for smooth and controlled joint variable interpolatio
 
 <ins>**Discussion:**</ins>
 The utilization of a fifth-order polynomial, such as the 3-4-5 interpolating polynomial, enables the generation of smooth and continuous trajectories for Delta robots. By incorporating higher-order terms, this polynomial minimizes abrupt changes in position, velocity, and acceleration during the interpolation process. While the 3-4-5 interpolating polynomial offers desirable smoothness and continuity, it is important to note its limitations. One significant drawback is the lack of explicit constraints on jerk, which refers to the rate of change of acceleration. The absence of jerk constraints can result in undesirable mechanical stress and instability, particularly at the start and end points of the trajectory where jerk values may be unbounded. As a result, caution must be exercised when applying the 3-4-5 interpolating polynomial in DPR applications, as uncontrolled jerk may affect the overall performance and quality of robot operations.
+
+FIGURE
+
+#### 2.1.1 - 4-5-6-7 Interpolating Polynomial
+------
+If we consider $\theta^I$ and $\theta^F$ to be the given initial and final values of the joint variable, and w ewant to interpolate the values in between, the 4-5-6-7 interpolating polynomial can be employed. The formula below represents the interpolation: 
+
+$$\theta(t) = \theta^I + (\theta^F - \theta^I)s(\tau)$$
+
+In this formula, $\tau$ represents the normlized time (\tau = \frac{t}{T}, where $T$ is the overall time period), and $s(\tau)$ is a fourth-order polynomial defined as: 
+
+$$s(\tau) = a\tau^7 + b\tau^6 + c\tau^5 + d\tau^4 + e\tau^3 + f\tau^2 + g\tau + h$$
+The constraints for the path generated using this method include setting the initial and final position, velocity, acceleration, and jerk. By incorporating the following conditions:
+
+
+$$s(0) = 0, s^\prime(0) = 0, s^{\prime\prime}(0) = 0, s^{\prime\prime\prime}(0) = 0$$
+
+$$s(1) = 1, s^\prime(1)=0, s^{\prime\prime}(1)=0, s^{\prime\prime\prime}(1)=0$$
+
+By solving this system of eight equations with eight unknowns, we can determine the values of the coefficients:
+
+$$a=-20, b = 70, c = -84, d = 35, e = 0, f = 0, g = 0, h=0$$
 
 ## References: 
 ------
