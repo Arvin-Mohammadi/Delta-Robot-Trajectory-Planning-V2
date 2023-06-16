@@ -24,7 +24,7 @@ aspects of trajectory planning for DPRs, with a focus on the
 challenges of generating a smooth path for the End-Effector
 (EE) while minimizing deviation throughout the trajectory.
 
-<\br>
+</br>
 
 <ins>**Main Types of Controlable Robots:**</ins> Industrial robots can be categorized into four main types
 based on their control methods: remote controlled, sequence
@@ -39,7 +39,7 @@ enabling dynamic and adaptive behavior in complex envi-
 ronments. This article focuses on studying the third type of
 controller, specifically controllable track robots [2].
 
-<\br>
+</br>
 
 <ins>**Some Algorithms:**</ins> The trajectory-planning problem of a DPR can be tackled
 using various algorithms. Some notable approaches include the
@@ -53,7 +53,7 @@ method employed in trajectory planning, offers a parameter-
 ized curve that ensures smooth and continuous motion profiles
 while accommodating dynamic constraints [3].
 
-<\br>
+</br>
 
 <ins>**Some More Algorithms:**</ins> In addition to these methods, Pythagorean-Hodograph
 Curves are worth mentioning as they provide a specialized
@@ -92,7 +92,7 @@ jerk profiles becomes paramount for the effective utilization
 of Delta robots in various complex tasks, ultimately enhancing
 productivity and work quality in industrial automation.
 
-<\br>
+</br>
 
 <ins>**Goal And Overview:**</ins> The primary goal of this research is to investigate and
 implement various trajectory planning algorithms for Delta
@@ -114,7 +114,7 @@ vides valuable insights into their relative performance and
 assists in identifying the most suitable approaches for Delta
 robot applications.
 
-<\br>
+</br>
 
 <ins>**Organization of Paper:**</ins> To achieve these research objectives, this paper is organized
 as follows: we first begin by presenting a detailed description
@@ -146,7 +146,7 @@ planning algorithm generates a time-based sequence of values,
 respecting the imposed constraints, to specify the position and
 orientation of the EE.
 
-<\br>
+</br>
 
 <ins>**What Trajectory Plannings We Look Into:**</ins> This section focuses on two key aspects of trajectory plan-
 ning: point-to-point and multi-point movements. For point-to-
