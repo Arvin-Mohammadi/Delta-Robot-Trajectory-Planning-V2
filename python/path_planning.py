@@ -46,11 +46,11 @@ class PathPlannerPTP:
 		theta_dot_t = np.array(self.theta_f - self.theta_i)/T*s_tau_d
 
 		# theta double dot time profile
-		s_tau_dd = -840*tau**6 + 2100*tau**5 - 1680*tau**4 + 420*tau**3
+		s_tau_dd = -840*tau**5 + 2100*tau**4 - 1680*tau**3 + 420*tau**2
 		theta_ddot_t = np.array(self.theta_f - self.theta_i)/T*s_tau_dd
 
 		# theta triple dot time profile
-		s_tau_ddd = -4200*tau**6 + 8400*tau**5 - 5040*tau**4 + 420*tau**3
+		s_tau_ddd = -4200*tau**4 + 8400*tau**3 - 5040*tau**2 + 840*tau**1
 		theta_dddot_t = np.array(self.theta_f - self.theta_i)/T*s_tau_ddd
 
 		# checking the forward kinematics 
