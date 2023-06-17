@@ -27,7 +27,87 @@ class PathPlannerPTP:
 
 
 	def point_to_point_345(self):
-		pass 
+
+		FREQUENCY = 1000 
+		# overall time period
+		T = 15/8*(self.theta_f - self.theta_i)/self.thetadot_max
+		T = math.floor(max(T)*FREQUENCY)
+		tau = np.array(range(0, T))/T
+
+		# theta time profile
+		s_tau = 6*tau**5 - 15*tau**4 + 10*tau**3
+		theta_t = np.array(self.theta_i) + np.array(self.theta_f - self.theta_i)*s_tau
+
+		# theta dot time profile
+		s_tau_d = 30*tau**4 - 60*tau**3 + 30*tau**2
+		theta_dot_t = np.array(self.theta_f - self.theta_i)/T*s_tau_d
+
+		# theta double dot time profile
+		s_tau_dd = 120*tau**3 - 180*tau**2 + 60*tau
+		theta_ddot_t = np.array(self.theta_f - self.theta_i)/T*s_tau_dd
+
+		# theta triple dot time profile
+		s_tau_ddd = -360*tau**2 - 360*tau + 60
+		theta_dddot_t = np.array(self.theta_f - self.theta_i)/T*s_tau_ddd
+
+		# checking the forward kinematics 
+		ee_pos_t = np.zeros(theta_t.shape)
+		for idx, i in enumerate(theta_t.transpose()):
+			ee_pos_t[:, idx] = self.robot.forward_kin(theta_t[:, idx])
+
+		fig = plt.figure()
+		fig.set_figheight(15)
+		fig.set_figwidth(10)
+
+		# plot theta_t 
+		plt.subplot(511)
+		plt.grid(True)
+		plt.plot(tau, theta_t.transpose(), label=['theta_1', 'theta_2', 'theta_3'], linewidth=10)
+		plt.title("angle-time plot", fontsize=20)
+		plt.legend()
+		plt.xlabel("normalized time", fontsize=15)
+		plt.ylabel("angle (deg)", fontsize=15)
+
+		# plot theta_dot_t
+		plt.subplot(512)
+		plt.grid(True)
+		plt.plot(tau, theta_dot_t.transpose(), label=['theta_dot_1', 'theta_dot_2', 'theta_dot_3'], linewidth=10)
+		plt.title("angular velocity-time plot", fontsize=20)
+		plt.legend()
+		plt.xlabel("normalized time", fontsize=15)
+		plt.ylabel("angular velocity (deg/s)", fontsize=15)
+
+		# plot theta_ddot_t 
+		plt.subplot(513)
+		plt.grid(True)
+		plt.plot(tau, theta_ddot_t.transpose(), label=['x', 'y', 'z'], linewidth=10)
+		plt.title("angular acceleration-time plot", fontsize=20)
+		plt.legend()
+		plt.xlabel("normalized time", fontsize=15)
+		plt.ylabel("angular acceleration (deg/s^2)", fontsize=15)
+
+		# plot theta_dddot_t 
+		plt.subplot(514)
+		plt.grid(True)
+		plt.plot(tau, theta_dddot_t.transpose(), label=['x', 'y', 'z'], linewidth=10)
+		plt.title("angular jerk-time plot", fontsize=20)
+		plt.legend()
+		plt.xlabel("normalized time", fontsize=15)
+		plt.ylabel("angular jerk (deg/s^3)", fontsize=15)
+
+		# plot EE-position 
+		plt.subplot(515)
+		plt.grid(True)
+		plt.plot(tau, ee_pos_t.transpose(), label=['x', 'y', 'z'], linewidth=10)
+		plt.title("position-time plot", fontsize=20)
+		plt.legend()
+		plt.xlabel("normalized time", fontsize=15)
+		plt.ylabel("EE position (m)", fontsize=15)
+
+		plt.tight_layout()
+		plt.savefig("345 method.png")
+		plt.clf()
+
 
 
 	def point_to_point_4567(self):
@@ -122,3 +202,4 @@ if __name__ == "__main__":
 	delta_robot = DeltaRobot(0.2, 0.46, 0.1, 0.074)
 	path_planner = PathPlannerPTP(delta_robot, [0.05, 0.05, -0.31], [0, -0.15, -0.42], 20)
 	path_planner.point_to_point_4567()
+	path_planner.point_to_point_345()
