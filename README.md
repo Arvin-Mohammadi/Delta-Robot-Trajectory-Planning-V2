@@ -140,6 +140,8 @@ applicability and performance of these algorithms, thereby
 enhancing our understanding of trajectory planning for Delta
 robots in industrial automation settings.
 
+The code to Inverse and Forward Kinematics can be found in the [Delta Robot file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/delta_robot.py).
+
 ## 2 - TRAJECTORY PLANNING
 ------
 
