@@ -250,12 +250,13 @@ As a result, the polynomial will take the form [9]:
 
 $$s(\tau) = -20\tau^7 + 70\tau^6 - 84\tau^5 + 35\tau^4$$
 
+The result of this method is shown in the figure below. As explained, the advantage of this method compared to 3-4-5 interpolating polynomial is that the jerk is bounded at the initial and final points.
 
+![4567 method](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/4567%20method.png)
 
 <ins>**Discussion:**</ins> 
 The 4-5-6-7 interpolating polynomial offers an improvement over the 3-4-5 interpolating polynomial by incorporating higher-order terms. This enables a more precise representation of the desired trajectory, leading to enhanced accuracy and control. Additionally, the inclusion of jerk constraints in the interpolation process ensures smoother robot movements, reducing mechanical stress and instability. From all the point-to-point methods, this one proves to be the most reliable.
 
-FIGURE
 
 
 
