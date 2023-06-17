@@ -10,6 +10,7 @@ Overview:
     - point-to-point trajectory planning  
         - 3-4-5 interpolating polynomial
         - 4-5-6-7 interpolating polynomial
+        - Trapezoidal method
     - multi-point trajectory planning 
 
 ## 1 - INTRODUCTION
