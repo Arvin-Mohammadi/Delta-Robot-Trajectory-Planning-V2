@@ -55,59 +55,7 @@ class PathPlannerPTP:
 		for idx, i in enumerate(theta_t.transpose()):
 			ee_pos_t[:, idx] = self.robot.forward_kin(theta_t[:, idx])
 
-		fig = plt.figure()
-		fig.set_figheight(15)
-		fig.set_figwidth(10)
-
-		# plot theta_t 
-		plt.subplot(511)
-		plt.grid(True)
-		plt.plot(tau, theta_t.transpose(), label=['theta_1', 'theta_2', 'theta_3'], linewidth=10)
-		plt.title("angle-time plot", fontsize=20)
-		plt.legend()
-		plt.xlabel("normalized time", fontsize=15)
-		plt.ylabel("angle (deg)", fontsize=15)
-
-		# plot theta_dot_t
-		plt.subplot(512)
-		plt.grid(True)
-		plt.plot(tau, theta_dot_t.transpose(), label=['theta_dot_1', 'theta_dot_2', 'theta_dot_3'], linewidth=10)
-		plt.title("angular velocity-time plot", fontsize=20)
-		plt.legend()
-		plt.xlabel("normalized time", fontsize=15)
-		plt.ylabel("angular velocity (deg/s)", fontsize=15)
-
-		# plot theta_ddot_t 
-		plt.subplot(513)
-		plt.grid(True)
-		plt.plot(tau, theta_ddot_t.transpose(), label=['x', 'y', 'z'], linewidth=10)
-		plt.title("angular acceleration-time plot", fontsize=20)
-		plt.legend()
-		plt.xlabel("normalized time", fontsize=15)
-		plt.ylabel("angular acceleration (deg/s^2)", fontsize=15)
-
-		# plot theta_dddot_t 
-		plt.subplot(514)
-		plt.grid(True)
-		plt.plot(tau, theta_dddot_t.transpose(), label=['x', 'y', 'z'], linewidth=10)
-		plt.title("angular jerk-time plot", fontsize=20)
-		plt.legend()
-		plt.xlabel("normalized time", fontsize=15)
-		plt.ylabel("angular jerk (deg/s^3)", fontsize=15)
-
-		# plot EE-position 
-		plt.subplot(515)
-		plt.grid(True)
-		plt.plot(tau, ee_pos_t.transpose(), label=['x', 'y', 'z'], linewidth=10)
-		plt.title("position-time plot", fontsize=20)
-		plt.legend()
-		plt.xlabel("normalized time", fontsize=15)
-		plt.ylabel("EE position (m)", fontsize=15)
-
-		plt.tight_layout()
-		plt.savefig("345 method.png")
-		plt.clf()
-
+		return (tau, theta_t, theta_dot_t, theta_ddot_t, theta_dddot_t, ee_pos_t)
 
 
 	def point_to_point_4567(self):
@@ -137,6 +85,13 @@ class PathPlannerPTP:
 		ee_pos_t = np.zeros(theta_t.shape)
 		for idx, i in enumerate(theta_t.transpose()):
 			ee_pos_t[:, idx] = self.robot.forward_kin(theta_t[:, idx])
+
+		return (tau, theta_t, theta_dot_t, theta_ddot_t, theta_dddot_t, ee_pos_t)
+
+
+	def plot_results(self, results):
+
+		(tau, theta_t, theta_dot_t, theta_ddot_t, theta_dddot_t, ee_pos_t) = results
 
 		fig = plt.figure()
 		fig.set_figheight(15)
@@ -192,14 +147,23 @@ class PathPlannerPTP:
 		plt.savefig("4567 method.png")
 		plt.clf()
 
+
 # =================================================================================================
 # -- main -------------------------------------------------------------------------------------
 # =================================================================================================
 
 if __name__ == "__main__":
 
-	# creating 4-5-6-7 polynomial plot results
+	# defining robot 
 	delta_robot = DeltaRobot(0.2, 0.46, 0.1, 0.074)
+
+	# defining path planner
 	path_planner = PathPlannerPTP(delta_robot, [0.05, 0.05, -0.31], [0, -0.15, -0.42], 20)
-	path_planner.point_to_point_4567()
-	path_planner.point_to_point_345()
+
+	# using 345 planner 
+	results_345 = path_planner.point_to_point_345()
+	path_planner.plot_results(results_345)
+
+	# using 4567 planner
+	results_4567 = path_planner.point_to_point_4567()
+	path_planner.plot_results(results_4567)
