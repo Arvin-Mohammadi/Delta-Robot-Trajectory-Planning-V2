@@ -89,6 +89,23 @@ class PathPlannerPTP:
 		return (tau, theta_t, theta_dot_t, theta_ddot_t, theta_dddot_t, ee_pos_t)
 
 
+	def trapezoidal(self): 
+		FREQUENCY = 1000
+
+		# overall time period 
+
+		# theta time profile 
+
+		# theta dot time profile
+
+		# theta double dot time profile
+
+		# theta triple dot time profile
+
+		# checking the forward kinematics 
+
+
+
 	def plot_results(self, results):
 
 		(tau, theta_t, theta_dot_t, theta_ddot_t, theta_dddot_t, ee_pos_t) = results
