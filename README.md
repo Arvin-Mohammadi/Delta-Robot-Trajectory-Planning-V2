@@ -303,23 +303,6 @@ Since $v_{max}$ is given to us as a limitation of our DPR, we use that value to 
 
 $$v_{max} = a.t_{t=\frac{1}{3} T} \rightarrow a = \frac{3v_{max}}{T}$$
 
-so finally we have 
-
-$$
-\ddot{p} = a = 
-\begin{cases}
-    3v_{max} & 0 \leq t < \frac{1}{3} \\
-    0 & \frac{2}{3} \leq t < \frac{1}{3} \\
-    -3v_{max} & \frac{2}{3} \leq t < 1 \\
-\end{cases} 
-\quad \quad 
-\dot{p} = v = 
-\begin{cases} 
-    3v_{max}t & 0 \leq t < \frac{1}{3} \\
-    V_{max} & \frac{2}{3} \leq t < \frac{1}{3} \\
-    -3v_{max}t & \frac{2}{3} \leq t < 1 \\
-\end{cases}
-$$
 
 Implementing this sequence with a Python script, we can get the results show as below [10]: 
 
