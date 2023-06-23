@@ -324,8 +324,19 @@ $$
 for $p(t)$ we'll have: 
 
 **if $0 \leq t < \frac{1}{3}$:** 
+
+$$p = 3v_{max} \frac{t^2}{2} + p_0$$
+
+So at time of $t = \frac{1}{3}$ we'll have: 
+
+$$P_{t = \frac{1}{3}} = \frac{V_{max}}{6} + p_0$$
+
 **if $\frac{1}{3} \leq t < \frac{2}{3}$:** 
+
+
+
 **if $\frac{2}{3} \leq t \leq 1$:** 
+
 
 
 ## References: 
