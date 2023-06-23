@@ -27,8 +27,8 @@ class PathPlannerPTP:
 
 
 	def point_to_point_345(self):
-
 		FREQUENCY = 1000 
+
 		# overall time period
 		T = 15/8*(self.theta_f - self.theta_i)/self.thetadot_max
 		T = math.floor(max(T)*FREQUENCY)
@@ -60,6 +60,7 @@ class PathPlannerPTP:
 
 	def point_to_point_4567(self):
 		FREQUENCY = 1000 
+
 		# overall time period
 		T = 35/16*(self.theta_f - self.theta_i)/self.thetadot_max
 		T = math.floor(max(T)*FREQUENCY)
@@ -89,21 +90,81 @@ class PathPlannerPTP:
 		return (tau, theta_t, theta_dot_t, theta_ddot_t, theta_dddot_t, ee_pos_t)
 
 
-	def trapezoidal(self): 
+	def trapezoidal_ptp(self, k=1/3): 
 		FREQUENCY = 1000
+		theta_i = max(self.theta_i)
+		theta_f = max(self.theta_f)
+		thetadot_max = np.array(self.thetadot_max)
 
 		# overall time period 
+		T = int((theta_f - theta_i)/(thetadot_max*(1-k))*FREQUENCY)
+		t = np.array(range(0, T))
+
+		# acceleration duration 
+		T_a = int(T*k)
+
+		# acceleration 
+		a = thetadot_max/(T_a)
 
 		# theta time profile 
+		theta_t = np.zeros(t.shape)
 
-		# theta dot time profile
+		theta_t[0:T_a+1] 		= a/2*t[0: T_a+1]**2
+		theta_t[T_a+1: -T_a-1] 	= a*T_a**2/2 + thetadot_max*(t[T_a+1: -T_a-1] - T_a)
+		theta_t[-T_a-1:]		= a*T_a**2/2 + thetadot_max*(T - 2*T_a) + a/2*(T - T_a)**2 - a*T*(T - T_a) + a*T*t[-T_a-1:] - a*t[-T_a-1:]**2/2
 
-		# theta double dot time profile
+		theta_t = theta_t/max(theta_t)*(theta_f - theta_i) + theta_i 
 
-		# theta triple dot time profile
+		# theta dot time profile 
+		thetadot_t = np.zeros(t.shape)
 
-		# checking the forward kinematics 
+		thetadot_t[0:T_a+1] 		= a*t[0:T_a+1]
+		thetadot_t[T_a+1: -T_a-1] 	= thetadot_max
+		thetadot_t[-T_a-1:]			= a*(T - t[-T_a-1:])
 
+		# theta double dot time profile 
+		thetadotdot_t = np.zeros(t.shape)
+
+		thetadotdot_t[0:T_a+1] 		= a
+		thetadotdot_t[T_a+1: -T_a-1] 	= 0
+		thetadotdot_t[-T_a-1:]			= -a
+
+		# plots 
+		fig = plt.figure()
+		fig.set_figheight(12)
+		fig.set_figwidth(10)
+
+
+		# plot theta_t 
+		plt.subplot(311)
+		plt.grid(True)
+		plt.plot(t, theta_t, label=['theta'], linewidth=10)
+		plt.title("angle-time plot", fontsize=20)
+		plt.legend()
+		plt.xlabel("time", fontsize=15)
+		plt.ylabel("angle (deg)", fontsize=15)
+
+		# plot thetadot_t 
+		plt.subplot(312)
+		plt.grid(True)
+		plt.plot(t, thetadot_t, label=['theta dot'], linewidth=10)
+		plt.title("angular velocity-time plot", fontsize=20)
+		plt.legend()
+		plt.xlabel("time", fontsize=15)
+		plt.ylabel("angular velocity (deg/s)", fontsize=15)
+
+		# plot thetadotdot_t 
+		plt.subplot(313)
+		plt.grid(True)
+		plt.plot(t, thetadotdot_t, label=['theta double dot'], linewidth=10)
+		plt.title("angular acceleration-time plot", fontsize=20)
+		plt.legend()
+		plt.xlabel("time", fontsize=15)
+		plt.ylabel("angular acceleration (deg/s^2)", fontsize=15)
+
+		plt.tight_layout()
+		plt.savefig("trapezoidal_ptp.png")
+		plt.clf()
 
 
 	def plot_results(self, results):
@@ -178,9 +239,12 @@ if __name__ == "__main__":
 	path_planner = PathPlannerPTP(delta_robot, [0.05, 0.05, -0.31], [0, -0.15, -0.42], 20)
 
 	# using 345 planner 
-	results_345 = path_planner.point_to_point_345()
-	path_planner.plot_results(results_345)
+	# results_345 = path_planner.point_to_point_345()
+	# path_planner.plot_results(results_345)
 
 	# using 4567 planner
-	results_4567 = path_planner.point_to_point_4567()
-	path_planner.plot_results(results_4567)
+	# results_4567 = path_planner.point_to_point_4567()
+	# path_planner.plot_results(results_4567)
+
+	# trapezoidal method
+	path_planner.trapezoidal_ptp()
