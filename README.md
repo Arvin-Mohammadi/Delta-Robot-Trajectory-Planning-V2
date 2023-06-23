@@ -237,9 +237,10 @@ If we consider $\theta^I$ and $\theta^F$ to be the given initial and final value
 
 $$\theta(t) = \theta^I + (\theta^F - \theta^I)s(\tau)$$
 
-In this formula, $\tau$ represents the normlized time (\tau = \frac{t}{T}, where $T$ is the overall time period), and $s(\tau)$ is a fourth-order polynomial defined as: 
+In this formula, $\tau$ represents the normalized time $(\tau = \frac{t}{T})$, where $T$ is the overall time period), and $s(\tau)$ is a fourth-order polynomial defined as: 
 
 $$s(\tau) = a\tau^7 + b\tau^6 + c\tau^5 + d\tau^4 + e\tau^3 + f\tau^2 + g\tau + h$$
+
 The constraints for the path generated using this method include setting the initial and final position, velocity, acceleration, and jerk. By incorporating the following conditions:
 
 
