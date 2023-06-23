@@ -301,7 +301,7 @@ $$
 Since $v_{max}$ is given to us as a limitation of our DPR, we use that value to calculate acceleration. 
 
 
-$$v_{max} = a.t_{t=\frac{1}{3} T} \rightarrow[] a = \frac{3v_{max}}{T}$$
+$$v_{max} = a.t_{t=\frac{1}{3} T} \rightarrow a = \frac{3v_{max}}{T}$$
 
 so finally we have 
 
