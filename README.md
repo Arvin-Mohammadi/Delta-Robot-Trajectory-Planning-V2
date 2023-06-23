@@ -274,9 +274,8 @@ Like the previous methods, the goal here is to basically use a trapezoidal diagr
 $$\dot{p} = v = $$
 
 
-<div>
-  \( x = \begin{cases} 1 & \text{if case 1} \\ 0 & \text{if case 2} \end{cases} \)
-</div>
+x = | 1, if case 1
+| 0, if case 2
 
 ## References: 
 ------
