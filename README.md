@@ -280,28 +280,28 @@ $$
 \end{cases}
 $$
 
-For the sake of simplicity we say that $t_0 = 0, t_1 = T/3, t_2 = 2T/3, t_3 = T$, and since we've been working with normalized time in the previous sections we set $T = 1$ to further simplify things. Here's the result: 
+For the sake of simplicity we say that $t_0 = 0, t_1 = T/3, t_2 = 2T/3, t_3 = T$. Here's the result: 
 
 $$
 \ddot{p} = a = 
 \begin{cases}
-    a & 0 \leq t < \frac{1}{3} \\
-    0 & \frac{2}{3} \leq t < \frac{1}{3} \\
-    -a & \frac{2}{3} \leq t < 1 \\
+    a & 0 \leq t < \frac{1}{3} T \\
+    0 & \frac{2}{3} T \leq t < \frac{1}{3} T \\
+    -a & \frac{2}{3} T \leq t < T \\
 \end{cases} 
 \quad \quad 
 \dot{p} = v = 
 \begin{cases} 
-    at & 0 \leq t < \frac{1}{3} \\
-    V_{max} & \frac{2}{3} \leq t < \frac{1}{3} \\
-    -at & \frac{2}{3} \leq t < 1 \\
+    at & 0 \leq t < \frac{1}{3} T \\
+    V_{max} & \frac{2}{3} T \leq t < \frac{1}{3} T \\
+    -at & \frac{2}{3} T \leq t < T \\
 \end{cases}
 $$
 
 Since $v_{max}$ is given to us as a limitation of our DPR, we use that value to calculate acceleration. 
 
 
-$$v_{max} = a.t_{t=\frac{1}{3}} = \frac{a}{3} = 3v_{max}$$
+$$v_{max} = a.t_{t=\frac{1}{3} T} = \frac{a T}{3} = \frac{3v_{max}}{T}$$
 
 so finally we have 
 
