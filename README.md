@@ -278,7 +278,7 @@ $$\dot{p} = v = $$
 <div>
   \( x = \begin{cases} 1 & \text{if case 1} \\ 0 & \text{if case 2} \end{cases} \)
 </div>
-
+```
 ## References: 
 ------
 [1] doi: /10.1007/978-3-030-03538-9 23 </br>
