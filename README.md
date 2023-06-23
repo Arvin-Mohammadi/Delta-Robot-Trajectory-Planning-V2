@@ -273,7 +273,7 @@ Like the previous methods, the goal here is to basically use a trapezoidal diagr
 
 $$\dot{p} = v = $$
 
-
+$$
 \[
 x = 
 \begin{cases}
@@ -281,6 +281,7 @@ x =
   0 & \text{for case 2}
 \end{cases}
 \]
+$$
 
 ## References: 
 ------
