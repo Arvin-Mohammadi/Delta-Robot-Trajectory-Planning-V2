@@ -274,8 +274,13 @@ Like the previous methods, the goal here is to basically use a trapezoidal diagr
 $$\dot{p} = v = $$
 
 
-x = | 1, if case 1
-| 0, if case 2
+\[
+x = 
+\begin{cases}
+  1 & \text{for case 1} \\
+  0 & \text{for case 2}
+\end{cases}
+\]
 
 ## References: 
 ------
