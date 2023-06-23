@@ -271,16 +271,13 @@ The code can be found in the [path planning file](https://github.com/ArthasMenet
 
 Like the previous methods, the goal here is to basically use a trapezoidal diagram as a way to interpolate the velocity profile between the values of $\theta^I$ and $\theta^F$. In this instance we call them $p$ and $p_0$. The trapezoidal diagram is defined as the following formula:
 
-$$\dot{p} = v = $$
-
 $$
-\[
-x = 
+\dot{p} = v = 
 \begin{cases}
-  1 & \text{for case 1} \\
-  0 & \text{for case 2}
+  at & t_0 \leq t \leq t_1 \\
+  V_{max} & t_1 \leq t \leq t_2  \\
+  -at & t_2 \leq t \leq t_3
 \end{cases}
-\]
 $$
 
 ## References: 
