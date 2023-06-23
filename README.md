@@ -355,7 +355,7 @@ $$p = -\frac{3}{2}v_{max}(1-t)^2 + \frac{2}{3} v_{max} + p_0$$
 
 and $p_{final}= \frac{2}{3}v_{max} + p_0$
 
-Implementing this sequence with a Python script, we can get the results show as below: 
+Implementing this sequence with a Python script, we can get the results show as below [10]: 
 
 
 
@@ -370,5 +370,6 @@ Implementing this sequence with a Python script, we can get the results show as 
 [7]Research of Trajectory Planning for Delta Parallel Robots, 2013 International Conference on Mechatronic Sciences, Electric Engineering and Computer (MEC) </br>
 [8] doi: 10.1007/s11786-012-0123-8 </br>
 [9] Fundamentals of Robotic Mechanical Systems Theory, Methods, and Algorithms, Fourth Edition by Jorge Angeles </br>
+[10] Trajectory Planning for Automatic Machines and Robots by Luigi Biagiotti, Claudio Melchiorri
 
 
