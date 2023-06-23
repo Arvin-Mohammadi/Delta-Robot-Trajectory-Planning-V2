@@ -203,7 +203,7 @@ $$\theta(t) = \theta^I + (\theta^F - \theta^I)s(\tau)$$
 
 Here, $\tau$ represents the normalized time, where $\tau = \frac{t}{T} and $T$ denotes the overall time period. The function $s(\tau)$ is a fifth-order polynomial defined as: 
 
-$$s(\tau) = a\tau^5  b\tau^4 + c\tau^3 + d\tau^2 + e\tau + f$$
+$$s(\tau) = a\tau^5 + b\tau^4 + c\tau^3 + d\tau^2 + e\tau + f$$
 
 In this context, it is important to note that $s(\tau)$ lies within the range of 0 to 1, and $\tau$ ranges from 0 to 1 as well. 
 
