@@ -280,80 +280,29 @@ $$
 \end{cases}
 $$
 
-For the sake of simplicity we say that $t_0 = 0, t_1 = T/3, t_2 = 2T/3, t_3 = T$, and since we've been working with normalized time in the previous sections we set $T = 1$ to further simplify things. Here's the result: 
+For the sake of simplicity we say that $t_0 = 0, t_1 = T/3, t_2 = 2T/3, t_3 = T$. Here's the result: 
 
 $$
 \ddot{p} = a = 
 \begin{cases}
-    a & 0 \leq t < \frac{1}{3} \\
-    0 & \frac{2}{3} \leq t < \frac{1}{3} \\
-    -a & \frac{2}{3} \leq t < 1 \\
+    a & 0 \leq t < \frac{1}{3} T \\
+    0 & \frac{2}{3} T \leq t < \frac{1}{3} T \\
+    -a & \frac{2}{3} T \leq t < T \\
 \end{cases} 
 \quad \quad 
 \dot{p} = v = 
 \begin{cases} 
-    at & 0 \leq t < \frac{1}{3} \\
-    V_{max} & \frac{2}{3} \leq t < \frac{1}{3} \\
-    -at & \frac{2}{3} \leq t < 1 \\
+    at & 0 \leq t < \frac{1}{3} T \\
+    V_{max} & \frac{2}{3} T \leq t < \frac{1}{3} T \\
+    -at & \frac{2}{3} T \leq t < T \\
 \end{cases}
 $$
 
 Since $v_{max}$ is given to us as a limitation of our DPR, we use that value to calculate acceleration. 
 
 
-$$v_{max} = a.t_{t=\frac{1}{3}} = \frac{a}{3} = 3v_{max}$$
+$$v_{max} = a.t_{t=\frac{1}{3} T} \rightarrow a = \frac{3v_{max}}{T}$$
 
-so finally we have 
-
-$$
-\ddot{p} = a = 
-\begin{cases}
-    3v_{max} & 0 \leq t < \frac{1}{3} \\
-    0 & \frac{2}{3} \leq t < \frac{1}{3} \\
-    -3v_{max} & \frac{2}{3} \leq t < 1 \\
-\end{cases} 
-\quad \quad 
-\dot{p} = v = 
-\begin{cases} 
-    3v_{max}t & 0 \leq t < \frac{1}{3} \\
-    V_{max} & \frac{2}{3} \leq t < \frac{1}{3} \\
-    -3v_{max}t & \frac{2}{3} \leq t < 1 \\
-\end{cases}
-$$
-
-for $p(t)$ we'll have: 
-
-<ins>**if $0 \leq t < \frac{1}{3}$:**</ins>
-
-$$p = 3v_{max} \frac{t^2}{2} + p_0$$
-
-So at time of $t = \frac{1}{3}$ we'll have: 
-
-$$P_{t = \frac{1}{3}} = \frac{V_{max}}{6} + p_0$$
-
-<ins>**if $\frac{1}{3} \leq t < \frac{2}{3}$:**</ins>
-
-$$p = v_{max}(t - \frac{1}{3}) + p_{t=\frac{1}{3}} = v_{max}(t - \frac{1}{3}) + \frac{v_{max}}{6} + p_0$$
-
-so
-
-$$p = v_{max}(t - \frac{1}{6}) + p_0$$
-
-and at time $t = \frac{2}{3}$ we'll have:
-
-$$p_{t=\frac{2}{3}}= \frac{v_{max}}{0} + p_0$$
-
-<ins>**if $\frac{2}{3} \leq t \leq 1$:**</ins>
-
-at the final stage we can write: 
-
-$$p = \frac{v_{max}}{6} - (1 - t)h0.5 + \frac{v_{max}}{2} + p_0$$
-
-and since $h = -3v_{max} + 3v_{max}$ the equation above simplify to: 
-
-$$p = -\frac{3}{2}v_{max}(1-t)^2 + \frac{2}{3} v_{max} + p_0$$
-
-and $p_{final}= \frac{2}{3}v_{max} + p_0$
 
 Implementing this sequence with a Python script, we can get the results show as below [10]: 
 
