@@ -274,9 +274,27 @@ Like the previous methods, the goal here is to basically use a trapezoidal diagr
 $$
 \dot{p} = v = 
 \begin{cases}
-  at & t_0 \leq t \less t_1 \\
+  at & t_0 \leq t < t_1 \\
   V_{max} & t_1 \leq t < t_2  \\
   -at & t_2 \leq t \leq t_3
+\end{cases}
+$$
+
+For the sake of simplicity we say that $t_0 = 0, t_1 = T/3, t_2 = 2T/3, t_3 = T$, and since we've been working with normalized time in the previous sections we set $T = 1$ to further simplify things. Here's the result: 
+
+$$
+\dot{\dot{p}} = a = 
+\begin{cases}
+    a & 0 \leq t < \frac{1}{3} \\
+    0 & \frac{2}{3} \leq t < \frac{1}{3} \\
+    -a & \frac{2}{3} \leq t < 1 \\
+\end{cases} 
+\quad \quad 
+\dot{p} = v = 
+\begin{cases} 
+    at & 0 \leq t < \frac{1}{3} \\
+    V_{max} & \frac{2}{3} \leq t < \frac{1}{3} \\
+    -at & \frac{2}{3} \leq t < 1 \\
 \end{cases}
 $$
 
