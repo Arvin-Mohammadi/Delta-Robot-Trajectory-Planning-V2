@@ -355,6 +355,10 @@ $$p = -\frac{3}{2}v_{max}(1-t)^2 + \frac{2}{3} v_{max} + p_0$$
 
 and $p_{final}= \frac{2}{3}v_{max} + p_0$
 
+Implementing this sequence with a Python script, we can get the results show as below: 
+
+
+
 ## References: 
 ------
 [1] doi: /10.1007/978-3-030-03538-9 23 </br>
