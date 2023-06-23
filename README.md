@@ -1,6 +1,6 @@
 # A Full guide to Delta Parallel Robot Trajectory Planning
 ------
-<ins>**A word from me:**</ins> I was really excited about creating a controller for DPR, and I must say, it was quite a challenging task. However, I became pretty obsessive about finding a solution and felt driven to share it with others as an open-source framework. So, I decided to fully immerse myself in this pursuit until I discovered a satisfying answer. I hope you'll find it helpful. I've actually worked on a similar repository in the past, but this new version is going to be even better and more comprehensive. the best way to reach me is via email: 
+<ins>**A word from me:**</ins> I was really excited about creating a controller for DPR, and I must say, it was quite a challenging task. However, I became pretty obsessive about finding a solution and felt driven to share it with others as an open-source framework. So, I decided to fully immerse myself in this pursuit until I discovered a satisfying answer. I hope you'll find it helpful. I've actually worked on a similar repository in the past, but this new version is going to be even better and more comprehensive. I'm set to try out as many different methods as I can. the best way to reach me is via email: 
 arvin1844m@gmail.com
 
 ![delta_robot_urdf](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/delta_robot_urdf.PNG)
