@@ -303,10 +303,11 @@ Since $v_{max}$ is given to us as a limitation of our DPR, we use that value to 
 
 $$v_{max} = a.t_{t=\frac{1}{3} T} \rightarrow a = \frac{3v_{max}}{T}$$
 
-
 Implementing this sequence with a Python script, we can get the results show as below [10]: 
 
+![trapezoidal_ptp](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/trapezoidal_ptp.png)
 
+In this method We've taken the maximum difference in $\theta^I$ and $\theta^F$ since there are three motors, and generated a path according to that maximum amount of movement (meaning we set the overall time period according to the longest path that is to be taken). As for the other actuators, we have two options, either minimize the time or use the same time period. According to our need both options are good enough, the diagram is the result of the longest path.
 
 ## References: 
 ------
