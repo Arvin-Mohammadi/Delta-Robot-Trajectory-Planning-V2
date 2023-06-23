@@ -283,7 +283,7 @@ $$
 For the sake of simplicity we say that $t_0 = 0, t_1 = T/3, t_2 = 2T/3, t_3 = T$, and since we've been working with normalized time in the previous sections we set $T = 1$ to further simplify things. Here's the result: 
 
 $$
-\dot{\dot{p}} = a = 
+\ddot{p}} = a = 
 \begin{cases}
     a & 0 \leq t < \frac{1}{3} \\
     0 & \frac{2}{3} \leq t < \frac{1}{3} \\
@@ -297,6 +297,10 @@ $$
     -at & \frac{2}{3} \leq t < 1 \\
 \end{cases}
 $$
+
+Since $v_{max}$ is given to us as a limitation of our DPR, we use that value to calculate acceleration. 
+
+$$v_{max} = \left(a.t\right)_{t=\frac{1}{3}} = \frac{a}{3} \rightarrow a = 3v_{max}$$
 
 ## References: 
 ------
