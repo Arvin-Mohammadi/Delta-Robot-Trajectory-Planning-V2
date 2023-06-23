@@ -1,6 +1,7 @@
 # A Full guide to Delta Parallel Robot Trajectory Planning
 ------
-I wanted to make a controller for DPR, it was pretty hard and challenging, that made me pretty angry so i decdied to drown myself in this rabbithole til I find a satisfying answer. So hope you enjoy. I've already made a repository like this before, but this is going to be a better and more complete version of that one. 
+<ins>**A word from me:**</ins> I was really excited about creating a controller for DPR, and I must say, it was quite a challenging task. However, I became pretty obsessive about finding a solution and felt driven to share it with others as an open-source framework. So, I decided to fully immerse myself in this pursuit until I discovered a satisfying answer. I hope you'll find it helpful. I've actually worked on a similar repository in the past, but this new version is going to be even better and more comprehensive. the best way to reach me is via email: 
+arvin1844m@gmail.com
 
 ![delta_robot_urdf](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/delta_robot_urdf.PNG)
 
@@ -230,7 +231,7 @@ The utilization of a fifth-order polynomial, such as the 3-4-5 interpolating pol
 
 The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning.py) in the function `point_to_point_345`
 
-#### 2.1.1 - 4-5-6-7 Interpolating Polynomial
+#### 2.1.2 - 4-5-6-7 Interpolating Polynomial
 ------
 <ins>**Math:**</ins> 
 If we consider $\theta^I$ and $\theta^F$ to be the given initial and final values of the joint variable, and w ewant to interpolate the values in between, the 4-5-6-7 interpolating polynomial can be employed. The formula below represents the interpolation: 
@@ -264,6 +265,10 @@ The result of this method is shown in the figure below. As explained, the advant
 The 4-5-6-7 interpolating polynomial offers an improvement over the 3-4-5 interpolating polynomial by incorporating higher-order terms. This enables a more precise representation of the desired trajectory, leading to enhanced accuracy and control. Additionally, the inclusion of jerk constraints in the interpolation process ensures smoother robot movements, reducing mechanical stress and instability. From all the point-to-point methods, this one proves to be the most reliable.
 
 The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning.py) in the function `point_to_point_4567`
+
+#### 2.1.3 - Trapezoidal method
+------
+
 
 
 ## References: 
