@@ -323,7 +323,7 @@ $$
 
 for $p(t)$ we'll have: 
 
-**if $0 \leq t < \frac{1}{3}$:** 
+<ins>**if $0 \leq t < \frac{1}{3}$:**</ins>
 
 $$p = 3v_{max} \frac{t^2}{2} + p_0$$
 
@@ -331,13 +331,29 @@ So at time of $t = \frac{1}{3}$ we'll have:
 
 $$P_{t = \frac{1}{3}} = \frac{V_{max}}{6} + p_0$$
 
-**if $\frac{1}{3} \leq t < \frac{2}{3}$:** 
+<ins>**if $\frac{1}{3} \leq t < \frac{2}{3}$:**</ins>
 
+$$p = v_{max}(t - \frac{1}{3}) + p_{t=\frac{1}{3}} = v_{max}(t - \frac{1}{3}) + \frac{v_{max}}{6} + p_0$$
 
+so
 
-**if $\frac{2}{3} \leq t \leq 1$:** 
+$$p = v_{max}(t - \frac{1}{6}) + p_0$$
 
+and at time $t = \frac{2}{3}$ we'll have:
 
+$$p_{t=\frac{2}{3}}= \frac{v_{max}}{0} + p_0$$
+
+<ins>**if $\frac{2}{3} \leq t \leq 1$:**</ins>
+
+at the final stage we can write: 
+
+$$p = \frac{v_{max}}{6} - (1 - t)h0.5 + \frac{v_{max}}{2} + p_0$$
+
+and since $h = -3v_{max} + 3v_{max}$ the equation above simplify to: 
+
+$$p = -\frac{3}{2}v_{max}(1-t)^2 + \frac{2}{3} v_{max} + p_0$$
+
+and $p_{final}= \frac{2}{3}v_{max} + p_0$
 
 ## References: 
 ------
