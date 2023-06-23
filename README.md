@@ -274,8 +274,8 @@ Like the previous methods, the goal here is to basically use a trapezoidal diagr
 $$
 \dot{p} = v = 
 \begin{cases}
-  at & t_0 \leq t \leq t_1 \\
-  V_{max} & t_1 \leq t \leq t_2  \\
+  at & t_0 \leq t \less t_1 \\
+  V_{max} & t_1 \leq t < t_2  \\
   -at & t_2 \leq t \leq t_3
 \end{cases}
 $$
