@@ -12,7 +12,12 @@ Overview:
         - 3-4-5 interpolating polynomial
         - 4-5-6-7 interpolating polynomial
         - Trapezoidal method
-    - multi-point trajectory planning 
+    - multi-point trajectory planning
+        - Higher Order Polynomials
+        - Multi-Point Trapezoidal
+        - Cubic-Spline
+        - PSO
+        - Butterfly Optimization
 
 ## 1 - INTRODUCTION
 ------
@@ -327,6 +332,13 @@ Implementing this sequence with a Python script, we can get the results show as 
 In this method We've taken the maximum difference in $\theta^I$ and $\theta^F$ since there are three motors, and generated a path according to that maximum amount of movement (meaning we set the overall time period according to the longest path that is to be taken). As for the other actuators, we have two options, either minimize the time or use the same time period. According to our need both options are good enough, the diagram is the result of the longest path. This method however, has the same problem of 3-4-5 method, but instead of start and finishing point, the problem is at $T/3$ and $2T/3$.
 
 The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning.py) in the function `trapezoidal_ptp`
+
+### 2.2 - Multi-Point Trajectory Planning
+#### 2.2.1 - Higher Order Polynomials
+#### 2.2.2 - Multi-Point Trapezoidal
+#### 2.2.3 - Cubic-Spline
+#### 2.2.4 - PSO
+#### 2.2.5 - Butterfly Optimization
 
 ## References: 
 ------
