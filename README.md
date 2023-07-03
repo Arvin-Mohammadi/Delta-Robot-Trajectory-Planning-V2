@@ -338,6 +338,7 @@ The code can be found in the [path planning file](https://github.com/ArthasMenet
 #### 2.2.2 - Multi-Point Trapezoidal
 #### 2.2.3 - Cubic-Spline
 #### 2.2.4 - PSO
+Here are some of my {researchs on PSO]()
 #### 2.2.5 - Butterfly Optimization
 
 ## References: 
