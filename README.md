@@ -204,7 +204,7 @@ tion settings
 
 #### 2.1.1 - 3-4-5 Interpolating Polynomial
 ------
-this one has a problem of unbounded jerk
+This one has a problem of unbounded jerk
 ------
 
 <ins>**Math:**</ins>
