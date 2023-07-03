@@ -16,6 +16,8 @@ Overview:
 
 ## 1 - INTRODUCTION
 ------
+Here I just tell you some history of the Delta Parallel Robots (DPRs), some of its applications and the edge it has over other rivals, the distadvantages, what ways have been used for its trajectory planning, etc. You know ... an introduction
+------
 
 <ins>**Some History:**</ins> Delta Parallel Robots (DPRs) are widely used in industrial
 automation, offering significant enhancements in productivity
@@ -146,6 +148,8 @@ The code to Inverse and Forward Kinematics can be found in the [Delta Robot file
 
 ## 2 - TRAJECTORY PLANNING
 ------
+Here are the different methods of controlling the trajectory of the robot
+------
 
 <ins>**What is Trajectory Planning:**</ins> Trajectory planning is a crucial step in achieving the desired
 movement for a manipulator control system, ensuring the
@@ -183,6 +187,9 @@ industrial automation settings.
 
 ### 2.1 - Point-to-Point Trajectory Planning
 ------
+this entire sub-section is for when you want to move EE from point A to B
+------
+
 <ins>**What is Point-to-Point Trajectory Planning:**</ins> Point-to-Point Trajectory Planning refers to the process of
 generating smooth and coordinated paths for delta robots that
 involve moving from a starting point to a single target location.
@@ -197,6 +204,9 @@ tion settings
 
 #### 2.1.1 - 3-4-5 Interpolating Polynomial
 ------
+this one has a problem of unbounded jerk
+------
+
 <ins>**Math:**</ins>
 When interpolating between given initial and final values of the joint variable $\theta^I$ and $\theta^F$ respectively, the following can be employed:
 
@@ -233,6 +243,9 @@ The code can be found in the [path planning file](https://github.com/ArthasMenet
 
 #### 2.1.2 - 4-5-6-7 Interpolating Polynomial
 ------
+for point to point this is a good one
+------
+
 <ins>**Math:**</ins> 
 If we consider $\theta^I$ and $\theta^F$ to be the given initial and final values of the joint variable, and w ewant to interpolate the values in between, the 4-5-6-7 interpolating polynomial can be employed. The formula below represents the interpolation: 
 
@@ -268,6 +281,9 @@ The code can be found in the [path planning file](https://github.com/ArthasMenet
 
 #### 2.1.3 - Trapezoidal method
 ------
+In concept this isn't a bad method, but if you want to use it in practice i'd recommend S-curve which is an improved version of this
+------
+
 <ins>**Math:**</ins>:
 Like the previous methods, the goal here is to basically use a trapezoidal diagram as a way to interpolate the velocity profile between the values of $\theta^I$ and $\theta^F$. In this instance we call them $p$ and $p_0$. The trapezoidal diagram is defined as the following formula:
 
