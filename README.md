@@ -244,7 +244,7 @@ This representation allows for smooth and controlled joint variable interpolatio
 <ins>**Discussion:**</ins>
 The utilization of a fifth-order polynomial, such as the 3-4-5 interpolating polynomial, enables the generation of smooth and continuous trajectories for Delta robots. By incorporating higher-order terms, this polynomial minimizes abrupt changes in position, velocity, and acceleration during the interpolation process. While the 3-4-5 interpolating polynomial offers desirable smoothness and continuity, it is important to note its limitations. One significant drawback is the lack of explicit constraints on jerk, which refers to the rate of change of acceleration. The absence of jerk constraints can result in undesirable mechanical stress and instability, particularly at the start and end points of the trajectory where jerk values may be unbounded. As a result, caution must be exercised when applying the 3-4-5 interpolating polynomial in DPR applications, as uncontrolled jerk may affect the overall performance and quality of robot operations.
 
-The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning.py) in the function `point_to_point_345`
+The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `point_to_point_345`
 
 #### 2.1.2 - 4-5-6-7 Interpolating Polynomial
 ------
@@ -282,7 +282,7 @@ The result of this method is shown in the figure below. As explained, the advant
 <ins>**Discussion:**</ins> 
 The 4-5-6-7 interpolating polynomial offers an improvement over the 3-4-5 interpolating polynomial by incorporating higher-order terms. This enables a more precise representation of the desired trajectory, leading to enhanced accuracy and control. Additionally, the inclusion of jerk constraints in the interpolation process ensures smoother robot movements, reducing mechanical stress and instability. From all the point-to-point methods, this one proves to be the most reliable.
 
-The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning.py) in the function `point_to_point_4567`
+The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `point_to_point_4567`
 
 #### 2.1.3 - Trapezoidal method
 ------
@@ -331,7 +331,7 @@ Implementing this sequence with a Python script, we can get the results show as 
 <ins>**Discussion:**</ins>:
 In this method We've taken the maximum difference in $\theta^I$ and $\theta^F$ since there are three motors, and generated a path according to that maximum amount of movement (meaning we set the overall time period according to the longest path that is to be taken). As for the other actuators, we have two options, either minimize the time or use the same time period. According to our need both options are good enough, the diagram is the result of the longest path. This method however, has the same problem of 3-4-5 method, but instead of start and finishing point, the problem is at $T/3$ and $2T/3$.
 
-The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning.py) in the function `trapezoidal_ptp`
+The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `trapezoidal_ptp`
 
 ### 2.2 - Multi-Point Trajectory Planning
 #### 2.2.1 - Higher Order Polynomials
