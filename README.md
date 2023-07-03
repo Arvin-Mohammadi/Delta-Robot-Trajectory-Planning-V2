@@ -187,7 +187,7 @@ industrial automation settings.
 
 ### 2.1 - Point-to-Point Trajectory Planning
 ------
-this entire sub-section is for when you want to move EE from point A to B
+This entire sub-section is for when you want to move EE from point A to B
 ------
 
 <ins>**What is Point-to-Point Trajectory Planning:**</ins> Point-to-Point Trajectory Planning refers to the process of
@@ -243,7 +243,7 @@ The code can be found in the [path planning file](https://github.com/ArthasMenet
 
 #### 2.1.2 - 4-5-6-7 Interpolating Polynomial
 ------
-for point to point this is a good one
+For point to point this is a good one
 ------
 
 <ins>**Math:**</ins> 
