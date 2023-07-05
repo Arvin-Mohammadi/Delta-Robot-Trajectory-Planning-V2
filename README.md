@@ -342,12 +342,30 @@ https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509
 
 
 ### 2.2 - Multi-Point Trajectory Planning
-#### 2.2.1 - Higher Order Polynomials
-#### 2.2.2 - Multi-Point Trapezoidal
-#### 2.2.3 - Cubic-Spline
+#### This entire sub-section is for when you want to move EE through points P1 to Pn
+
+Multi-Point Trajectory Planning involves generating smooth and coordinated paths for Delta Parallel Robots (DPRs) that include multiple target locations. Unlike point-to-point trajectory planning, which focuses on movements between a single starting point and target location, multi-point trajectory planning considers the optimization of trajectories with multiple intermediate points. This type of trajectory planning is particularly useful for applications where DPRs need to navigate complex paths or perform tasks that require precise motion through multiple waypoints. The goal of multi-point trajectory planning is to determine an optimal trajectory that passes through the specified intermediate points while ensuring smooth and accurate motion of the robot's End-Effector (EE) or joints. This process involves considering various factors, such as geometric path constraints, kinematic and dynamic limitations, and any additional requirements specific to the application.
+
+
+#### 2.2.1 - Cubic-Spline
+#### taken from ref[10] chapter 4.4 | It would be a good choice if it weren't for the jerk at the initial and final points 
+
+When n+1 points are given, using a unique interpolating polynomial of degree $n$ is possible, but for bigger numbers, that is computationally heavy. Hence we can make use of $n$ polynomials of degree $p$ instead of that [10]. the degree of $p$ is chosen according to the desired degree of continuity of the spline. For instance, in order to obtain the continuity of velocities and accelerations at the time instances of $t_k$, where the transition between two consecutive segments occurs, it is possible to assume a polynomial of degree $p=3$ (cubic polynomial) 
+
+$$q(t) = a_0 + a_1t + a_2t^2 + a_3t^3$$
+
+The overall function is given by 
+
+$$s(t)    &= {q_k(t), t\in [t_k, t_{k+1}, k=0, ..., n-1}, \\
+            & q_k(t) = a_{k0} + a_{k1}t + a_{k2}t^2 + a_{k3}t^3$$
+
+
+#### 2.2.2 - Higher Order Polynomials
+#### 2.2.3 - Multi-Point Trapezoidal
 #### 2.2.4 - PSO
 Here are some of my {researchs on PSO]()
 #### 2.2.5 - Butterfly Optimization
+#### 2.2.6 - Multi-Point Trapezoidal
 
 ## References: 
 ------
