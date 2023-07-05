@@ -348,7 +348,7 @@ Multi-Point Trajectory Planning involves generating smooth and coordinated paths
 
 
 #### 2.2.1 - Cubic-Spline
-#### taken from ref[10] chapter 4.4 | It would be a good choice if it weren't for the jerk at the initial and final points 
+#### taken from ref[10] chapter 4.4 | It would be a good choice if it weren't for the jerk at the initial and final points, how does one solve that problem? 
 
 When provided with $n+1$ points, it is feasible to construct a unique interpolating polynomial of degree $n$. However, as the number of points increases, the computational burden becomes heavier. To address this, an alternative approach is to utilize n polynomials of degree $p$ instead. The selection of $p$ is based on the desired level of continuity for the spline. For instance, if one aims to achieve continuity of velocities and accelerations at the time instances $t_k$, where the transition between two consecutive segments takes place, a cubic polynomial with degree $p=3$ can be assumed.
 
