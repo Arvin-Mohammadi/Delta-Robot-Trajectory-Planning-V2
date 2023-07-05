@@ -356,7 +356,7 @@ $$q(t) = a_0 + a_1t + a_2t^2 + a_3t^3$$
 
 The overall function is given by 
 
-$$s(t)    = \{q_k(t), t\in [t_k, t_{k+1}], k=0, ..., n-1\}, $$
+$$s(t)    = {q_k(t), t\in [t_k, t_{k+1}], k=0, ..., n-1\ $$
 
 $$ q_k(t) = a_{k0} + a_{k1}t + a_{k2}t^2 + a_{k3}t^3$$
 
