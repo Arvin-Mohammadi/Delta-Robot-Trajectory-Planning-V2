@@ -336,8 +336,8 @@ The code can be found in the [path planning file](https://github.com/ArthasMenet
 #### 2.1.4 - Results
 ------
 #### Here is the simulation of EE path for point-to-point (4-5-6-7 interpolating polynomial is used)
-https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/raw_images/4567.mp4
 
+https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/4567.mp4
 
 ### 2.2 - Multi-Point Trajectory Planning
 #### 2.2.1 - Higher Order Polynomials
