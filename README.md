@@ -21,8 +21,8 @@ Overview:
 
 ## 1 - INTRODUCTION
 ------
-Here I just tell you some history of the Delta Parallel Robots (DPRs), some of its applications and the edge it has over other rivals, the distadvantages, what ways have been used for its trajectory planning, etc. You know ... an introduction
-------
+#### Here I just tell you some history of the Delta Parallel Robots (DPRs), some of its applications and the edge it has over other rivals, the distadvantages, what ways have been used for its trajectory planning, etc. You know ... an introduction
+
 
 <ins>**Some History:**</ins> Delta Parallel Robots (DPRs) are widely used in industrial
 automation, offering significant enhancements in productivity
@@ -153,8 +153,8 @@ The code to Inverse and Forward Kinematics can be found in the [Delta Robot file
 
 ## 2 - TRAJECTORY PLANNING
 ------
-Here are the different methods of controlling the trajectory of the robot
-------
+#### Here are the different methods of controlling the trajectory of the robot
+
 
 <ins>**What is Trajectory Planning:**</ins> Trajectory planning is a crucial step in achieving the desired
 movement for a manipulator control system, ensuring the
@@ -192,8 +192,8 @@ industrial automation settings.
 
 ### 2.1 - Point-to-Point Trajectory Planning
 ------
-This entire sub-section is for when you want to move EE from point A to B
-------
+#### This entire sub-section is for when you want to move EE from point A to B
+
 
 <ins>**What is Point-to-Point Trajectory Planning:**</ins> Point-to-Point Trajectory Planning refers to the process of
 generating smooth and coordinated paths for delta robots that
@@ -209,8 +209,8 @@ tion settings
 
 #### 2.1.1 - 3-4-5 Interpolating Polynomial
 ------
-This one has a problem of unbounded jerk
-------
+#### This one has a problem of unbounded jerk
+
 
 <ins>**Math:**</ins>
 When interpolating between given initial and final values of the joint variable $\theta^I$ and $\theta^F$ respectively, the following can be employed:
@@ -248,8 +248,8 @@ The code can be found in the [path planning file](https://github.com/ArthasMenet
 
 #### 2.1.2 - 4-5-6-7 Interpolating Polynomial
 ------
-For point to point this is a good one
-------
+#### For point to point this is a good one
+
 
 <ins>**Math:**</ins> 
 If we consider $\theta^I$ and $\theta^F$ to be the given initial and final values of the joint variable, and w ewant to interpolate the values in between, the 4-5-6-7 interpolating polynomial can be employed. The formula below represents the interpolation: 
@@ -286,8 +286,8 @@ The code can be found in the [path planning file](https://github.com/ArthasMenet
 
 #### 2.1.3 - Trapezoidal method
 ------
-In concept this isn't a bad method, but if you want to use it in practice i'd recommend S-curve which is an improved version of this
-------
+#### In concept this isn't a bad method, but if you want to use it in practice i'd recommend S-curve which is an improved version of this
+
 
 <ins>**Math:**</ins>:
 Like the previous methods, the goal here is to basically use a trapezoidal diagram as a way to interpolate the velocity profile between the values of $\theta^I$ and $\theta^F$. In this instance we call them $p$ and $p_0$. The trapezoidal diagram is defined as the following formula:
@@ -332,6 +332,12 @@ Implementing this sequence with a Python script, we can get the results show as 
 In this method We've taken the maximum difference in $\theta^I$ and $\theta^F$ since there are three motors, and generated a path according to that maximum amount of movement (meaning we set the overall time period according to the longest path that is to be taken). As for the other actuators, we have two options, either minimize the time or use the same time period. According to our need both options are good enough, the diagram is the result of the longest path. This method however, has the same problem of 3-4-5 method, but instead of start and finishing point, the problem is at $T/3$ and $2T/3$.
 
 The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `trapezoidal_ptp`
+
+#### 2.1.4 - Results
+------
+#### Here is the simulation of EE path for point-to-point (4-5-6-7 interpolating polynomial is used)
+
+
 
 ### 2.2 - Multi-Point Trajectory Planning
 #### 2.2.1 - Higher Order Polynomials
