@@ -350,7 +350,7 @@ Multi-Point Trajectory Planning involves generating smooth and coordinated paths
 #### 2.2.1 - Cubic-Spline
 #### taken from ref[10] chapter 4.4 | It would be a good choice if it weren't for the jerk at the initial and final points 
 
-When n+1 points are given, using a unique interpolating polynomial of degree $n$ is possible, but for bigger numbers, that is computationally heavy. Hence we can make use of $n$ polynomials of degree $p$ instead of that [10]. the degree of $p$ is chosen according to the desired degree of continuity of the spline. For instance, in order to obtain the continuity of velocities and accelerations at the time instances of $t_k$, where the transition between two consecutive segments occurs, it is possible to assume a polynomial of degree $p=3$ (cubic polynomial) 
+When provided with $n+1$ points, it is feasible to construct a unique interpolating polynomial of degree $n$. However, as the number of points increases, the computational burden becomes heavier. To address this, an alternative approach is to utilize n polynomials of degree $p$ instead. The selection of $p$ is based on the desired level of continuity for the spline. For instance, if one aims to achieve continuity of velocities and accelerations at the time instances $t_k$, where the transition between two consecutive segments takes place, a cubic polynomial with degree $p=3$ can be assumed.
 
 $$q(t) = a_0 + a_1t + a_2t^2 + a_3t^3$$
 
@@ -359,6 +359,14 @@ The overall function is given by
 $$s(t)    = \lbrace q_k(t), t\in [t_k, t_{k+1}], k=0, ..., n-1 \rbrace $$
 
 $$ q_k(t) = a_{k0} + a_{k1}t + a_{k2}t^2 + a_{k3}t^3$$
+
+By adopting this approach, it becomes essential to calculate four coefficients for each polynomial. Given that $n$ polynomials are required to define a trajectory using $n+1$ points, the total number of coefficients to be determined amounts to $4n$. To address this challenge, the following conditions need to be taken into account. Adding up the conditions that we have, $2n$ conditions for following the points, $n -1$ conditions for the continuity of velocities, and $n-1$ conditions for the continuity of accelerations, it can be seen that there are $4n-2$ conditions, in comparison to the $4n$ constants. The two degrees of freedom can be used for extra conditions such as: 
+
+* The initial and final velocities
+* The initial and final accelerations
+* The periodic conditions for velocity and acceleration
+* The continuity of jerk 
+
 
 
 #### 2.2.2 - Higher Order Polynomials
