@@ -375,10 +375,10 @@ $$q_k(t) = a_{k0} + a_{k1}(t-t_k) + a_{k2}(t-t_k)^2 + a_{k3}(t-t_k)^3$$
 
 The conditions will be: 
 $$
-\begin{gather}
+\begin{cases}
 \quad q_k(t_k) = q_k, \quad q_k(t_{k+1}) = q_{k+1},                     & k=0, ..., n-1 \\
 \quad \dot{q_k} (t_{k+1}) = \dot{q_{k+1}}(t_{k+1})=v_{k+1},             & k=0, ..., n-2 
-\end{gather}
+\end{cases}
 $$
 
 1. $\quad q_k(t_k) = q_k, \quad q_k(t_{k+1}) = q_{k+1}, \quad k=0, ..., n-1$ 
