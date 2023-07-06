@@ -394,8 +394,19 @@ $$
 \begin{cases}
     q_k(t_k) = a_{k0}, & = q_k \\
     \dot{q_k} (t_k) = a_{k1}, & = v_k \\ 
-    q_k(t_{k+1}) = a_{k0} + a_{k1} T_k + a_{k2} T^2_k + a_{k3}T^3_k, & q_{k+1} \\ 
+    q_k(t_{k+1}) = a_{k0} + a_{k1} T_k + a_{k2} T^2_k + a_{k3}T^3_k, & = q_{k+1} \\ 
     \dot{q_k} (t_{k+1}) = a_{k1} + 2a_{k2} T_k + 3 a_{k3} T^2_k, & = v_{k+1} \\ 
+\end{cases}
+$$
+
+Where $T_k = t_{k+1} - t_k$. Solving the above equations we have: 
+
+$$
+\begin{cases}
+    a_{k,0} = q_k\\ 
+    a_{k,1} = v_k\\ 
+    a_{k,2} = \frac{1}{T_k}   [\frac{3(q_{k+1} - q_k)}{T_k} - 2v_k - v_{k+1}] \\ 
+    a_{k,3} = \frac{1}{T^2_k} [\frac{2(q_k - q_{k+1})}{T_k} + v_k + v_{k+1}] \\
 \end{cases}
 $$
 
