@@ -384,6 +384,18 @@ $$
 \end{cases} 
 $$
 
+#### solution 
+
+The coefficient $a_{k,i}$ can be computed with the following steps: 
+
+if we consider each velocity at time $t_k$ to be known:
+$$
+\being{cases}
+q_k(t_k) = a_{k0} & = q_k \\
+\dot{q_k} (t_k) = a_{k1} & = v_k \\ 
+q_k(t_{k+1}) = a_{k0} + a_{k1} T_k + a_{k2} T^2_k + a_{k3}T^3_k & q_{k+1} \\ 
+\end{cases}
+$$
 
 
 #### 2.2.2 - Higher Order Polynomials
