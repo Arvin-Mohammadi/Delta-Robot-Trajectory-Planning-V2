@@ -372,11 +372,12 @@ By adopting this approach, it becomes essential to calculate four coefficients f
 For given the points of $(t_k, q_k)$ for $k=0, ..., n$ we'll want to calculate: 
 $$s(t) = \lbrace q_k(t), t\in[t_k, t_{k+1}], k=0, ..., n-1 \rbrace$$
 $$q_k(t) = a_{k0} + a_{k1}(t-t_k) + a_{k2}(t-t_k)^2 + a_{k3}(t-t_k)^3$$
-1. The $(t_k, q_k)$ pairs for $k = 0, ..., n-1$ ($2n$ conditions)
-2. 
-3. 
-4. 
-5. 
+
+The conditions will be: 
+1. $q_k(t_k) = q_k, \quad q_k(t_{k+1}) = q_{k+1}, \quad k=0, ..., n-1$ 
+2. $\dot{q}_k(t_{k+1})$
+3. $$
+4. $$
 
 #### 2.2.2 - Higher Order Polynomials
 #### 2.2.3 - Multi-Point Trapezoidal
