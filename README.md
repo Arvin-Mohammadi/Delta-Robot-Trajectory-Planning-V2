@@ -374,10 +374,20 @@ $$s(t) = \lbrace q_k(t), t\in[t_k, t_{k+1}], k=0, ..., n-1 \rbrace$$
 $$q_k(t) = a_{k0} + a_{k1}(t-t_k) + a_{k2}(t-t_k)^2 + a_{k3}(t-t_k)^3$$
 
 The conditions will be: 
+
 $$
+\ddot{p} = a = 
 \begin{cases}
-\quad q_k(t_k) = q_k, \quad q_k(t_{k+1}) = q_{k+1},                     & k=0, ..., n-1 \\
-\quad \dot{q_k} (t_{k+1}) = \dot{q_{k+1}}(t_{k+1})=v_{k+1},             & k=0, ..., n-2 
+    a & 0 \leq t < \frac{1}{3} T \\
+    0 & \frac{2}{3} T \leq t < \frac{1}{3} T \\
+    -a & \frac{2}{3} T \leq t < T \\
+\end{cases} 
+\quad \quad 
+\dot{p} = v = 
+\begin{cases} 
+    at & 0 \leq t < \frac{1}{3} T \\
+    V_{max} & \frac{2}{3} T \leq t < \frac{1}{3} T \\
+    -at & \frac{2}{3} T \leq t < T \\
 \end{cases}
 $$
 
