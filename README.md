@@ -367,7 +367,16 @@ By adopting this approach, it becomes essential to calculate four coefficients f
 * The periodic conditions for velocity and acceleration
 * The continuity of jerk 
 
+#### We assume assigned initial and final velocities
 
+For given the points of $(t_k, q_k)$ for $k=0, ..., n$ we'll want to calculate: 
+$$s(t) = \lbrace q_k(t), t\in[t_k, t_{k+1}], k=0, ..., n-1 \rbrace$$
+$$q_k(t) = a_{k0} + a_{k1}(t-t_k) + a_{k2}(t-t_k)^2 + a_{k3}(t-t_k)^3$$
+1. The $(t_k, q_k)$ pairs for $k = 0, ..., n-1$ ($2n$ conditions)
+2. 
+3. 
+4. 
+5. 
 
 #### 2.2.2 - Higher Order Polynomials
 #### 2.2.3 - Multi-Point Trapezoidal
