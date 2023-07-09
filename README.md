@@ -454,7 +454,7 @@ Remember how in the 7-6-5-4 interpolating polynomial we used a 7th order polynom
 * There will be a set number of points, if you solve the system of linear equations for 100 points, you can't use it for 99 points or 101 points.
 * Solving a big system of linear equations is extremely time consuming (for both the programmer and the computer)
 
-Of course if there is just a few points, that won't be much of problem and it's rather easy to implement.
+Of course if there are just a few points, that won't be much of problem and it's rather easy to implement.
 
 #### 2.2.3 - Multi-Point Trapezoidal
 #### 2.2.4 - PSO
