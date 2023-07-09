@@ -447,6 +447,7 @@ v =
 \end{bmatrix}
 $$
 
+Thus we have the velocities and the problem is solved. (for more details go to reference [10] Chapter 4.4)
 
 #### 2.2.2 - Higher Order Polynomials
 #### 2.2.3 - Multi-Point Trapezoidal
