@@ -432,7 +432,7 @@ c =
     \frac{3}{T_1T_2} \left[ T^2_1(q_3 - q_2) + T^2_2(q_2 - q_1) \right] \\
     \vdots \\ 
     \frac{3}{T_{n-3}T_{n-2}} \left[ T^2_{n-3}(q_{n-1} - q_{n-2}) + T^2_{n-2}(q_{n-2} - q_{n-3}) \right] \\
-    \frac{3}{T_{n-2}T_{n-1}} \left[ T^2_{n-2}(q_n - q_{n-1}) + T^2_{n-1}(q_{n-1} - q_{n-2}) \right]
+    \frac{3}{T_{n-2}T_{n-1}} \left[ T^2_{n-2}(q_n - q_{n-1}) + T^2_{n-1}(q_{n-1} - q_{n-2}) \right] - T_{n-2}v_n \\
 \end{bmatrix}
 $$
 
