@@ -450,8 +450,11 @@ $$
 Thus we have the velocities and the problem is solved. (for more details go to reference [10] Chapter 4.4)
 
 #### 2.2.2 - Higher Order Polynomials
+Remember how in the 7-6-5-4 interpolating polynomial we used a 7th order polynomial to constraint the jerk, acceleration, velocity and position of two points? In theory we can do that with any number of points, but don't do that. Theoretically to put these 4 constraints on $n$ points, we'll need a polynomial with $4n$ coefficients (hence a $4n-1$th-order polynomial) and you can make the constraints work. But in practice two very important limitations to this:
+* There will be a set number of points, if you solve the system of linear equations for 100 points, you can't use it for 99 points or 101 points.
+* Solving a big system of linear equations is extremely time consuming (for both the programmer and the computer)
 
-
+Of course if there is just a few points, that won't be much of problem and it's rather easy to implement.
 
 #### 2.2.3 - Multi-Point Trapezoidal
 #### 2.2.4 - PSO
