@@ -458,7 +458,7 @@ Of course if there are just a few points, that won't be much of problem and it's
 
 #### 2.2.3 - Multi-Point Trapezoidal
 #### 2.2.4 - PSO
-Here are some of my {researchs on PSO]()
+Here are some of my {researchs on PSO](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/PSO/PSO.README.md)
 #### 2.2.5 - Butterfly Optimization
 #### 2.2.6 - Multi-Point Trapezoidal
 
