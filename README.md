@@ -410,6 +410,18 @@ $$
 \end{cases}
 $$
 
+But this is for when the velocities of the points are known, which they are not (except the initial and final points). So the velocities have to be calculated, in this instance we use the continuity conditions of acceleration: 
+
+Velocities can be found with a matrix of $v = A^{-1}c$. Where: 
+
+$$
+A = 
+\begin{bmatrix}
+    2(T_0+T_1), T_0, 0, ..., , 0 \\
+    T_2, 2(T_1+T_2), T_1, 0, , \vdots \\
+\end{bmatrix}
+$$
+
 
 #### 2.2.2 - Higher Order Polynomials
 #### 2.2.3 - Multi-Point Trapezoidal
