@@ -417,8 +417,11 @@ Velocities can be found with a matrix of $v = A^{-1}c$. Where:
 $$
 A = 
 \begin{bmatrix}
-    2(T_0+T_1), T_0, 0, ..., , 0 \\
-    T_2, 2(T_1+T_2), T_1, 0, , \vdots \\
+    2(T_0+T_1)     & T_0         & 0       & ...                             &     & 0 \\
+    T_2            & 2(T_1+T_2)  & T_1     & 0                               &     & \vdots \\
+    0              &             & \ddots  &                                 &     & 0 \\
+    \vdots         &             &         & T_{n-2}  & 2(T_{n-3}+T_{n-2})   & T_{n-3} \\ 
+    0              & \dots       &         & 0        & T_{n-1}              & 2(T_{n-2} + T_{n-1}) \\  
 \end{bmatrix}
 $$
 
