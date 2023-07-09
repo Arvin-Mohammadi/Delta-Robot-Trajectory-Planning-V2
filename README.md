@@ -450,6 +450,9 @@ $$
 Thus we have the velocities and the problem is solved. (for more details go to reference [10] Chapter 4.4)
 
 #### 2.2.2 - Higher Order Polynomials
+
+
+
 #### 2.2.3 - Multi-Point Trapezoidal
 #### 2.2.4 - PSO
 Here are some of my {researchs on PSO]()
