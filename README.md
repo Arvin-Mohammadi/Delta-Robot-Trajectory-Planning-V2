@@ -425,6 +425,28 @@ A =
 \end{bmatrix}
 $$
 
+$$
+c = 
+\begin{bmatrix}
+    \frac{3}{T_0T_1} \left[ T^2_0(q_2 - q_1) + T^2_1(q_1 - q_0) \right] - T_1 v_0 \\
+    \frac{3}{T_1T_2} \left[ T^2_1(q_3 - q_2) + T^2_2(q_2 - q_1) \right] \\
+    \vdots \\ 
+    \frac{3}{T_{n-3}T_{n-2}} \left[ T^2_{n-3}(q_{n-1} - q_{n-2}) + T^2_{n-2}(q_{n-2} - q_{n-3}) \right] \\
+    \frac{3}{T_{n-2}T_{n-1}} \left[ T^2_{n-2}(q_n - q_{n-1}) + T^2_{n-1}(q_{n-1} - q_{n-2}) \right]
+\end{bmatrix}
+$$
+
+$$
+v = 
+\begin{bmatrix}
+    v_1 \\ 
+    v_2 \\ 
+    \vdots \\ 
+    v_{n-2} \\ 
+    v_{n-1} \\ 
+\end{bmatrix}
+$$
+
 
 #### 2.2.2 - Higher Order Polynomials
 #### 2.2.3 - Multi-Point Trapezoidal
