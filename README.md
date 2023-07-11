@@ -463,7 +463,7 @@ Here are some of my [researchs on PSO](https://github.com/ArthasMenethil-A/Delta
 #### 2.2.6 - Multi-Point Trapezoidal
 
 ## 3 - SIMULATION
-The platform I want to use for simulating the DPR is ROS. Of course as always there are a couple of challenges along the way. So let's deal with them one by one. Here's [my research]() about this topic
+The platform I want to use for simulating the DPR is ROS. Of course as always there are a couple of challenges along the way. So let's deal with them one by one. Here's [my research](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/ROS/README.md) about this topic
 
 
 ## References: 
