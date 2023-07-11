@@ -462,12 +462,9 @@ Here are some of my [researchs on PSO](https://github.com/ArthasMenethil-A/Delta
 #### 2.2.5 - Butterfly Optimization
 #### 2.2.6 - Multi-Point Trapezoidal
 
-## 1 - SIMULATION
-The platform I want to use for simulating the DPR is ROS. Of course as always there are a couple of challenges along the way. So let's deal with them one by one. 
+## 3 - SIMULATION
+The platform I want to use for simulating the DPR is ROS. Of course as always there are a couple of challenges along the way. So let's deal with them one by one. Here's [my research]() about this topic
 
-**Step 1: 3D Modeling**
-
-The first problem is 3D modeling and importing the 3D model into Gazebo. The 3D modeling itself is solidworks is pretty straight forward. The file to my 3D model is [linked here]()
 
 ## References: 
 ------
