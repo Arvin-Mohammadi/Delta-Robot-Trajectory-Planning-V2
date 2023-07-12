@@ -25,6 +25,9 @@ class PathPlannerPTP:
 		self.theta_f = robot.inverse_kin(self.ee_pos_f).reshape((3, 1))
 		self.robot = robot
 
+		print(self.theta_i)
+		print(self.theta_f)
+
 
 	def point_to_point_345(self):
 		FREQUENCY = 1000 
@@ -84,6 +87,7 @@ class PathPlannerPTP:
 
 		# checking the forward kinematics 
 		ee_pos_t = np.zeros(theta_t.shape)
+		print(theta_t.shape)
 		for idx, i in enumerate(theta_t.transpose()):
 			ee_pos_t[:, idx] = self.robot.forward_kin(theta_t[:, idx])
 
@@ -243,8 +247,8 @@ if __name__ == "__main__":
 	# path_planner.plot_results(results_345)
 
 	# using 4567 planner
-	# results_4567 = path_planner.point_to_point_4567()
+	results_4567 = path_planner.point_to_point_4567()
 	# path_planner.plot_results(results_4567)
 
 	# trapezoidal method
-	path_planner.trapezoidal_ptp()
+	# path_planner.trapezoidal_ptp()
