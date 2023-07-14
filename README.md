@@ -476,8 +476,12 @@ Another way of imporvemnt is to use p=4 altogether. this requires that the calcu
 #### 2.2.4 - Multi-Point Trapezoidal
 #### 2.2.5 - PSO
 Here are some of my [researchs on PSO](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/PSO/PSO.README.md)
-#### 2.2.5 - Butterfly Optimization
 #### 2.2.6 - Multi-Point Trapezoidal
+#### 2.1.7 - Results
+------
+#### Here is the animation of EE path for multi-points (cubic spline)
+
+https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/cubic%20spline.gif
 
 ## 3 - SIMULATION
 The platform I want to use for simulating the DPR is ROS. Of course as always there are a couple of challenges along the way. So let's deal with them one by one. Here's [my research](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/ROS/README.md) about this topic.
