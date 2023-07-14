@@ -484,7 +484,11 @@ Here are some of my [researchs on PSO](https://github.com/ArthasMenethil-A/Delta
 
 
 ## 3 - SIMULATION
-The platform I want to use for simulating the DPR is ROS. Of course as always there are a couple of challenges along the way. So let's deal with them one by one. Here's [my research](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/ROS/README.md) about this topic.
+The platform I want to use for simulating the DPR is ROS. Of course as always there are a couple of challenges along the way. So let's deal with them one by one. Here's [my research](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/ROS/README.md) about this topic. Since simulation with ROS seems really difficult because delta robot is a parallel robot, we're going to switch to simulink. But first, let's calculate the safe workspace.
+
+### 3.1 - Safe Workspace
+
+In the inverse kinematics, if you go beyond a certain angle in each of the motors, then the robot is going to be morphed and broken, so we can't go beyond those points. Whether or not the the robot can't go to a certain point, is determined through a calculation in the [delta robot inverse kinematics python file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/delta_robot.py). if the given point isn't reachable then we get the error "non existing point". So the reachable workspace will be calculated with the use of that error. 
 
 
 ## References: 
