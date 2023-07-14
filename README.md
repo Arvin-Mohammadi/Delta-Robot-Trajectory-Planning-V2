@@ -13,11 +13,11 @@ Overview:
         - 4-5-6-7 interpolating polynomial
         - Trapezoidal method
     - multi-point trajectory planning
-        - Cubic-Spline
         - Higher Order Polynomials
+        - Cubic-Spline
+        - Improved Cubic-Spline 
         - Multi-Point Trapezoidal
         - PSO
-        - Butterfly Optimization
 
 ## 1 - INTRODUCTION
 ------
