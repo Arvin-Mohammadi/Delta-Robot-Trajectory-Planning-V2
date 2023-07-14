@@ -488,9 +488,11 @@ The platform I want to use for simulating the DPR is ROS. Of course as always th
 
 ### 3.1 - Safe Workspace
 
-In the inverse kinematics, if you go beyond a certain angle in each of the motors, then the robot is going to be morphed and broken, so we can't go beyond those points. Whether or not the the robot can't go to a certain point, is determined through a calculation in the [delta robot inverse kinematics python file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/delta_robot.py). if the given point isn't reachable then we get the error "non existing point". So the reachable workspace will be calculated with the use of that error. 
+In the inverse kinematics, if you go beyond a certain angle in each of the motors, then the robot is going to be morphed and broken, so we can't go beyond those points. Whether or not the the robot can't go to a certain point, is determined through a calculation in the [delta robot inverse kinematics python file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/delta_robot.py). if the given point isn't reachable then we get the error "non existing point". So the reachable workspace will be calculated with the use of that error in [this file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/workspace.py)
 
 ![reachable wokrspace](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/reachable_workspace.png)
+
+As can be seen from the generated picture, this is not the workspace we want to calculate, since it includes dangerous points in 3D space for the robot to be in. joint limits define the range within which a robot's joints can safely move without causing damage or compromising its operation. These limits are typically set based on the mechanical design and capabilities of the robot, taking into account factors such as joint structure, motor capabilities, and the intended range of motion. Seemingly the criteria isn't simply "if the robot can reach that point or not". 
 
 
 ## References: 
