@@ -95,7 +95,7 @@ class PathPlannerMLTP:
 		self.max_velo = max_velo
 
 	def cubic_spline(self):
-		FREQUENCY = 1000 
+		FREQUENCY = 100
 
 		# find n
 		n = self.path_criteria_x.shape[0] - 1

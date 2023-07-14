@@ -25,8 +25,8 @@ class PathPlannerPTP:
 		self.theta_f = robot.inverse_kin(self.ee_pos_f).reshape((3, 1))
 		self.robot = robot
 
-		print(self.theta_i)
-		print(self.theta_f)
+		# print(self.theta_i)
+		# print(self.theta_f)
 
 
 	def point_to_point_345(self):
@@ -62,7 +62,7 @@ class PathPlannerPTP:
 
 
 	def point_to_point_4567(self):
-		FREQUENCY = 1000 
+		FREQUENCY = 10
 
 		# overall time period
 		T = 35/16*(self.theta_f - self.theta_i)/self.thetadot_max
@@ -72,6 +72,7 @@ class PathPlannerPTP:
 		# theta time profile
 		s_tau = -20*tau**7 + 70*tau**6 - 84*tau**5 + 35*tau**4
 		theta_t = np.array(self.theta_i) + np.array(self.theta_f - self.theta_i)*s_tau
+		
 
 		# theta dot time profile
 		s_tau_d = -140*tau**6 + 420*tau**5 - 420*tau**4 + 140*tau**3
@@ -87,7 +88,7 @@ class PathPlannerPTP:
 
 		# checking the forward kinematics 
 		ee_pos_t = np.zeros(theta_t.shape)
-		print(theta_t.shape)
+		# print(theta_t.shape)
 		for idx, i in enumerate(theta_t.transpose()):
 			ee_pos_t[:, idx] = self.robot.forward_kin(theta_t[:, idx])
 
