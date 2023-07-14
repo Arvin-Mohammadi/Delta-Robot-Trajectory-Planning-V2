@@ -128,8 +128,8 @@ class DeltaRobot:
 			c3 = -(c1 + c2*_yf)**2 + (c2**2+ 1)*rod_b**2
 
 			if c3 < 0:
-				print("non existing point")
-				return -1 
+				# print("non existing point")
+				return int(-1)
 
 			J1_y = (_yf - c1*c2 - c3**0.5)/(c2**2 + 1)
 			J1_z = c1 + c2*J1_y
