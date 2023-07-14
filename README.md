@@ -482,6 +482,8 @@ Here are some of my [researchs on PSO](https://github.com/ArthasMenethil-A/Delta
 #### Here is the animation of EE path for multi-points (cubic spline)
 
 
+https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/b941c628-c7fa-4237-bbe9-e208a2699d5c
+
 
 ## 3 - SIMULATION
 The platform I want to use for simulating the DPR is ROS. Of course as always there are a couple of challenges along the way. So let's deal with them one by one. Here's [my research](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/ROS/README.md) about this topic. Since simulation with ROS seems really difficult because delta robot is a parallel robot, we're going to switch to simulink. But first, let's calculate the safe workspace.
