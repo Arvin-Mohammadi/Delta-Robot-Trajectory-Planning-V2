@@ -490,6 +490,8 @@ The platform I want to use for simulating the DPR is ROS. Of course as always th
 
 In the inverse kinematics, if you go beyond a certain angle in each of the motors, then the robot is going to be morphed and broken, so we can't go beyond those points. Whether or not the the robot can't go to a certain point, is determined through a calculation in the [delta robot inverse kinematics python file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/delta_robot.py). if the given point isn't reachable then we get the error "non existing point". So the reachable workspace will be calculated with the use of that error. 
 
+![reachable wokrspace](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/reachable_workspace.png)
+
 
 ## References: 
 ------
