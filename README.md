@@ -13,11 +13,11 @@ Overview:
         - 4-5-6-7 interpolating polynomial
         - Trapezoidal method
     - multi-point trajectory planning
-        - Cubic-Spline
         - Higher Order Polynomials
+        - Cubic-Spline
+        - Improved Cubic-Spline 
         - Multi-Point Trapezoidal
         - PSO
-        - Butterfly Optimization
 
 ## 1 - INTRODUCTION
 ------
@@ -342,12 +342,21 @@ https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509
 
 
 ### 2.2 - Multi-Point Trajectory Planning
+------
 #### This entire sub-section is for when you want to move EE through points P1 to Pn
 
 Multi-Point Trajectory Planning involves generating smooth and coordinated paths for Delta Parallel Robots (DPRs) that include multiple target locations. Unlike point-to-point trajectory planning, which focuses on movements between a single starting point and target location, multi-point trajectory planning considers the optimization of trajectories with multiple intermediate points. This type of trajectory planning is particularly useful for applications where DPRs need to navigate complex paths or perform tasks that require precise motion through multiple waypoints. The goal of multi-point trajectory planning is to determine an optimal trajectory that passes through the specified intermediate points while ensuring smooth and accurate motion of the robot's End-Effector (EE) or joints. This process involves considering various factors, such as geometric path constraints, kinematic and dynamic limitations, and any additional requirements specific to the application.
 
+#### 2.2.1 - Higher Order Polynomials
+------
+Remember how in the 4-5-6-7 interpolating polynomial we used a 7th order polynomial to constraint the jerk, acceleration, velocity and position of two points? In theory we can do that with any number of points, but don't do that. Theoretically to put these 4 constraints on $n$ points, we'll need a polynomial with $4n$ coefficients (hence a $4n-1$ th-order polynomial) and you can make the constraints work. But in practice two very important limitations to this:
+* There will be a set number of points, if you solve the system of linear equations for 100 points, you can't use it for 99 points or 101 points.
+* Solving a big system of linear equations is extremely time consuming (for both the programmer and the computer)
 
-#### 2.2.1 - Cubic-Spline
+Of course if there are just a few points, that won't be much of problem and it's rather easy to implement. But the problem of having a set number of points, remains the same so it's really not advised on my side
+
+#### 2.2.2 - Cubic-Spline
+------
 #### taken from ref[10] chapter 4.4 | It would be a good choice if it weren't for the jerk at the initial and final points, how does one solve that problem? 
 
 When provided with $n+1$ points, it is feasible to construct a unique interpolating polynomial of degree $n$. However, as the number of points increases, the computational burden becomes heavier. To address this, an alternative approach is to utilize n polynomials of degree $p$ instead. The selection of $p$ is based on the desired level of continuity for the spline. For instance, if one aims to achieve continuity of velocities and accelerations at the time instances $t_k$, where the transition between two consecutive segments takes place, a cubic polynomial with degree $p=3$ can be assumed.
@@ -447,23 +456,31 @@ v =
 \end{bmatrix}
 $$
 
-Thus we have the velocities and the problem is solved. (for more details go to reference [10] Chapter 4.4)
+Thus we have the velocities and the problem is solved. (for more details go to reference [10] Chapter 4.4). The implementation of this problem is coded in [this python file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_mltp.py) and the results are: 
 
-#### 2.2.2 - Higher Order Polynomials
-Remember how in the 7-6-5-4 interpolating polynomial we used a 7th order polynomial to constraint the jerk, acceleration, velocity and position of two points? In theory we can do that with any number of points, but don't do that. Theoretically to put these 4 constraints on $n$ points, we'll need a polynomial with $4n$ coefficients (hence a $4n-1$th-order polynomial) and you can make the constraints work. But in practice two very important limitations to this:
-* There will be a set number of points, if you solve the system of linear equations for 100 points, you can't use it for 99 points or 101 points.
-* Solving a big system of linear equations is extremely time consuming (for both the programmer and the computer)
+![Cubic spline method](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/cubic%20spline%20method.png)
 
-Of course if there are just a few points, that won't be much of problem and it's rather easy to implement.
+#### note from me
 
-#### 2.2.3 - Multi-Point Trapezoidal
-#### 2.2.4 - PSO
+There was a problem with this algorithm in my previous repository that I'm going to explain now. My previous employer defined the problem to be something like: we want to go through a lot of different points in space meaning we want to <ins> be precise while being fast </ins>. not taking into account that this problem definition is not valid. this is a trade-off. you either get high speed and low precision, or you get high precision and low speed. if you want both high speed and high precision there will be an unnaturally high jerk at the start. what he was telling me to do was to define a circle with like 1000 points and then make the interpolation between 1000 points. but that's not the true goal of the robot is it? (unless you're making a painter robot or a 3D printer in which case the process is gonna be slow so that the jerk won't cause a problem) 
+
+the goal is to hit certain points. like {(x1, y1, z1), (x2, y2, z2), ... (x10, y10, z10)} something like that. because in each operation we want our robot to move towards the target, pick the target up, move the target, place the target, get back into first position. that's what? 5 or 6 points to hit? we don't need 1000 constraints.
+
+#### 2.2.3 - Improved Cubic spline 
+------
+#### This idea came to me from the ref [5] 
+for more control over the start and finishing points we can use 4-th order polynomial for the start and finishing points. so instead of using n polynomials with an order of 3, we'll use n-2 polynomials with order of 3 and two polynmials with an order of 4. the first and final polynomials so to speak. This will give us two more constants hence, we can apply two more constraints. 
+
+Another way of imporvemnt is to use p=4 altogether. this requires that the calculations be re-done in a similar manner to the previous section. 
+
+#### 2.2.4 - Multi-Point Trapezoidal
+#### 2.2.5 - PSO
 Here are some of my [researchs on PSO](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/PSO/PSO.README.md)
 #### 2.2.5 - Butterfly Optimization
 #### 2.2.6 - Multi-Point Trapezoidal
 
 ## 3 - SIMULATION
-The platform I want to use for simulating the DPR is ROS. Of course as always there are a couple of challenges along the way. So let's deal with them one by one. Here's [my research](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/ROS/README.md) about this topic
+The platform I want to use for simulating the DPR is ROS. Of course as always there are a couple of challenges along the way. So let's deal with them one by one. Here's [my research](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/ROS/README.md) about this topic.
 
 
 ## References: 
