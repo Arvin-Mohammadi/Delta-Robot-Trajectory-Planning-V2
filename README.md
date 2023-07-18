@@ -486,8 +486,12 @@ Another way of imporvemnt is to use p=4 altogether. this requires that the calcu
 
 that adds up to $5n+1$ constants. and since if we have n polynomials with the order of 4, we're going to get $5n$ constants. in order to add a constant, we can just put one of the polynomials a 5-th order. 
 
-#### 2.2.4 - Multi-Point Trapezoidal
-#### 2.2.5 - PSO
+#### 2.2.4 - PSO
+------
+
+#### 2.2.5 - Multi-Point Trapezoidal
+------
+
 Here are some of my [researchs on PSO](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/PSO/PSO.README.md)
 #### 2.1.7 - Results
 ------
