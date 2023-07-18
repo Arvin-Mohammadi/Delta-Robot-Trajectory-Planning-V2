@@ -468,15 +468,27 @@ the goal is to hit certain points. like {(x1, y1, z1), (x2, y2, z2), ... (x10, y
 
 #### 2.2.3 - Improved Cubic spline 
 ------
-#### This idea came to me from the ref [5] 
+#### This idea came to me from the ref [5]
+
+**first method: intial and final zero acceleration**
+
 for more control over the start and finishing points we can use 4-th order polynomial for the start and finishing points. so instead of using n polynomials with an order of 3, we'll use n-2 polynomials with order of 3 and two polynmials with an order of 4. the first and final polynomials so to speak. This will give us two more constants hence, we can apply two more constraints. 
 
-Another way of imporvemnt is to use p=4 altogether. this requires that the calculations be re-done in a similar manner to the previous section. 
+**second method: smooth acceleration curve**
+
+Another way of imporvemnt is to use p=4 altogether. this requires that the calculations be re-done in a similar manner to the previous section. of course one of the polynomials have to be p=5. either first or last polynomial so to speak. because the number of constrains we want for $n+1$ points are: 
+- $2n$ constraints for the positions
+- $n-1$ constraints for the velocity continuity
+- $n-1$ constraints for the acceleration continuity
+- $n-1$ constraints for the jerk continuity
+- $2$ constraints for initial and final velocity
+- $2$ constraints for initial and final acceleration
+
+that adds up to $5n+1$ constants. and since if we have n polynomials with the order of 4, we're going to get $5n$ constants. in order to add a constant, we can just put one of the polynomials a 5-th order. 
 
 #### 2.2.4 - Multi-Point Trapezoidal
 #### 2.2.5 - PSO
 Here are some of my [researchs on PSO](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/PSO/PSO.README.md)
-#### 2.2.6 - Multi-Point Trapezoidal
 #### 2.1.7 - Results
 ------
 #### Here is the animation of EE path for multi-points (cubic spline)
