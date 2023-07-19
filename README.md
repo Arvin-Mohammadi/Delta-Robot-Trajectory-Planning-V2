@@ -513,8 +513,8 @@ $$
 $$
 p(t) = 
 \begin{cases}
-  at^2/2 + p_0 & 0 \leq t < T/2 \\
-  \left[v_{max} \frac{t}{2} - \right] + p_0 & T/2 \leq t \leq T
+  a\frac{t^2}{2} + p_0 & 0 \leq t < T/2 \\
+  \left[v_{max} \frac{t}{2} - 0.5v(t)(T-t)\right] + p_0 & T/2 \leq t \leq T
 \end{cases}
 $$
 
