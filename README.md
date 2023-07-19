@@ -486,13 +486,20 @@ Another way of imporvemnt is to use p=4 altogether. this requires that the calcu
 
 that adds up to $5n+1$ constants. and since if we have n polynomials with the order of 4, we're going to get $5n$ constants. in order to add a constant, we can just put one of the polynomials a 5-th order. 
 
-#### 2.2.4 - PSO
+#### 2.2.4 - Particle Swarm Optimization (PSO)
 ------
+
+Here are some of my [researchs on PSO](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/PSO/PSO.README.md)
 
 #### 2.2.5 - Multi-Point Trapezoidal
 ------
 
-Here are some of my [researchs on PSO](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/PSO/PSO.README.md)
+# the idea for this is from ref [10] - Part 3.2.4
+
+We talked about the trapezoidal method in one of the point-to-point methods, but now we want to use it as a multi-point method. we already know about the 3 phases in trapezoidal. Assume that we want to use point-to-point interpolation on multiple points. What's the problem with that? it's the fact that the end effector will stop at all of the points that we want to hit. meaning if we define our points as $P_0, ..., P_n$, and we use point-to-point trajectory planning to go from $P_0$ to $P_1$ and from $P_1$ to $P_2$ and so on and so forth, the end effector will stop at each of the points (in some cases that might be what we want to do but in most cases that highly inefficient). but for now let's implement this for point-to-point trapezoidal. 
+
+
+
 #### 2.1.7 - Results
 ------
 #### Here is the animation of EE path for multi-points (cubic spline)
