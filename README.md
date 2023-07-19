@@ -498,7 +498,7 @@ We talked about the trapezoidal method in one of the point-to-point methods, but
 ------ 
 3D Animation for results of the sampled data of generated trajectories.
 
-#### 2.3.2 - 4-5-6-7 interpolating polynomial 
+#### 2.3.1 - 4-5-6-7 interpolating polynomial 
 
 https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/ec3256be-25d6-479c-86f5-d363633df996
 
