@@ -494,7 +494,7 @@ Here are some of my [researchs on PSO](https://github.com/ArthasMenethil-A/Delta
 #### 2.2.5 - Multi-Point Trapezoidal
 ------
 
-# the idea for this is from ref [10] - Part 3.2.4
+#### the idea for this is from ref [10] - Part 3.2.4
 
 ![Trapezoidal through a sequence of points](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/725a87c9-7c0f-4fbd-94d2-5bf5696a4dca)
 
