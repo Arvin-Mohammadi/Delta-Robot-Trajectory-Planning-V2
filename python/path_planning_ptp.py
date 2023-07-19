@@ -136,7 +136,7 @@ class PathPlannerPTP:
 
 		# plots 
 		fig = plt.figure()
-		fig.set_figheight(12)
+		fig.set_figheight(15)
 		fig.set_figwidth(10)
 
 
@@ -248,8 +248,8 @@ if __name__ == "__main__":
 	# path_planner.plot_results(results_345)
 
 	# using 4567 planner
-	results_4567 = path_planner.point_to_point_4567()
+	# results_4567 = path_planner.point_to_point_4567()
 	# path_planner.plot_results(results_4567)
 
 	# trapezoidal method
-	# path_planner.trapezoidal_ptp()
+	path_planner.trapezoidal_ptp()
