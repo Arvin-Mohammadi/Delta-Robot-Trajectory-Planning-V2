@@ -541,7 +541,7 @@ $$
 $$
 p(t) = 
 \begin{cases}
-  \frac{T}{2}v_{max}\frac{t^2}{2} + p_0 & 0 \leq t < T/2 \\
+  \frac{v_{max}}{T}t^2 + p_0 & 0 \leq t < T/2 \\
   \left(v_{max} \frac{T}{2} \right) - v_{max}\left( 1 - \frac{2t}{T} \right)\left( T - t \right)0.5 + p_0
 \end{cases}
 $$
