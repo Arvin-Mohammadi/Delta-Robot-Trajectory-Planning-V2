@@ -520,8 +520,13 @@ $$
 
 But since $v_{max} = \frac{T}{2}a$ and $p_{final} = v_{max}\times \frac{T}{2} + p_0$ and we're given the values for $a, p_{fina}, p_0$ with these two equations values for $T$ and $v_{max}$ can be found
 
-$T = \sqrt{(p_{final} - p_0)\frac{4}{a}}$
-$v_{max} = a \frac{T}{2}$
+$$
+p(t) = 
+\begin{cases}
+  T = \sqrt{(p_{final} - p_0)\frac{4}{a}} \\
+  v_{max} = a \frac{T}{2}
+\end{cases}
+$$
 
 ### 2.3 - Results
 ------ 
