@@ -527,6 +527,15 @@ $$
 \end{cases}
 $$
 
+I wish it was as easy as this though. since we have three motors we have to synchronize them first and then we can generate the velocity profile.
+
+------
+
+**Motor Synchronization**
+
+
+
+
 ### 2.3 - Results
 ------ 
 3D Animation for results of the sampled data of generated trajectories.
