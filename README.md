@@ -521,31 +521,6 @@ $$
 But since $v_{max} = \frac{T}{2}a$ we can re-write the equations as shown below:
 
 
-$$
-\ddot{p} = a(t) = 
-\begin{cases}
-  \frac{T}{2}v_{max} & 0 \leq t < T/2 \\
-  -\frac{T}{2}v_{max} & T/2 \leq t \leq T
-\end{cases}
-$$
-
-
-$$
-\dot{p} = v(t) = 
-\begin{cases}
-  \frac{T}{2}v_{max}t & 0 \leq t < T/2 \\
-  -\frac{T}{2}v_{max}t & T/2 \leq t \leq T
-\end{cases}
-$$
-
-$$
-p(t) = 
-\begin{cases}
-  \frac{v_{max}}{T}t^2 + p_0 & 0 \leq t < T/2 \\
-  \left(v_{max} \frac{T}{2} \right) - v_{max}\left( 1 - \frac{2t}{T} \right)\left( T - t \right)0.5 + p_0 & T/2 \leq t \leq T
-\end{cases}
-$$
-
 
 ### 2.3 - Results
 ------ 
