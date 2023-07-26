@@ -333,13 +333,6 @@ In this method We've taken the maximum difference in $\theta^I$ and $\theta^F$ s
 
 The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `trapezoidal_ptp`
 
-#### 2.1.4 - Results
-------
-#### Here is the animation of EE path for point-to-point (4-5-6-7 interpolating polynomial is used)
-
-
-https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/ec3256be-25d6-479c-86f5-d363633df996
-
 
 ### 2.2 - Multi-Point Trajectory Planning
 ------
@@ -494,25 +487,73 @@ Here are some of my [researchs on PSO](https://github.com/ArthasMenethil-A/Delta
 #### 2.2.5 - Multi-Point Trapezoidal
 ------
 
-# the idea for this is from ref [10] - Part 3.2.4
+#### the idea for this is from ref [10] - Part 3.2.4
 
-We talked about the trapezoidal method in one of the point-to-point methods, but now we want to use it as a multi-point method. we already know about the 3 phases in trapezoidal. Assume that we want to use point-to-point interpolation on multiple points. What's the problem with that? it's the fact that the end effector will stop at all of the points that we want to hit. meaning if we define our points as $P_0, ..., P_n$, and we use point-to-point trajectory planning to go from $P_0$ to $P_1$ and from $P_1$ to $P_2$ and so on and so forth, the end effector will stop at each of the points (in some cases that might be what we want to do but in most cases that highly inefficient). but for now let's implement this for point-to-point trapezoidal. 
+![Trapezoidal through a sequence of points](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/725a87c9-7c0f-4fbd-94d2-5bf5696a4dca)
+
+We talked about the trapezoidal method in one of the point-to-point methods, but now we want to use it as a multi-point method. we already know about the 3 phases in trapezoidal. Assume that we want to use point-to-point interpolation on multiple points. What's the problem with that? it's the fact that the end effector will stop at all of the points that we want to hit. meaning if we define our points as $P_0, ..., P_n$, and we use point-to-point trajectory planning to go from $P_0$ to $P_1$ and from $P_1$ to $P_2$ and so on and so forth, the end effector will stop at each of the points (in some cases that might be what we want to do but in most cases that highly inefficient). but for now let's implement this for point-to-point trapezoidal. our first goal is to implement something like the figure (a) from the two diagrams about (Reference for picture is ref [10] - Part 3.2.4) - Hence the trapezoidal will reduce to a trianlge for us to hit the max velocity and then immediately enter the deceleration phase. the calculation will look like: 
+
+$$
+\ddot{p} = a(t) = 
+\begin{cases}
+  a & 0 \leq t < T/2 \\
+  -a & T/2 \leq t \leq T
+\end{cases}
+$$
 
 
+$$
+\dot{p} = v(t) = 
+\begin{cases}
+  at & 0 \leq t < T/2 \\
+  -at & T/2 \leq t \leq T
+\end{cases}
+$$
 
-#### 2.1.7 - Results
+$$
+p(t) = 
+\begin{cases}
+  a\frac{t^2}{2} + p_0 & 0 \leq t < T/2 \\
+  \left[v_{max} \frac{t}{2} - 0.5v(t)(T-t)\right] + p_0 & T/2 \leq t \leq T
+\end{cases}
+$$
+
+But since $v_{max} = \frac{T}{2}a$ and $p_{final} = v_{max}\times \frac{T}{2} + p_0$ and we're given the values for $a, p_{fina}, p_0$ with these two equations values for $T$ and $v_{max}$ can be found
+
+$$
+\begin{cases}
+  T = \sqrt{(p_{final} - p_0)\frac{4}{a}} \\
+  v_{max} = a \frac{T}{2}
+\end{cases}
+$$
+
+I wish it was as easy as this though. since we have three motors we have to synchronize them first and then we can generate the velocity profile.
+
 ------
-#### Here is the animation of EE path for multi-points (cubic spline)
 
+**Motor Synchronization**
+
+
+
+
+### 2.3 - Results
+------ 
+3D Animation for results of the sampled data of generated trajectories.
+
+#### 2.3.1 - 4-5-6-7 interpolating polynomial 
+
+https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/ec3256be-25d6-479c-86f5-d363633df996
+
+#### 2.3.2 - cubic spline results
 
 https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/b941c628-c7fa-4237-bbe9-e208a2699d5c
 
-
 ## 3 - SIMULATION
+------
 The platform I want to use for simulating the DPR is ROS. Of course as always there are a couple of challenges along the way. So let's deal with them one by one. Here's [my research](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/ROS/README.md) about this topic. Since simulation with ROS seems really difficult because delta robot is a parallel robot, we're going to switch to simulink. But first, let's calculate the safe workspace.
 
 ### 3.1 - Safe Workspace
-
+------
 In the inverse kinematics, if you go beyond a certain angle in each of the motors, then the robot is going to be morphed and broken, so we can't go beyond those points. Whether or not the the robot can't go to a certain point, is determined through a calculation in the [delta robot inverse kinematics python file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/delta_robot.py). if the given point isn't reachable then we get the error "non existing point". So the reachable workspace will be calculated with the use of that error in [this file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/workspace.py)
 
 ![reachable wokrspace](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/reachable_workspace.png)
