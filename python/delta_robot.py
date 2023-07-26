@@ -27,7 +27,7 @@ def cosd(theta):
 # -- Delta Robot Class ----------------------------------------------------------------------------
 # =================================================================================================
 
-class DeltaRobot:
+class DeltaRobot: 
 	def __init__(self, rod_b, rod_ee, r_b, r_ee):
 		# configes the robot 
 
@@ -147,6 +147,8 @@ class DeltaRobot:
 # IK: check
 
 if __name__ == "__main__":
+
+	# test1 
 	delta = DeltaRobot(0.2, 0.46, 0.1, 0.074)
 	inv = delta.inverse_kin( [0, -0.15, -0.42])
 	print(inv)

@@ -93,12 +93,13 @@ class PathPlannerMLTP:
 		self.path_criteria_y = np.array(path_criteria[1])
 		self.path_criteria_z = np.array(path_criteria[2])
 		self.max_velo = max_velo
+		self.n = self.path_criteria_x.shape[0] - 1
 
 	def cubic_spline(self):
 		FREQUENCY = 100
 
 		# find n
-		n = self.path_criteria_x.shape[0] - 1
+		n = self.n
 
 		# find overall T_total
 		d = 0 # rough distance
@@ -120,9 +121,6 @@ class PathPlannerMLTP:
 		coeff_matrix = coeff.coeff_matrix(velocity_profile) 	# calculating coefficient matrix of a_ij
 
 		t =  coeff.t.transpose()[0]
-
-
-
 
 
 		# getting the outputs (inputs of the stepper motor)
@@ -183,6 +181,20 @@ class PathPlannerMLTP:
 		t_output = np.transpose(np.array([t_output, t_output, t_output]))
 
 		return (t_output, theta_output, thetadot_output, thetadotdot_output, thetadotdotdot_output, ee_pos_output)
+
+
+	def trapezoidal_mltp(self, acceleration):
+		FREQUENCY = 1000
+
+		# calculate each time period from the max velocity 
+
+		for i in range(self.n):
+			prev_point  = [self.path_criteria_x[i], self.path_criteria_y[i], self.path_criteria_z[i]]
+			next_point 	= [self.path_criteria_x[i+1], self.path_criteria_y[i+1], self.path_criteria_z[i+1]]
+
+		
+	def _triangular_ptp(self, point1, point2): 
+		pass 
 
 
 	def plot(self, results):
@@ -261,8 +273,12 @@ if __name__ == "__main__":
 	# defining path planner
 	path_planner = PathPlannerMLTP(delta_robot, path_criteria, 1)
 
-	cubic_spline_results = path_planner.cubic_spline()
-	path_planner.plot(cubic_spline_results)
+	# # cubic spline 
+	# cubic_spline_results = path_planner.cubic_spline()
+	# path_planner.plot(cubic_spline_results)
+
+	# trapezoidal method
+	path_planner.trapezoidal_mltp(0.2)
 
 
 
