@@ -359,12 +359,12 @@ and the conditions are:
 - $ q(0) = q_0 $
 - $ q(0.5) = q_1 $
 - $ q(1) = q_2 $
-- $ \dot{q}(0) = 0 $
-- $ \dot{q}(1) = 0 $
-- $ \ddot{q}(0) = 0 $
-- $ \ddot{q}(1) = 0 $
-- $ \dddot{q}(0) = 0 $
-- $ \dddot{q}(1) = 0 $
+- $ \dot{q} (0) = 0 $
+- $ \dot{q} (1) = 0 $
+- $ \ddot{q} (0) = 0 $
+- $ \ddot{q} (1) = 0 $
+- $ \dddot{q} (0) = 0 $
+- $ \dddot{q} (1) = 0 $
 
 <ins>**Discussion**</ins>
 
