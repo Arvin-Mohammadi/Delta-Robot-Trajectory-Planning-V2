@@ -366,7 +366,7 @@ $$
 \end{cases}
 $$
 
-These conditions will give us 9 equations as well as 9 coefficients to calculate which make up a system of linear equations. the equation solution is uploaded in [this file]() and the final answers are:
+These conditions will give us 9 equations as well as 9 coefficients to calculate which make up a system of linear equations. the equation solution is uploaded in [this file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/Higher-order%20Polynomial/higher_order_poly_3pt.mat) and the final answers are:
 
 $$
 \begin{cases}
