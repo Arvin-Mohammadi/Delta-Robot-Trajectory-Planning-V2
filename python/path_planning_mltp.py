@@ -197,6 +197,10 @@ class PathPlannerMLTP:
 		pass 
 
 
+	def higher_order_poly_4pt(self):
+		pass
+
+
 	def plot(self, results):
 		(t_output, theta_output, thetadot_output, thetadotdot_output, thetadotdotdot_output, ee_pos_output) = results
 
@@ -264,21 +268,58 @@ class PathPlannerMLTP:
 
 if __name__ == "__main__":
 
+	# TEST 1
+
+	# # defining robot 
+	# delta_robot = DeltaRobot(0.2, 0.46, 0.1, 0.074)
+
+	# # path critera = [[x0, x1, ...xn], [y0, y1, ..., yn], [z0, z1, ..., zn]]
+	# path_criteria = [[0.05, 0, 0.05, 0, 0.05, 0], [0.05, -0.15, 0.05, -0.15, 0.05, -0.15], [-0.31, -0.42, -0.31, -0.42, -0.31, -0.42]]
+
+	# # defining path planner
+	# path_planner = PathPlannerMLTP(delta_robot, path_criteria, 1)
+
+	# # # cubic spline 
+	# # cubic_spline_results = path_planner.cubic_spline()
+	# # path_planner.plot(cubic_spline_results)
+
+	# # trapezoidal method
+	# path_planner.trapezoidal_mltp(0.2)
+
+
+
+	# TEST 2
+
+
+	# # defining robot 
+	# delta_robot = DeltaRobot(0.2, 0.46, 0.1, 0.074)
+
+	# # path critera = [[x0, x1, ...xn], [y0, y1, ..., yn], [z0, z1, ..., zn]]
+	# path_criteria = [[0, 0, 0, 0], [-0.05, -0.05, 0, 0], [-0.42, -0.31, -0.31, -0.42]]
+
+	# # defining path planner
+	# path_planner = PathPlannerMLTP(delta_robot, path_criteria, 1)
+
+	# # # cubic spline 
+	# cubic_spline_results = path_planner.cubic_spline()
+	# path_planner.plot(cubic_spline_results)
+
+	# (_, _, _, _, _, eepos) = cubic_spline_results
+
+	# X = eepos.transpose()[0]
+	# Y = eepos.transpose()[1]
+	# Z = eepos.transpose()[2]
+
+	# plt.plot(Y, Z)
+	# plt.savefig("eeposition_cubicspline.png")
+
+
+	# TEST 3 
+
+
 	# defining robot 
 	delta_robot = DeltaRobot(0.2, 0.46, 0.1, 0.074)
 
 	# path critera = [[x0, x1, ...xn], [y0, y1, ..., yn], [z0, z1, ..., zn]]
-	path_criteria = [[0.05, 0, 0.05, 0, 0.05, 0], [0.05, -0.15, 0.05, -0.15, 0.05, -0.15], [-0.31, -0.42, -0.31, -0.42, -0.31, -0.42]]
-
-	# defining path planner
-	path_planner = PathPlannerMLTP(delta_robot, path_criteria, 1)
-
-	# # cubic spline 
-	# cubic_spline_results = path_planner.cubic_spline()
-	# path_planner.plot(cubic_spline_results)
-
-	# trapezoidal method
-	path_planner.trapezoidal_mltp(0.2)
-
-
+	path_criteria = [[0, 0, 0, 0], [-0.05, -0.05, 0, 0], [-0.42, -0.31, -0.31, -0.42]]
 

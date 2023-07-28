@@ -62,12 +62,13 @@ class PathPlannerPTP:
 
 
 	def point_to_point_4567(self):
-		FREQUENCY = 10
+		FREQUENCY = 100
 
 		# overall time period
-		T = 35/16*(self.theta_f - self.theta_i)/self.thetadot_max
+		T = abs(35/16*(self.theta_f - self.theta_i)/self.thetadot_max)
 		T = math.floor(max(T)*FREQUENCY)
 		tau = np.array(range(0, T))/T
+
 
 		# theta time profile
 		s_tau = -20*tau**7 + 70*tau**6 - 84*tau**5 + 35*tau**4
@@ -92,7 +93,7 @@ class PathPlannerPTP:
 		for idx, i in enumerate(theta_t.transpose()):
 			ee_pos_t[:, idx] = self.robot.forward_kin(theta_t[:, idx])
 
-		return (tau, theta_t, theta_dot_t, theta_ddot_t, theta_dddot_t, ee_pos_t)
+		return (tau*T, theta_t, theta_dot_t, theta_ddot_t, theta_dddot_t, ee_pos_t)
 
 
 	def trapezoidal_ptp(self, k=1/3): 
@@ -237,11 +238,14 @@ class PathPlannerPTP:
 
 if __name__ == "__main__":
 
+
+	# TEST 1 
+
 	# defining robot 
-	delta_robot = DeltaRobot(0.2, 0.46, 0.1, 0.074)
+	# delta_robot = DeltaRobot(0.2, 0.46, 0.1, 0.074)
 
 	# defining path planner
-	path_planner = PathPlannerPTP(delta_robot, [0.05, 0.05, -0.31], [0, -0.15, -0.42], 20)
+	# path_planner = PathPlannerPTP(delta_robot, [0.05, 0.05, -0.31], [0, -0.15, -0.42], 20)
 
 	# using 345 planner 
 	# results_345 = path_planner.point_to_point_345()
@@ -252,4 +256,72 @@ if __name__ == "__main__":
 	# path_planner.plot_results(results_4567)
 
 	# trapezoidal method
-	path_planner.trapezoidal_ptp()
+	# path_planner.trapezoidal_ptp()
+
+
+
+	# TEST 2
+	delta_robot = DeltaRobot(0.2, 0.46, 0.1, 0.074)
+
+
+
+	# defining path planner
+	path_planner = PathPlannerPTP(delta_robot, [0.00, -0.05, -0.42], [0.00, -0.05, -0.31], 20)
+	# using 4567 planner
+	results_4567_1 = path_planner.point_to_point_4567()
+
+	# defining path planner
+	path_planner = PathPlannerPTP(delta_robot, [0.00, -0.05, -0.31], [0.00, 0.00, -0.31], 20)
+	# using 4567 planner
+	results_4567_2 = path_planner.point_to_point_4567()
+
+	# defining path planner
+	path_planner = PathPlannerPTP(delta_robot, [0.00, 0.00, -0.31], [0.00, 0.00, -0.42], 20)
+	# using 4567 planner
+	results_4567_3 = path_planner.point_to_point_4567()
+
+
+	T = np.array([])
+	theta = np.array([[], [], []])
+	thetadot = np.array([[], [], []])
+	thetaddot = np.array([[], [], []])
+	thetadddot = np.array([[], [], []])
+	eepos = np.array([[], [], []])
+
+	for i in [results_4567_1, results_4567_2, results_4567_3]:
+		# print("hi")
+		(T_temp, theta_temp, thetadot_temp, thetaddot_temp, thetadddot_temp, eepos_temp) = i
+		
+		if np.size(T) == 0:
+			max_T = 0 
+		else:
+			max_T = max(T)
+
+		# print("this is T")
+		# print(T)
+		# print("this is T_temp")
+		# print(T_temp)
+
+
+		T = np.concatenate((T, T_temp+max_T))
+		theta = np.concatenate((theta, theta_temp), axis=1)
+		thetadot = np.concatenate((thetadot, thetadot_temp), axis=1)
+		thetaddot = np.concatenate((thetaddot, thetaddot_temp), axis=1)
+		thetadddot = np.concatenate((thetadddot, thetadddot_temp), axis=1)
+		eepos = np.concatenate((eepos, eepos_temp), axis=1)
+
+
+
+	final_results = (T, theta, thetadot, thetaddot, thetadddot, eepos)
+	path_planner.plot_results(final_results)
+
+	X = eepos[0]
+	Y = eepos[1]
+	Z = eepos[2]
+
+	fig = plt.figure()
+	fig.set_figheight(10)
+	fig.set_figwidth(10)
+
+	plt.plot(Y, Z)
+	plt.savefig("eeposition_4567.png")
