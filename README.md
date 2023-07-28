@@ -356,15 +356,25 @@ let's say we have the polynomial as:
 $$ q(\tau) = a_8\tau^8 + \dots + a_1\tau + a_0 $$ 
 
 and the conditions are: 
-- $q(0) = q_0 $
-- $q(0.5) = q_1 $
-- $q(1) = q_2 $
-- $\dot{q}(0) = 0 $
-- $\dot{q}(1) = 0 $
-- $\ddot{q}(0) = 0 $
-- $\ddot{q}(1) = 0 $
-- $\dddot{q}(0) = 0 $
-- $\dddot{q}(1) = 0 $
+
+$$
+\begin{cases}
+    q(0) = q_0, \quad q(0.5) = q_1, \qual q(1) = q_2 \\ 
+    \dot{q}(0) = 0, \quad \dot{q}(1) = 0 \\
+    \ddot{q}(0) = 0, \quad \ddot{q}(1) = 0 \\
+    \dddot{q}(0) = 0 , \quad \dddot{q}(1) = 0 
+\end{cases}
+$$
+
+These conditions will give us 9 equations as well as 9 coefficients to calculate which make up a system of linear equations. the equations will be: 
+
+
+$$
+\begin{cases}
+   ...
+\end{cases}
+$$
+
 
 <ins>**Discussion**</ins>
 
