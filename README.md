@@ -167,6 +167,9 @@ robots in industrial automation settings.
 
 The code to Inverse and Forward Kinematics can be found in the [Delta Robot file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/delta_robot.py).
 
+![a delta robot](https://howtorobot.com/sites/default/files/2021-09/delta-robot.jpg)
+[reference for the image](https://howtorobot.com/expert-insight/delta-robots)
+
 ## 2 - TRAJECTORY PLANNING
 ------
 #### Here are the different methods of controlling the trajectory of the robot
