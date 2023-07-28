@@ -355,7 +355,7 @@ let's say we have the polynomial as:
 
 $$ q(\tau) = a_8\tau^8 + \dots + a_1\tau + a_0 $$ 
 
-and the conditions are: 
+and the conditions are for the polynomial $q$ to hit $q_0$, $q_1$ and $q_2$ and have initial and final velocity, acceleration and jerk equal to zero. 
 
 $$
 \begin{cases}
@@ -366,12 +366,19 @@ $$
 \end{cases}
 $$
 
-These conditions will give us 9 equations as well as 9 coefficients to calculate which make up a system of linear equations. the equations will be: 
-
+These conditions will give us 9 equations as well as 9 coefficients to calculate which make up a system of linear equations. the equation solution is uploaded in [this file]() and the final answers are:
 
 $$
 \begin{cases}
-   ...
+   a_0 = q_0 \\ 
+   a_1 = 0 \\ 
+   a_2 = 0 \\ 
+   a_3 = 0 \\ 
+   a_4 = 256q_1 - 163q_0 - 93q_2 \\ 
+   a_5 = 596q_0 - 1024q_1 + 428q_2 \\
+   a_6 = 1536q_1 - 838q_0 - 698q_2 \\
+   a_7 = 532q_0 - 1024q_1 + 492q_2 \\
+   a_8 = 256q_1 - 128q_0 - 128q_2
 \end{cases}
 $$
 
