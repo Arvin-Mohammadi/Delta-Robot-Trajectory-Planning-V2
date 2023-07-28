@@ -88,12 +88,13 @@ class Coeff:
 class PathPlannerMLTP: 
 	def __init__(self, robot, path_criteria, max_velo):
 		self.robot = robot
-		self.path_criteria   = np.transpose(np.array(path_criteria))
-		self.path_criteria_x = np.array(path_criteria[0])
-		self.path_criteria_y = np.array(path_criteria[1])
-		self.path_criteria_z = np.array(path_criteria[2])
-		self.max_velo = max_velo
-		self.n = self.path_criteria_x.shape[0] - 1
+		if path_criteria != -1:
+			self.path_criteria   = np.transpose(np.array(path_criteria))
+			self.path_criteria_x = np.array(path_criteria[0])
+			self.path_criteria_y = np.array(path_criteria[1])
+			self.path_criteria_z = np.array(path_criteria[2])
+			self.max_velo = max_velo
+			self.n = self.path_criteria_x.shape[0] - 1
 
 	def cubic_spline(self):
 		FREQUENCY = 100
@@ -196,10 +197,49 @@ class PathPlannerMLTP:
 	def _triangular_ptp(self, point1, point2): 
 		pass 
 
+	def higher_order_poly_3pt(self, q0, q1, q2): # thi will only work if you have 3 points to interpolate 
+		
+		FREQUENCY = 100
 
-	def higher_order_poly_3pt(self):
-		pass
+		q0 = self.robot.inverse_kin(np.array(q0))
+		q1 = self.robot.inverse_kin(np.array(q1))
+		q2 = self.robot.inverse_kin(np.array(q2))
 
+		a0 = q0
+		a1 = np.array([0, 0, 0])
+		a2 = np.array([0, 0, 0])
+		a3 = np.array([0, 0, 0])
+		a4 = 256*q1 - 163*q0 - 93*q2
+		a5 = 596*q0 - 1024*q1 + 428*q2
+		a6 = 1536*q1 - 838*q0 - 698*q2
+		a7 = 532*q0 - 1024*q1 + 492*q2
+		a8 = 256*q1 - 128*q0 - 128*q2
+
+		t = np.array(range(FREQUENCY))/FREQUENCY
+		q_t = np.zeros((FREQUENCY, 3))
+		qdot_t = np.zeros((FREQUENCY, 3))
+		qddot_t = np.zeros((FREQUENCY, 3))
+		qdddot_t = np.zeros((FREQUENCY, 3))
+
+
+		for i in range(FREQUENCY):
+			q_t[i] = a8*t[i]**8 + a7*t[i]**7 + a6*t[i]**6 + a5*t[i]**5 + a4*t[i]**4 + a3*t[i]**3 + a2*t[i]**2 + a1*t[i] + a0
+			qdot_t[i] = 8*a8*t[i]**7 + 7*a7*t[i]**6 + 6*a6*t[i]**5 + 5*a5*t[i]**4 + 4*a4*t[i]**3 + 3*a3*t[i]**2 + 2*a2*t[i] + a1 
+			qddot_t[i] = 56*a8*t[i]**6 + 42*a7*t[i]**5 + 30*a6*t[i]**4 + 20*a5*t[i]**3 + 12*a4*t[i]**2 + 6*a3*t[i] + 2*a2
+			qdddot_t[i] = 336*a8*t[i]**5 + 210*a7*t[i]**4 + 120*a6*t[i]**3 + 60*a5*t[i]**2 + 24*a4*t[i] + 6*a3
+
+		# temp_t = 1
+		# temp  = a8*temp_t**8 + a7*temp_t**7 + a6*temp_t**6 + a5*temp_t**5 + a4*temp_t**4 + a3*temp_t**3 + a2*temp_t**2 + a1*temp_t + a0
+		# print(temp)
+
+		ee_pos = np.zeros((FREQUENCY, 3))
+		for idx, i in enumerate(np.array(q_t)):
+			ee_pos[idx] = self.robot.forward_kin(q_t[idx])
+
+
+		results = (t, q_t, qdot_t, qddot_t, qdddot_t, ee_pos)
+
+		return results
 
 	def plot(self, results):
 		(t_output, theta_output, thetadot_output, thetadotdot_output, thetadotdotdot_output, ee_pos_output) = results
@@ -256,7 +296,7 @@ class PathPlannerMLTP:
 
 
 		plt.tight_layout()
-		plt.savefig("cubic spline method.png")
+		plt.savefig("higher order polynomial method.png")
 		plt.clf()
 
 
@@ -288,7 +328,7 @@ if __name__ == "__main__":
 
 
 
-	# TEST 2
+	# # TEST 2
 
 
 	# # defining robot 
@@ -320,6 +360,12 @@ if __name__ == "__main__":
 	# defining robot 
 	delta_robot = DeltaRobot(0.2, 0.46, 0.1, 0.074)
 
-	# path critera = [[x0, x1, ...xn], [y0, y1, ..., yn], [z0, z1, ..., zn]]
-	path_criteria = [[0, 0, 0, 0], [-0.05, -0.05, 0, 0], [-0.42, -0.31, -0.31, -0.42]]
+	q0 = [0, -0.05, -0.42]
+	q1 = [0.05, 0, -0.31]
+	q2 = [0, 0.05, -0.42]
 
+	path_criteria = -1
+
+	path_planner = PathPlannerMLTP(delta_robot, path_criteria, 1)
+	results = path_planner.higher_order_poly_3pt(q0, q1, q2)
+	path_planner.plot(results)
