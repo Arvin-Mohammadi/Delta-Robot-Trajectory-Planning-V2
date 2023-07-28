@@ -1,6 +1,8 @@
 # A Full guide to Delta Parallel Robot Trajectory Planning
 ------
-<ins>**A word from me:**</ins> I was really excited about creating a controller for DPR, and I must say, it was quite a challenging task. However, I became pretty obsessive about finding a solution and felt driven to share it with others as an open-source framework. So, I decided to fully immerse myself in this pursuit until I discovered a satisfying answer. I hope you'll find it helpful. I've actually worked on a similar repository in the past, but this new version is going to be even better and more comprehensive. I'm set to try out as many different methods as I can. the best way to reach me is via email: 
+<ins>**A word from me:**</ins> 
+
+I was really excited about creating a controller for DPR, and I must say, it was quite a challenging task. However, I became pretty obsessive about finding a solution and felt driven to share it with others as an open-source framework. So, I decided to fully immerse myself in this pursuit until I discovered a satisfying answer. I hope you'll find it helpful. I've actually worked on a similar repository in the past, but this new version is going to be even better and more comprehensive. I'm set to try out as many different methods as I can. the best way to reach me is via email: 
 arvin1844m@gmail.com
 
 ![delta_robot_urdf](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/delta_robot_urdf.PNG)
@@ -24,7 +26,9 @@ Overview:
 #### Here I just tell you some history of the Delta Parallel Robots (DPRs), some of its applications and the edge it has over other rivals, the distadvantages, what ways have been used for its trajectory planning, etc. You know ... an introduction
 
 
-<ins>**Some History:**</ins> Delta Parallel Robots (DPRs) are widely used in industrial
+<ins>**Some History:**</ins> 
+
+Delta Parallel Robots (DPRs) are widely used in industrial
 automation, offering significant enhancements in productivity
 and work quality for a variety of complex tasks. With their
 parallel kinematic structure and impressive speed capabilities,
@@ -47,7 +51,9 @@ challenges of generating a smooth path for the End-Effector
 
 </br>
 
-<ins>**Main Types of Controlable Robots:**</ins> Industrial robots can be categorized into four main types
+<ins>**Main Types of Controlable Robots:**</ins> 
+
+Industrial robots can be categorized into four main types
 based on their control methods: remote controlled, sequence
 controlled, controllable track, and adaptive control. While
 remote-controlled robots are manually operated by an operator
@@ -62,7 +68,9 @@ controller, specifically controllable track robots [2].
 
 </br>
 
-<ins>**Some Algorithms:**</ins> The trajectory-planning problem of a DPR can be tackled
+<ins>**Some Algorithms:**</ins> 
+
+The trajectory-planning problem of a DPR can be tackled
 using various algorithms. Some notable approaches include the
 Identify applicable funding agency here. If none, delete this.
 utilization of 5th and 7th order polynomials, which provide
@@ -76,7 +84,9 @@ while accommodating dynamic constraints [3].
 
 </br>
 
-<ins>**Some More Algorithms:**</ins> In addition to these methods, Pythagorean-Hodograph
+<ins>**Some More Algorithms:**</ins> 
+
+In addition to these methods, Pythagorean-Hodograph
 Curves are worth mentioning as they provide a specialized
 class of curves that simplify the computation of differential
 properties, such as velocity and acceleration, for smoother and
@@ -97,7 +107,9 @@ fering a simple yet effective solution for trajectory planning
 
 </br>
 
-<ins>**Importance of This Article-ish Page:**</ins> Efficient trajectory planning is a crucial aspect in maxi-
+<ins>**Importance of This Article-ish Page:**</ins> 
+
+Efficient trajectory planning is a crucial aspect in maxi-
 mizing the performance and productivity of Delta robots in
 industrial automation. However, the generation of a smooth
 and accurate path for the end-effector while minimizing devi-
@@ -115,7 +127,9 @@ productivity and work quality in industrial automation.
 
 </br>
 
-<ins>**Goal And Overview:**</ins> The primary goal of this research is to investigate and
+<ins>**Goal And Overview:**</ins> 
+
+The primary goal of this research is to investigate and
 implement various trajectory planning algorithms for Delta
 robots, including the multi-point and single-point trapezoidal
 method, cubic spline, and higher-order polynomials such as
@@ -137,7 +151,9 @@ robot applications.
 
 </br>
 
-<ins>**Organization of Paper:**</ins> To achieve these research objectives, this paper is organized
+<ins>**Organization of Paper:**</ins> 
+
+To achieve these research objectives, this paper is organized
 as follows: we first begin by presenting a detailed description
 and implementation of each trajectory planning algorithm.
 Subsequently, we evaluate and compare their performance
@@ -156,7 +172,9 @@ The code to Inverse and Forward Kinematics can be found in the [Delta Robot file
 #### Here are the different methods of controlling the trajectory of the robot
 
 
-<ins>**What is Trajectory Planning:**</ins> Trajectory planning is a crucial step in achieving the desired
+<ins>**What is Trajectory Planning:**</ins> 
+
+Trajectory planning is a crucial step in achieving the desired
 movement for a manipulator control system, ensuring the
 generation of reference inputs that conform to the given
 geometric path and comply with the kinematic and dynamic
@@ -174,7 +192,9 @@ orientation of the EE.
 
 </br>
 
-<ins>**What Trajectory Plannings We Look Into:**</ins> This section focuses on two key aspects of trajectory plan-
+<ins>**What Trajectory Plannings We Look Into:**</ins> 
+
+This section focuses on two key aspects of trajectory plan-
 ning: point-to-point and multi-point movements. For point-to-
 point trajectory planning, we explore three distinct algorithms:
 the 5th order polynomial, the 7th order polynomial, and the
@@ -195,7 +215,9 @@ industrial automation settings.
 #### This entire sub-section is for when you want to move EE from point A to B
 
 
-<ins>**What is Point-to-Point Trajectory Planning:**</ins> Point-to-Point Trajectory Planning refers to the process of
+<ins>**What is Point-to-Point Trajectory Planning:**</ins> 
+
+Point-to-Point Trajectory Planning refers to the process of
 generating smooth and coordinated paths for delta robots that
 involve moving from a starting point to a single target location.
 It focuses on determining the optimal trajectory that ensures
@@ -213,6 +235,7 @@ tion settings
 
 
 <ins>**Math:**</ins>
+
 When interpolating between given initial and final values of the joint variable $\theta^I$ and $\theta^F$ respectively, the following can be employed:
 
 $$\theta(t) = \theta^I + (\theta^F - \theta^I)s(\tau)$$
@@ -242,6 +265,7 @@ This representation allows for smooth and controlled joint variable interpolatio
 ![345 method](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/raw_images/345%20method.png)
 
 <ins>**Discussion:**</ins>
+
 The utilization of a fifth-order polynomial, such as the 3-4-5 interpolating polynomial, enables the generation of smooth and continuous trajectories for Delta robots. By incorporating higher-order terms, this polynomial minimizes abrupt changes in position, velocity, and acceleration during the interpolation process. While the 3-4-5 interpolating polynomial offers desirable smoothness and continuity, it is important to note its limitations. One significant drawback is the lack of explicit constraints on jerk, which refers to the rate of change of acceleration. The absence of jerk constraints can result in undesirable mechanical stress and instability, particularly at the start and end points of the trajectory where jerk values may be unbounded. As a result, caution must be exercised when applying the 3-4-5 interpolating polynomial in DPR applications, as uncontrolled jerk may affect the overall performance and quality of robot operations.
 
 The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `point_to_point_345`
@@ -252,6 +276,7 @@ The code can be found in the [path planning file](https://github.com/ArthasMenet
 
 
 <ins>**Math:**</ins> 
+
 If we consider $\theta^I$ and $\theta^F$ to be the given initial and final values of the joint variable, and w ewant to interpolate the values in between, the 4-5-6-7 interpolating polynomial can be employed. The formula below represents the interpolation: 
 
 $$\theta(t) = \theta^I + (\theta^F - \theta^I)s(\tau)$$
@@ -280,6 +305,7 @@ The result of this method is shown in the figure below. As explained, the advant
 ![4567 method](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/4567%20method.png)
 
 <ins>**Discussion:**</ins> 
+
 The 4-5-6-7 interpolating polynomial offers an improvement over the 3-4-5 interpolating polynomial by incorporating higher-order terms. This enables a more precise representation of the desired trajectory, leading to enhanced accuracy and control. Additionally, the inclusion of jerk constraints in the interpolation process ensures smoother robot movements, reducing mechanical stress and instability. From all the point-to-point methods, this one proves to be the most reliable.
 
 The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `point_to_point_4567`
@@ -290,6 +316,7 @@ The code can be found in the [path planning file](https://github.com/ArthasMenet
 
 
 <ins>**Math:**</ins>:
+
 Like the previous methods, the goal here is to basically use a trapezoidal diagram as a way to interpolate the velocity profile between the values of $\theta^I$ and $\theta^F$. In this instance we call them $p$ and $p_0$. The trapezoidal diagram is defined as the following formula:
 
 $$
@@ -329,6 +356,7 @@ Implementing this sequence with a Python script, we can get the results show as 
 ![trapezoidal_ptp](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/trapezoidal_ptp.png)
 
 <ins>**Discussion:**</ins>:
+
 In this method We've taken the maximum difference in $\theta^I$ and $\theta^F$ since there are three motors, and generated a path according to that maximum amount of movement (meaning we set the overall time period according to the longest path that is to be taken). As for the other actuators, we have two options, either minimize the time or use the same time period. According to our need both options are good enough, the diagram is the result of the longest path. This method however, has the same problem of 3-4-5 method, but instead of start and finishing point, the problem is at $T/3$ and $2T/3$.
 
 The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `trapezoidal_ptp`
