@@ -413,6 +413,7 @@ $$
 \end{cases}
 $$
 
+![higher oder polynomial method](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/higher%20order%20polynomial%20method.png)
 
 <ins>**Discussion**</ins>
 
@@ -420,7 +421,9 @@ Using this method isn't all that appreciated anyways because for the larger numd
 * **Less Sensitivity to Data Perturbations:** High-degree polynomials are highly sensitive to changes in data points. Even small adjustments in the input data can significantly affect the resulting polynomial.
 * **Avoiding Overfitting:** High-degree polynomials can lead to overfitting the data, capturing noise rather than the underlying trend.
 * **Numerical Efficiency:** Solving systems of equations involving high-degree polynomials can be computationally expensive and may lead to numerical issues. In contrast, solving cubic splines is relatively efficient and numerically stable.
-* **Local Control:** adding or removing a point in this method of high-order polynomial means recalculating the whole path instead of just one segment. 
+* **Local Control:** adding or removing a point in this method of high-order polynomial means recalculating the whole path instead of just one segment.
+
+The method is implemented in [this file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_mltp.py) in the function `higher_order_poly_3pt`
 
 #### 2.2.2 - Cubic-Spline
 ------
