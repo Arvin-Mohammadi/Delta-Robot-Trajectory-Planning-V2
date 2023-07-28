@@ -359,7 +359,7 @@ and the conditions are:
 
 $$
 \begin{cases}
-    q(0) = q_0, \quad q(0.5) = q_1, \qual q(1) = q_2 \\ 
+    q(0) = q_0, \quad q(0.5) = q_1, \quad q(1) = q_2 \\ 
     \dot{q}(0) = 0, \quad \dot{q}(1) = 0 \\
     \ddot{q}(0) = 0, \quad \ddot{q}(1) = 0 \\
     \dddot{q}(0) = 0 , \quad \dddot{q}(1) = 0 
