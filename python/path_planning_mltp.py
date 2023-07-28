@@ -197,7 +197,7 @@ class PathPlannerMLTP:
 		pass 
 
 
-	def higher_order_poly_4pt(self):
+	def higher_order_poly_3pt(self):
 		pass
 
 
