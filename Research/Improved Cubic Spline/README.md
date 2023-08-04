@@ -10,4 +10,13 @@ Photo by <a href="https://unsplash.com/@antoine1003?utm_source=unsplash&utm_medi
 
 ## Second Method: Continuous Jerk Profile
 ------
-Let's start with...
+Let's start from the very beginning. There are $n+1$ points given to us and we need $n$ polynomials of degree $p$ to interpolate them. To get a continuous jerk profile we shall have:
+
+$$
+\begin{cases}
+  p=5 & for i=0 \\
+  p=4 & for i=1, \dots, n-1
+\end{cases}
+$$
+
+Where $i$ is the number of the polynomial.
