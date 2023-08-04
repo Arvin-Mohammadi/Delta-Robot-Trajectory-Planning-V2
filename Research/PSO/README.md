@@ -11,6 +11,7 @@ PSO is one of the bio-inspired algorithms. PSO was proposed by Kennedy and Eberh
 Assume a function that has two independant variables such as $F(x, y) = z$. Our task is to find the minimum value of z. The way to use PSO in this instance is to randomly initialize a set of particles such as: ${(x_1, y_1), ..., (x_n, y_n)}$. We think of each point as a **bird** or a **particle** and we let them search in the space for the minimum value. After a few iterations we take the minimum value that is found by all the particles to be the global minimum of the function. [1]
 
 <ins>**Implementation**</ins>
+
 I won't be implementing this for now.
 
 ## References: 
