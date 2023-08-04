@@ -33,3 +33,20 @@ $$
   q_k(t) = a_{k0} + a_{k1}(t-t_k) + a_{k2}(t-t_k)^2 + a_{k3}(t - t_k)^3 + a_{k4}(t - t_k)^4 & for \quad k=1, \dots, n-1 \\ 
 \end{cases}
 $$
+
+If we calculate the total number of coefficients we will reach: $5n+1$
+So we will need that exact number of constraints. We consider the following conditions:
+
+- $2n$ conditions for: Interpolation of the given positions at the start and finish of each segment
+- $n-1$ conditions for: continuity of the velocity
+- $n-1$ conditions for: continuity of the acceleration
+- $n-1$ conditions for: continuity of the jerk
+- $4$ conditions for: initial and final velocity and acceleration set to zero
+
+So the conditions will totally add up to $5n+1$ as needed. Re-writing the conditions in mathematic form we'll have: 
+
+$$
+\begin{cases}
+  q_k = t_k = q_k, \quad q_k(t_{k+1}) = q_{k+1}, &k=0, \dots, n-1 \\
+\end{cases}
+$$
