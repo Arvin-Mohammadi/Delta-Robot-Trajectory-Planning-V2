@@ -556,6 +556,9 @@ Another way of imporvemnt is to use p=4 altogether. this requires that the calcu
 
 that adds up to $5n+1$ constants. and since if we have n polynomials with the order of 4, we're going to get $5n$ constants. in order to add a constant, we can just put one of the polynomials a 5-th order. 
 
+First Method: Setting initial and final acceleration to zero
+Second Method: [Continous Jerk Profile](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/Improved%20Cubic%20Spline/README.md)
+
 #### 2.2.4 - Particle Swarm Optimization (PSO)
 ------
 
