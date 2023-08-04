@@ -105,7 +105,7 @@ $$
   a_{k1} = v_k \\
   a_{k2} = 0.5A_k \\
   a_{k3} = -\frac{1}{T_k^3} (4(q_k - q_{k+1}) + (3v_k + v_{k+1})T_k + A_kT_k^2) \\
-  a_{k4} = \frac{1}{2T^4} (6(q_k - q_{k+1} + 2(2v_k + v_{k+1})T_k + A_kT_k^2)) \\
+  a_{k4} = \frac{1}{2T^4} (6(q_k - q_{k+1}) + 2(2v_k + v_{k+1})T_k + A_kT_k^2) \\
 \end{cases}
 $$
 
