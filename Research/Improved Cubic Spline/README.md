@@ -56,4 +56,13 @@ $$
 \end{cases}
 $$
 
+The coefficients $a_{k, i}$ can be computed with the following alogrithm.
 
+If the velocities $v_k, \quad k=1, \dots, n-1$, in the intermediate points were known for each cubic polynomial it would be possible to write
+
+$$
+\begin{cases}
+  q_k(t_k) = a_{k0} & = q_k \\ 
+  \dot{q_k}(t_k) = a_{k1} & = v_k \\
+\end{cases}
+$$
