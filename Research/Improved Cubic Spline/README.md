@@ -25,7 +25,7 @@ $$ q(t) = a_0 + a_1t + a_2t^2 + a_3t^3 + a_4t^4 (+ a_5t^5) $$
 
 So the overall function is given by: 
 
-$$ s(t) = \left{a_k(t), \quad t\in [t_k, t_{k+1}], \quad k=0, \dots, n-1\right} $$
+$$ s(t) = \left\{a_k(t), \quad t\in [t_k, t_{k+1}], \quad k=0, \dots, n-1\right\} $$
 
 $$
 \begin{cases}
