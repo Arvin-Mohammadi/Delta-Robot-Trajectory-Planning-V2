@@ -70,13 +70,41 @@ $$
 \end{cases}
 $$
 
-Now if we solve for $a_{k0}, a_{k1}, a_{k2}, a_{k3}, a_{k4}$ in MATLAB (here is the [MATLAB file]()). We reach the following: 
+Now if we solve for $a_{k0}, a_{k1}, a_{k2}, a_{k3}, a_{k4}$ in MATLAB:
+
+```
+clear; clc;
+syms a0 a1 a2 a3 a4 T q_k v_k A_k q_kp1 v_kp1
+
+eqn1 = a0 == q_k;
+eqn2 = a1 == v_k;
+eqn3 = 2*a2 == A_k
+eqn4 = a0 + a1*T + a2*T^2 + a3*T^3 + a4*T^4 == q_kp1;
+eqn5 = a1 + 2*a2*T + 3*a3*T^2 + 4*a4*T^3 == v_kp1;
+
+[A, B] = equationsToMatrix([eqn1, eqn2, eqn3, eqn4, eqn5], [a0, a1, a2, a3, a4]) 
+
+final_answer = simplify(linsolve(A, B))
+```
+
+$$
+\left(\begin{array}{c}
+q_k \\
+v_k \\
+\frac{A_k }{2}\\
+-\frac{4\,q_k -4\,q_{\textrm{kp1}} +3\,T\,v_k +T\,v_{\textrm{kp1}} +A_k \,T^2 }{T^3 }\\
+\frac{6\,q_k -6\,q_{\textrm{kp1}} +4\,T\,v_k +2\,T\,v_{\textrm{kp1}} +A_k \,T^2 }{2\,T^4 }
+\end{array}\right)
+$$ 
+
+Re-writing the final answer we'll reach the following: 
 
 $$
 \begin{cases}
   something \\
 \end{cases}
 $$
+
 
 
 
