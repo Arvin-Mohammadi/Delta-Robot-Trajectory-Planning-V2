@@ -67,6 +67,5 @@ $$
   \ddot{q_k}(t_k) = 2a_{k2} &= A_k \\ 
   q_k(t_{k+1}) = a_{k0} + a_{k1}T_k + a_{k2}T_k^2 + a_{k3}T_k^3 + a_{k4}T_k^4 &= q_{k+1} \\ 
   \dot{q_k}(t_{k+1}) = a_{k1} + 2a_{k2}T_k + 3a_{k3}T_k^2 + 4a_{k4}T_k^3 &= v_{k+1} \\ 
-  \ddot{q_k}(t_{k+1}) = 2a_{k2} + 3a_{k3}T_k + 12a_{k4}T_k^2 &= A_{k+1} \\ 
 \end{cases}
 $$
