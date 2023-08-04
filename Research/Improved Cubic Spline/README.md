@@ -70,4 +70,13 @@ $$
 \end{cases}
 $$
 
+Now if we solve for $a_{k0}, a_{k1}, a_{k2}, a_{k3}, a_{k4}$ in MATLAB (here is the [MATLAB file]()). We reach the following: 
+
+$$
+\begin{cases}
+  something \\
+\end{cases}
+$$
+
+
 
