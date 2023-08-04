@@ -540,6 +540,8 @@ the goal is to hit certain points. like {(x1, y1, z1), (x2, y2, z2), ... (x10, y
 ------
 #### This idea came to me from the ref [5]
 
+**[RESEARCH](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/Improved%20Cubic%20Spline/README.md)**
+
 **first method: intial and final zero acceleration**
 
 for more control over the start and finishing points we can use 4-th order polynomial for the start and finishing points. so instead of using n polynomials with an order of 3, we'll use n-2 polynomials with order of 3 and two polynmials with an order of 4. the first and final polynomials so to speak. This will give us two more constants hence, we can apply two more constraints. 
@@ -562,7 +564,7 @@ Second Method: [Continous Jerk Profile](https://github.com/ArthasMenethil-A/Delt
 #### 2.2.4 - Particle Swarm Optimization (PSO)
 ------
 
-Here are some of my [researchs on PSO](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/PSO/PSO.README.md)
+**[RESEARCH](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/PSO/README.md)**
 
 #### 2.2.5 - Multi-Point Trapezoidal
 ------
