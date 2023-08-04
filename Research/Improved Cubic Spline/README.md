@@ -47,7 +47,7 @@ So the conditions will totally add up to $5n+1$ as needed. Re-writing the condit
 
 $$
 \begin{cases}
-  q_k = t_k = q_k, \quad q_k(t_{k+1}) = q_{k+1}, &k=0, \dots, n-1 \\
+  q_k(t_k) = q_k, \quad q_k(t_{k+1}) = q_{k+1}, &k=0, \dots, n-1 \\
   \dot{q_k}(t_{k+1}) = \dot{q_{k+1}}(t_{k+1})=v_{k+1},  &k=0, \dots, n-2 \\
   \ddot{q_k}(t_{k+1}) = \ddot{q_{k+1}}(t_{k+1}), &k=0, \dots, n-2 \\ 
   \dddot{q_k}(t_{k+1}) = \dddot{q_{k+1}}(t_{k+1}), &k=0, \dots, n-2 \\
