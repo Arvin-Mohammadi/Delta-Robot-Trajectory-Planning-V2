@@ -1,4 +1,4 @@
-![image](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/753d76c8-fa68-49d5-ba68-6050559474fb)# Improved Cubic Spline 
+Improved Cubic Spline 
 ------
 This the file explaining calculations of the improved versions of the cubic-spline method.
 
