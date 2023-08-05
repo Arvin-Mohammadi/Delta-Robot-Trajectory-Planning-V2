@@ -1,4 +1,4 @@
-# Improved Cubic Spline 
+![image](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/753d76c8-fa68-49d5-ba68-6050559474fb)# Improved Cubic Spline 
 ------
 This the file explaining calculations of the improved versions of the cubic-spline method.
 
@@ -65,27 +65,35 @@ Now if we solve for $a_{k0}, a_{k1}, a_{k2}, a_{k3}, a_{k4}$ in MATLAB:
 
 ```
 clear; clc;
-syms a0 a1 a2 a3 a4 T q_k v_k A_k q_kp1 v_kp1
+syms a0 a1 a2 a3 a4 a5 T q_k v_k A_k q_kp1 v_kp1 A_kp1
 
 eqn1 = a0 == q_k;
 eqn2 = a1 == v_k;
-eqn3 = 2*a2 == A_k
-eqn4 = a0 + a1*T + a2*T^2 + a3*T^3 + a4*T^4 == q_kp1;
-eqn5 = a1 + 2*a2*T + 3*a3*T^2 + 4*a4*T^3 == v_kp1;
+eqn3 = 2*a2 == A_k;
+eqn4 = a0 + a1*T + a2*T^2 + a3*T^3 + a4*T^4 + a5*T^5 == q_kp1;
+eqn5 = a1 + 2*a2*T + 3*a3*T^2 + 4*a4*T^3 + 5*a5*T^4 == v_kp1;
+eqn6 = 2*a2 + 6*a3*T + 12*a4*T^2 + 20*a5*T^3 == A_kp1;
 
-[A, B] = equationsToMatrix([eqn1, eqn2, eqn3, eqn4, eqn5], [a0, a1, a2, a3, a4]) 
+[A, B] = equationsToMatrix([eqn1, eqn2, eqn3, eqn4, eqn5, eqn6], [a0, a1, a2, a3, a4, a5]) 
 
 final_answer = simplify(linsolve(A, B))
 ```
 
 $$
+\begin{array}{l}
 \left(\begin{array}{c}
 q_k \\
 v_k \\
 \frac{A_k }{2}\\
--\frac{4\,q_k -4\,q_{\textrm{kp1}} +3\,T\,v_k +T\,v_{\textrm{kp1}} +A_k \,T^2 }{T^3 }\\
-\frac{6\,q_k -6\,q_{\textrm{kp1}} +4\,T\,v_k +2\,T\,v_{\textrm{kp1}} +A_k \,T^2 }{2\,T^4 }
-\end{array}\right)
+-\frac{20\,q_k -20\,q_{\textrm{kp1}} +12\,T\,v_k +8\,T\,v_{\textrm{kp1}} +\sigma_1 -A_{\textrm{kp1}} \,T^2 }{2\,T^3 }\\
+\frac{30\,q_k -30\,q_{\textrm{kp1}} +16\,T\,v_k +14\,T\,v_{\textrm{kp1}} +\sigma_1 -2\,A_{\textrm{kp1}} \,T^2 }{2\,T^4 }\\
+-\frac{12\,q_k -12\,q_{\textrm{kp1}} +6\,T\,v_k +6\,T\,v_{\textrm{kp1}} +A_k \,T^2 -A_{\textrm{kp1}} \,T^2 }{2\,T^5 }
+\end{array}\right)\\
+\mathrm{}\\
+\textrm{where}\\
+\mathrm{}\\
+\;\;\sigma_1 =3\,A_k \,T^2 
+\end{array}
 $$ 
 
 Re-writing the final answer we'll reach the following: 
@@ -95,8 +103,9 @@ $$
   a_{k0} = q_k \\
   a_{k1} = v_k \\
   a_{k2} = 0.5A_k \\
-  a_{k3} = -\frac{1}{T_k^3} (4(q_k - q_{k+1}) + (3v_k + v_{k+1})T_k + A_kT_k^2) \\
-  a_{k4} = \frac{1}{2T^4} (6(q_k - q_{k+1}) + 2(2v_k + v_{k+1})T_k + A_kT_k^2) \\
+  a_{k3} = -\frac{1}{2T_k^4} \left( 20(q_k - q_{k+1} + (12v_k + 8v_{k+1})T_k + (3A_k - A_{k+1})T_k^2) \right) \\
+  a_{k4} =  \\
+  a_{k5} =  \\
 \end{cases}
 $$
 
