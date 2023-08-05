@@ -109,6 +109,23 @@ $$
 \end{cases}
 $$
 
+Where $T_k = t_{k+1} - t_k$
+
+On the other hand, velocities $v_1, \dots, v_{n-1}$ in the intermediate points are not known, and therefore they must be computed. For this purpose, the continuity conditions on the acceleration in the transition points are considered:
+
+$$
+\begin{cases}
+  \ddot{q_0}(t_1} = 2a_{0, 2} + 6a_{0, 3}T_0 + 12a_{0, 4}T_0^2 + 20a_{0, 5}T_0^3 = 2a_{1, 2} = \ddot{q_{1}}(t_1) & \\ 
+  \ddot{q_k}(t_{k+1}) = 2a_{k,2} + 6a_{k,3}T_k + 12a_{k,4}T_k^2 = 2a_{k+1,2} =\ddot{q_{k+1}}(t_{k+1}), & k=1, \dots, n-2
+\end{cases}
+$$
+
+
+$$  $$
+
+$$  $$
+
+
 
 
 
