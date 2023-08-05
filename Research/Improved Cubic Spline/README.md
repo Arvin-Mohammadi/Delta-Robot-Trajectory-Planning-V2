@@ -92,7 +92,7 @@ v_k \\
 \mathrm{}\\
 \textrm{where}\\
 \mathrm{}\\
-\;\;\sigma_1 =3\,A_k \,T^2 
+\sigma_1 =3\,A_k \,T^2 
 \end{array}
 $$ 
 
