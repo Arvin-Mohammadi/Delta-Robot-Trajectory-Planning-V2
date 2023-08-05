@@ -105,7 +105,7 @@ $$
   a_{k2} = 0.5A_k \\
   a_{k3} = -\frac{1}{2T_k^3} \left( 20(q_k - q_{k+1}) + (12v_k + 8v_{k+1})T_k + (3A_k - A_{k+1})T_k^2 \right) \\
   a_{k4} = \frac{1}{2T_k^2} \left( 30(q_k - q_{k+1}) + (16v_k + 14v_{k+1})T_k + (3A_k - 2A_{k+1})T_k^2 \right) \\
-  a_{k5} =  \\
+  a_{k5} =  -\frac{1}{2T_k^5} \left( 12(q_k - q_{k+1}) + 6(v_k + v_{k+1})T_k + (A_k - A_{k+1})T_k^2 \right) \\
 \end{cases}
 $$
 
