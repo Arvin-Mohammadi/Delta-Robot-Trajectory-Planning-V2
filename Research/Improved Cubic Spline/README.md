@@ -37,9 +37,9 @@ So the conditions will totally add up to $6n$ as needed. Re-writing the conditio
 $$
 \begin{cases}
   q_k(t_k) = q_k, \quad q_k(t_{k+1}) = q_{k+1}, &k=0, \dots, n-1 \\
-  \dot{q_k}(t_{k+1}) = \dot{q_{k+1}}(t_{k+1}) = v_{k+1},  &k=0, \dots, n-2 \\
+  \dot{q_k}(t_{k+1}) = \dot{q_{k+1}}(t_{k+1}) = V_{k+1},  &k=0, \dots, n-2 \\
   \ddot{q_k}(t_{k+1}) = \ddot{q_{k+1}}(t_{k+1}) = A_{k+1}, &k=0, \dots, n-2 \\ 
-  \dddot{q_k}(t_{k+1}) = \dddot{q_{k+1}}(t_{k+1}), &k=0, \dots, n-2 \\
+  \dddot{q_k}(t_{k+1}) = \dddot{q_{k+1}}(t_{k+1}) = J_{k+1} , &k=0, \dots, n-2 \\
   \ddot{\ddot{q_k}}(t_{k+1}) = \ddot{\ddot{q_{k+1}}}(t_{k+1}), &k=0, \dots, n-2 \\
   \dot{q_0}(t_0) = 0, \quad \dot{q_{n-1}}(t_n) = 0 & \\ 
   \ddot{q_0}(t_0) = 0, \quad \ddot{q_{n-1}}(t_n) = 0 & \\ 
@@ -53,7 +53,7 @@ If the velocities $v_k, \quad k=1, \dots, n-1$, in the intermediate points were 
 $$
 \begin{cases}
   q_k(t_k) = a_{k0} &= q_k \\ 
-  \dot{q_k}(t_k) = a_{k1} &= v_k \\
+  \dot{q_k}(t_k) = a_{k1} &= V_k \\
   \ddot{q_k}(t_k) = 2a_{k2} &= A_k \\ 
   q_k(t_{k+1}) = a_{k0} + a_{k1}T_k + a_{k2}T_k^2 + a_{k3}T_k^3 + a_{k4}T_k^4 &= q_{k+1} \\ 
   \dot{q_k}(t_{k+1}) = a_{k1} + 2a_{k2}T_k + 3a_{k3}T_k^2 + 4a_{k4}T_k^3 &= v_{k+1} \\ 
