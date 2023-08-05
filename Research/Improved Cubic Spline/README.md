@@ -40,6 +40,7 @@ $$
   \dot{q_k}(t_{k+1}) = \dot{q_{k+1}}(t_{k+1}) = v_{k+1},  &k=0, \dots, n-2 \\
   \ddot{q_k}(t_{k+1}) = \ddot{q_{k+1}}(t_{k+1}) = A_{k+1}, &k=0, \dots, n-2 \\ 
   \dddot{q_k}(t_{k+1}) = \dddot{q_{k+1}}(t_{k+1}), &k=0, \dots, n-2 \\
+  \ddot{\ddot{q_k}}(t_{k+1}) = \ddot{\ddot{q_{k+1}}}(t_{k+1}), &k=0, \dots, n-2 \\
   \dot{q_0}(t_0) = 0, \quad \dot{q_{n-1}}(t_n) = 0 & \\ 
   \ddot{q_0}(t_0) = 0, \quad \ddot{q_{n-1}}(t_n) = 0 & \\ 
 \end{cases}
