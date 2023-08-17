@@ -211,14 +211,21 @@ moves the end effector in the X direction.
 
 `Homing()` 
 
-performs homing for the actuators. When the drivers are enabled, the Homing will cause the robot End Effector to go up a certain distance to make the 
+Performs homing for the actuators. When the drivers are enabled, the Homing will cause the robot End Effector to go up a certain distance to make the upper arms stand horizontally. then we set that traveled distance as `offset` and from there one, when we read the positions we use the function ` Position_absolute_read` to subtract the offset from it
 
 ---------
 
-offset
+</br>
 
-Position_absolute_read
+`Forward`
 
+Calculates the forward kinematics 
+
+</br>
+
+`Inverse`
+
+Calculated the inverse kinematics 
 
 
 
