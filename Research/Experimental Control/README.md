@@ -1,9 +1,12 @@
 # Driver Communication Documentation
 ---------
 
-Overview: 
+The Driver model is: Kinco AC Servo FD-422
+
+Overview:  
 - Imports
 - Constant Definition
+- Serial Communication Configuration  
 
 ## Imports
 ---------
@@ -29,22 +32,7 @@ import keyboard
 ## Constants 
 ---------
 
-The constants are explained in the code itself. 
-
-```
-max_tries = 20  ### maximum tries of driver for reading encoder position
-Gear_ratio = 50 ####################### important------check before run
-Rated_torque = 2.68  ### Motor Rated Torque
-encoder_resolution = 10000  #unit: inc
-L1= 0.305  ### Upper Arm (actuated link) length
-L2= 0.595  ### Fore Arm (parallelogram link) length
-r = 0.10   ### End-Effector radious
-R = 0.13   ### base radious
-r1 = L1/2 ### geometric center of actuated link
-r2 = L2/2 ### geometric center of parallelogram link
-```
-
-The following code can be inserted in a loop that might cause a problem, so there will be an emergency stop for the robot by pressing "q" on the keyboard.
+The constants are explained in the code itself. The following code can be inserted in a loop that might cause a problem, so there will be an emergency stop for the robot by pressing "q" on the keyboard.
 
 ```
 if keyboard.is_pressed('q'):
@@ -60,9 +48,7 @@ if keyboard.is_pressed('q'):
 The following snippet of code activates the serial ports to communicate with them:
 
 ```
-Actuator1_serial = serial.Serial(port='COM3',baudrate=38400,parity='N',stopbits=1, bytesize=8, timeout=None, xonxoff=False, rtscts=False,  writeTimeout=None, dsrdtr=False, interCharTimeout=None)
-Actuator2_serial = serial.Serial(port='COM4',baudrate=38400,parity='N',stopbits=1, bytesize=8, timeout=None, xonxoff=False, rtscts=False,  writeTimeout=None, dsrdtr=False, interCharTimeout=None)
-Actuator3_serial = serial.Serial(port='COM5',baudrate=38400,parity='N',stopbits=1, bytesize=8, timeout=None, xonxoff=False, rtscts=False,  writeTimeout=None, dsrdtr=False, interCharTimeout=None)
+Actuator_serial = serial.Serial(port='COM3',baudrate=38400,parity='N',stopbits=1, bytesize=8, timeout=None, xonxoff=False, rtscts=False,  writeTimeout=None, dsrdtr=False, interCharTimeout=None)
 ```
 
 For more information on each parameter refer to: [pySerial](https://pyserial.readthedocs.io/en/latest/pyserial_api.html)
@@ -71,5 +57,100 @@ For more information on each parameter refer to: [pySerial](https://pyserial.rea
 ## Driver Functions 
 ---------
 
+`chks_calculation(value)`
+
+Calculates a checksum value from a list of integers 
+
+`conv_to_hex(value)` 
+
+Converts an integer value to a list of four bytes in hexadecimal format.
+
+`Write_register(ID, CMD_data_volume, left_index, right_index, subindex, object_value)` 
+
+Sends a command to write data to a register in the actuator.
+
+`Drive_enable(ID)` 
+
+enables the driver for a specific actuator.
+
+`Drive_disable(ID)` 
+
+disables the driver for a specific actuator.
+
+`Operation_mode(ID, Mode)` 
+
+sets the operation mode for an actuator.
+
+`Current_mode(ID)` 
+
+retrieves current mode data from an actuator.
+
+`Target_speed_rpm(ID, Speed_rpm)` 
+
+sets the target speed for an actuator in RPM.
+
+`Torque_speed_limit(ID, max_current, max_speed)` 
+
+sets torque and speed limits for an actuator.
+
+`Target_torque(ID, Target_Torque_Nm)` 
+
+sets the target torque for an actuator in Nm.
+
+`Enable_all_drivers(mode)` 
+
+enables all drivers and sets their operation mode.
+
+`Disable_all_drivers()` 
+
+disables all drivers.
+
+`Emergency_stop()` 
+
+stops all actuators.
+
+`Position_convert(value)` 
+
+converts position data from bytes to degrees.
+
+`Velocity_convert(value)` 
+
+converts velocity data from bytes to RPM.
+
+`Torque_convert(value)` 
+
+converts torque data from bytes to Nm.
+
+`Position_actual(ID)` 
+
+reads the actual position from an actuator.
+
+`Velocity_actual_rpm(ID)` 
+
+reads the actual velocity from an actuator.
+
+`Torque_actual(ID)` 
+
+reads the actual torque from an actuator.
+
+`Read_all_positions()`
+
+reads and prints all position data from actuators.
+
+`Motion_z_endeffector(speed)` 
+
+moves the end effector in the Z direction.
+
+`Motion_y_endeffector(speed)` 
+
+moves the end effector in the Y direction.
+
+`Motion_x_endeffector(speed)` 
+
+moves the end effector in the X direction.
+
+`Homing()` 
+
+performs homing for the actuators.
 
 
