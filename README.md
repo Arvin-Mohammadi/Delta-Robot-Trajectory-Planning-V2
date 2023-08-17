@@ -27,6 +27,8 @@ Overview:
 - Experimental
     - ...
 
+------
+
 Incomplete sections: 
 - Improved Cubic spline
 - Particle Swarm Optimization (PSO)
