@@ -25,6 +25,13 @@ Overview:
 - Experimental
     - ...
 
+Incomplete sections: 
+- Improved Cubic spline
+- Particle Swarm Optimization (PSO)
+- Multi-Point Trapezoidal
+- Safe Workspace
+- Experimental
+
 
 ## 1 - INTRODUCTION
 ------
