@@ -94,10 +94,6 @@ method employed in trajectory planning, offers a parameter-
 ized curve that ensures smooth and continuous motion profiles
 while accommodating dynamic constraints [3].
 
-</br>
-
-<ins>**Some More Algorithms:**</ins> 
-
 In addition to these methods, Pythagorean-Hodograph
 Curves are worth mentioning as they provide a specialized
 class of curves that simplify the computation of differential
@@ -162,20 +158,6 @@ assists in identifying the most suitable approaches for Delta
 robot applications.
 
 </br>
-
-<ins>**Organization of Paper:**</ins> 
-
-To achieve these research objectives, this paper is organized
-as follows: we first begin by presenting a detailed description
-and implementation of each trajectory planning algorithm.
-Subsequently, we evaluate and compare their performance
-using simulated scenarios. Based on the results, we select
-the most promising algorithms and proceed to validate their
-effectiveness through experimental tests on a real Delta robot.
-The experimental results provide practical insights into the
-applicability and performance of these algorithms, thereby
-enhancing our understanding of trajectory planning for Delta
-robots in industrial automation settings.
 
 The code to Inverse and Forward Kinematics can be found in the [Delta Robot file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/delta_robot.py).
 
