@@ -77,19 +77,23 @@ Sends a command to write data to a register in the actuator.
 
 `Drive_enable(ID)` 
 
-enables the driver for a specific actuator.
+Enables the driver for a specific actuator.
 
 </br>
 
 `Drive_disable(ID)` 
 
-disables the driver for a specific actuator.
+Disables the driver for a specific actuator. 
 
 </br>
 
 `Operation_mode(ID, Mode)` 
 
-sets the operation mode for an actuator.
+Sets the operation mode for an actuator. 
+
+| Mode | Speed | Torque |
+|------|-------|--------|
+|Number| -3    | 4      |
 
 </br>
 
