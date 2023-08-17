@@ -61,96 +61,144 @@ For more information on each parameter refer to: [pySerial](https://pyserial.rea
 
 Calculates a checksum value from a list of integers 
 
+</br>
+
 `conv_to_hex(value)` 
 
 Converts an integer value to a list of four bytes in hexadecimal format.
+
+</br>
 
 `Write_register(ID, CMD_data_volume, left_index, right_index, subindex, object_value)` 
 
 Sends a command to write data to a register in the actuator.
 
+</br>
+
 `Drive_enable(ID)` 
 
 enables the driver for a specific actuator.
+
+</br>
 
 `Drive_disable(ID)` 
 
 disables the driver for a specific actuator.
 
+</br>
+
 `Operation_mode(ID, Mode)` 
 
 sets the operation mode for an actuator.
+
+</br>
 
 `Current_mode(ID)` 
 
 retrieves current mode data from an actuator.
 
+</br>
+
 `Target_speed_rpm(ID, Speed_rpm)` 
 
 sets the target speed for an actuator in RPM.
+
+</br>
 
 `Torque_speed_limit(ID, max_current, max_speed)` 
 
 sets torque and speed limits for an actuator.
 
+</br>
+
 `Target_torque(ID, Target_Torque_Nm)` 
 
 sets the target torque for an actuator in Nm.
+
+</br>
 
 `Enable_all_drivers(mode)` 
 
 enables all drivers and sets their operation mode.
 
+</br>
+
 `Disable_all_drivers()` 
 
 disables all drivers.
+
+</br>
 
 `Emergency_stop()` 
 
 stops all actuators.
 
+</br>
+
 `Position_convert(value)` 
 
 converts position data from bytes to degrees.
+
+</br>
 
 `Velocity_convert(value)` 
 
 converts velocity data from bytes to RPM.
 
+</br>
+
 `Torque_convert(value)` 
 
 converts torque data from bytes to Nm.
+
+</br>
 
 `Position_actual(ID)` 
 
 reads the actual position from an actuator.
 
+</br>
+
 `Velocity_actual_rpm(ID)` 
 
 reads the actual velocity from an actuator.
+
+</br>
 
 `Torque_actual(ID)` 
 
 reads the actual torque from an actuator.
 
+</br>
+
 `Read_all_positions()`
 
 reads and prints all position data from actuators.
+
+</br>
 
 `Motion_z_endeffector(speed)` 
 
 moves the end effector in the Z direction.
 
+</br>
+
 `Motion_y_endeffector(speed)` 
 
 moves the end effector in the Y direction.
+
+</br>
 
 `Motion_x_endeffector(speed)` 
 
 moves the end effector in the X direction.
 
+</br>
+
 `Homing()` 
 
 performs homing for the actuators.
+
+</br>
 
 
