@@ -101,6 +101,10 @@ Sets the operation mode for an actuator.
 
 retrieves current mode data from an actuator.
 
+| Mode | Speed | Torque |
+|------|-------|--------|
+|Number| -3    | 4      |
+
 </br>
 
 `Target_speed_rpm(ID, Speed_rpm)` 
@@ -125,6 +129,10 @@ sets the target torque for an actuator in Nm.
 
 enables all drivers and sets their operation mode.
 
+| Mode | Speed | Torque |
+|------|-------|--------|
+|Number| -3    | 4      |
+
 </br>
 
 `Disable_all_drivers()` 
@@ -135,7 +143,7 @@ disables all drivers.
 
 `Emergency_stop()` 
 
-stops all actuators.
+stops all actuators. This function feeds the code snippet mentioned above for the interrupt. 
 
 </br>
 
@@ -159,25 +167,25 @@ converts torque data from bytes to Nm.
 
 `Position_actual(ID)` 
 
-reads the actual position from an actuator.
+reads the angles from an actuator.
 
 </br>
 
 `Velocity_actual_rpm(ID)` 
 
-reads the actual velocity from an actuator.
+reads the velocity from an actuator.
 
 </br>
 
 `Torque_actual(ID)` 
 
-reads the actual torque from an actuator.
+reads the torque from an actuator.
 
 </br>
 
 `Read_all_positions()`
 
-reads and prints all position data from actuators.
+reads and prints all angles from actuators.
 
 </br>
 
@@ -199,9 +207,20 @@ moves the end effector in the X direction.
 
 </br>
 
+---------
+
 `Homing()` 
 
-performs homing for the actuators.
+performs homing for the actuators. When the drivers are enabled, the Homing will cause the robot End Effector to go up a certain distance to make the 
+
+---------
+
+offset
+
+Position_absolute_read
+
+
+
 
 </br>
 
