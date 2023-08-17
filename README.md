@@ -577,7 +577,7 @@ DISCLAIMER: I did not write most of the following code as it was provided for me
 [4] doi: 10.3390/app9214491 </br>
 [5] doi: 10.1007/s00170-019-04421-7 </br>
 [6] doi: 10.3390/app12168145 </br>
-[7]Research of Trajectory Planning for Delta Parallel Robots, 2013 International Conference on Mechatronic Sciences, Electric Engineering and Computer (MEC) </br>
+[7] Research of Trajectory Planning for Delta Parallel Robots, 2013 International Conference on Mechatronic Sciences, Electric Engineering and Computer (MEC) </br>
 [8] doi: 10.1007/s11786-012-0123-8 </br>
 [9] Fundamentals of Robotic Mechanical Systems Theory, Methods, and Algorithms, Fourth Edition by Jorge Angeles </br>
 [10] Trajectory Planning for Automatic Machines and Robots by Luigi Biagiotti, Claudio Melchiorri
