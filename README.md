@@ -52,8 +52,6 @@ Industrial robots come in four flavors: remote-controlled, sequence-controlled, 
 
 <ins>**Algorithms**</ins> 
 
-
-
 The trajectory-planning problem of a DPR can be tackled [3][4][5][6][7]
 using various algorithms.
 - 5th and 7th order polynomials
@@ -67,6 +65,7 @@ using various algorithms.
 </br>
 
 <ins>**Importance**</ins> 
+
 Efficient trajectory planning is vital for Delta robot success. Smooth paths for the end-effector while respecting jerk constraints ensure precise movement, avoiding mechanical stress. Our quest is to master controlled jerk profiles for optimal Delta robot utilization.
 
 </br>
