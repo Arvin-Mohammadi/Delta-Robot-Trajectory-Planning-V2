@@ -20,6 +20,11 @@ Overview:
         - Improved Cubic-Spline 
         - Multi-Point Trapezoidal
         - PSO
+- Simulation
+    - Safe work-space
+- Experimental
+    - ...
+
 
 ## 1 - INTRODUCTION
 ------
@@ -642,8 +647,15 @@ In the inverse kinematics, if you go beyond a certain angle in each of the motor
 
 As can be seen from the generated picture, this is not the workspace we want to calculate, since it includes dangerous points in 3D space for the robot to be in. joint limits define the range within which a robot's joints can safely move without causing damage or compromising its operation. These limits are typically set based on the mechanical design and capabilities of the robot, taking into account factors such as joint structure, motor capabilities, and the intended range of motion. Seemingly the criteria isn't simply "if the robot can reach that point or not". 
 
+## 4 - EXPERIMENTAL 
+------
+In this section I'm going down a more practical approach. The following is the DPR I'll be working with at the [TaarLab](https://taarlab.com/)
 
-## References: 
+![photo_2023-08-17_12-25-01](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/80417591-e84b-4690-b07d-fb5bd21e1917)
+
+
+
+## 5 - REFERENCES 
 ------
 [1] doi: /10.1007/978-3-030-03538-9 23 </br>
 [2] doi: 10.32629/jai.v5i1.505 </br>
