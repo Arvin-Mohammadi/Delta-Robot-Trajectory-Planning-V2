@@ -293,4 +293,29 @@ This function takes a setpoint coordinate and feedback values as input and calcu
 Similar to implement_PID, but tailored for torque-based PID control.
 
 
+## Motion Control
+---------
+
+`circle_motion(center,radi,height,n,period)`
+
+The arguments are:
+   - `center`: Coordinates of the center of the circular path.
+   - `radi`: Radius of the circular path.
+   - `height`: Height at which the circular motion is performed.
+   - `n`: Number of times the circular motion should be performed.
+   - `period`: Time period for one complete circular motion.
+
+The motion is controlled using the PID controller. 
+
+`spiral_motion(center,radi,starting_height,ending_height,n,period)`
+
+The arguments are:
+   - `center`: Coordinates of the center of the spiral.
+   - `radi`: Radius of the spiral.
+   - `starting_height`: Initial height for the spiral motion.
+   - `ending_height`: Final height for the spiral motion.
+   - `n`: Number of iterations of the spiral motion.
+   - `period`: Time period for one complete iteration of the spiral motion.
+
+The motion is controlled using the PID controller. 
 
