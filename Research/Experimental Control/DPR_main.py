@@ -58,13 +58,13 @@ Actuator3_serial = serial.Serial(port='COM5',baudrate=38400,parity='N',stopbits=
 # -- driver functions -----------------------------------------------------------------------------
 # =================================================================================================
 
-def Close_Serial():
+def Close_serial():
     Actuator1_serial.close()
     Actuator2_serial.close()
     Actuator3_serial.close()
     
     
-def chks_calculation(value) :
+def Chks_calculation(value) :
     
     value =  -1*sum(value)  
     value = 2**32 + value 
@@ -72,7 +72,7 @@ def chks_calculation(value) :
     return chks[3]
 
 #----------------------------------------------------------------------------------------------------------------------------
-def conv_to_hex(value) :
+def Conv_to_hex(value) :
     
     if value < 0 :
         value = 2**32 + value  
@@ -81,9 +81,9 @@ def conv_to_hex(value) :
 
 #----------------------------------------------------------------------------------------------------------------------------
 def Write_register(ID, CMD_data_volume, left_index, right_index, subindex, object_value):
-    value_Hex = conv_to_hex(object_value)
+    value_Hex = Conv_to_hex(object_value)
     Down_master_send = [ID, CMD_data_volume, right_index, left_index, subindex, int(value_Hex[3]), int(value_Hex[2]), int(value_Hex[1]), int(value_Hex[0])]
-    Down_master_send.append(chks_calculation(Down_master_send))
+    Down_master_send.append(Chks_calculation(Down_master_send))
     Down_master_send = bytearray(Down_master_send)
 
     if ID == 1 : 
@@ -97,9 +97,9 @@ def Write_register(ID, CMD_data_volume, left_index, right_index, subindex, objec
 def Drive_enable(ID):
     
     object_value = 0x2F
-    value_Hex = conv_to_hex(object_value)
+    value_Hex = Conv_to_hex(object_value)
     Down_master_send = [ID, 0x2B, 0x40, 0x60, 0x00, int(value_Hex[3]), int(value_Hex[2]), int(value_Hex[1]), int(value_Hex[0])]
-    Down_master_send.append(chks_calculation(Down_master_send))
+    Down_master_send.append(Chks_calculation(Down_master_send))
     Down_master_send = bytearray(Down_master_send)
     
     if ID == 1 : 
@@ -114,9 +114,9 @@ def Drive_enable(ID):
 def Drive_disable(ID) :
     
     object_value = 0x06
-    value_Hex = conv_to_hex(object_value)
+    value_Hex = Conv_to_hex(object_value)
     Down_master_send = [ID, 0x2B, 0x40, 0x60, 0x00, int(value_Hex[3]), int(value_Hex[2]), int(value_Hex[1]), int(value_Hex[0])]
-    Down_master_send.append(chks_calculation(Down_master_send))
+    Down_master_send.append(Chks_calculation(Down_master_send))
     Down_master_send = bytearray(Down_master_send)
     
     if ID == 1 : 
@@ -130,9 +130,9 @@ def Drive_disable(ID) :
 #----------------------------------------------------------------------------------------------------------------------------
 def Operation_mode(ID,Mode):
 
-    value_Hex = conv_to_hex(Mode)
+    value_Hex = Conv_to_hex(Mode)
     Down_master_send = [ID, 0x2F, 0x60, 0x60, 0x00, int(value_Hex[3]), int(value_Hex[2]), int(value_Hex[1]), int(value_Hex[0])]
-    Down_master_send.append(chks_calculation(Down_master_send))
+    Down_master_send.append(Chks_calculation(Down_master_send))
     Down_master_send = bytearray(Down_master_send)
   
 
@@ -151,7 +151,7 @@ def Current_mode(ID):
     Actuator1_serial.flushInput()
     
     Up_master_send = [ID, 0x40, 0x60, 0x60, 0x00, 0x0, 0x0, 0x0, 0x0]
-    Up_master_send.append(chks_calculation(Up_master_send))
+    Up_master_send.append(Chks_calculation(Up_master_send))
     Up_master_send = bytearray(Up_master_send)
     
     
@@ -194,10 +194,10 @@ def Target_speed_rpm(ID,Speed_rpm):
         Speed_rpm = -20
     Speed_Decimal = math.floor(Speed_rpm*2730.66*Gear_ratio)  ###### remember to add 50 for gearbox effect
     object_value = Speed_Decimal
-    value_Hex = conv_to_hex(object_value)
-    value_Hex = conv_to_hex(object_value)
+    value_Hex = Conv_to_hex(object_value)
+    value_Hex = Conv_to_hex(object_value)
     Down_master_send = [ID, 0x23, 0xFF, 0x60, 0x00, int(value_Hex[3]), int(value_Hex[2]), int(value_Hex[1]), int(value_Hex[0])]
-    Down_master_send.append(chks_calculation(Down_master_send))
+    Down_master_send.append(Chks_calculation(Down_master_send))
     Down_master_send = bytearray(Down_master_send)
 
 
@@ -225,9 +225,9 @@ def Target_torque (ID,Target_Torque_Nm):
         Target_Torque_Nm = -20
     Target_Torque_Decimal = math.floor( (Target_Torque_Nm*100*10) / (Rated_torque*Gear_ratio) )  
     object_value = Target_Torque_Decimal
-    value_Hex = conv_to_hex(object_value)
+    value_Hex = Conv_to_hex(object_value)
     Down_master_send = [ID, 0x2B, 0x71, 0x60, 0x00, int(value_Hex[3]), int(value_Hex[2]), int(value_Hex[1]), int(value_Hex[0])]
-    Down_master_send.append(chks_calculation(Down_master_send))
+    Down_master_send.append(Chks_calculation(Down_master_send))
     Down_master_send = bytearray(Down_master_send)
 
 
@@ -327,7 +327,7 @@ def Torque_convert(value)  :
 #----------------------------------------------------------------------------------------------------------------------------
 def Position_actual(ID):
     Up_master_send = [ID, 0x40, 0x63, 0x60, 0x0, 0x0, 0x0, 0x0, 0x0]
-    Up_master_send.append(chks_calculation(Up_master_send))
+    Up_master_send.append(Chks_calculation(Up_master_send))
     Up_master_send = bytearray(Up_master_send)
     num_of_tries = 0
     
@@ -434,7 +434,7 @@ def Velocity_actual_rpm(ID) :
     '''torque: 6077'''
     '''speed:  606C'''
     Up_master_send = [ID, 0x40, 0x6C, 0x60, 0x0, 0x0, 0x0, 0x0, 0x0]
-    Up_master_send.append(chks_calculation(Up_master_send))
+    Up_master_send.append(Chks_calculation(Up_master_send))
     Up_master_send = bytearray(Up_master_send)
     num_of_tries = 0
     
@@ -518,7 +518,7 @@ def Torque_actual(ID):
 
     '''torque: 6077'''
     Up_master_send = [ID, 0x40, 0x77, 0x60, 0x0, 0x0, 0x0, 0x0, 0x0]
-    Up_master_send.append(chks_calculation(Up_master_send))
+    Up_master_send.append(Chks_calculation(Up_master_send))
     Up_master_send = bytearray(Up_master_send)
     num_of_tries = 0
     
@@ -621,89 +621,6 @@ def Motion_x_endeffector(speed):
     
 #----------------------------------------------------------------------------------------------------------------------------
 
-
-    
-def Homing():
-    
-    # offset = Offset(1)
-    position_feedback_1 = []
-    position_feedback_2 = []
-    position_feedback_3 = []
-    
-    velocity_feedback_1 = []
-    velocity_feedback_2 = []
-    velocity_feedback_3 = []
-    
-    torque_feedback_1 = []
-    torque_feedback_2 = []
-    torque_feedback_3 = []
-
-    current_position=[0, 0, 0]
-
-    Home_Value = 69
-    # position[0] = 0
-    # position_reads_homing.append(position[0])
-    while -Home_Value-current_position[0]<0 or -Home_Value-current_position[1]<0 or -Home_Value-current_position[2]<0:
-        if -Home_Value-current_position[0]<-10 or -Home_Value-current_position[1]<-10 or -Home_Value-current_position[2]<-10:
-            
-            Motion_z_endeffector(-0.4)
-            # Motion_z_endeffector(-0.8)
-        # Actuator1_serial.flushInput()
-        # time.sleep(0.02)
-        else:    
-            Motion_z_endeffector(-0.2)
-            # Motion_z(-0.2)
-            
-        current_position[0] = Position_absolute_read(1)
-        current_position[1] = Position_absolute_read(2)
-        current_position[2] = Position_absolute_read(3)
-
-        position_feedback_1.append(Position_absolute_read(1))
-        position_feedback_2.append(Position_absolute_read(2))
-        position_feedback_3.append(Position_absolute_read(3))
-        position_feedback = np.array([position_feedback_1,position_feedback_2,position_feedback_3])        
-
-        velocity_feedback_1.append(Velocity_actual_rpm(1))
-        velocity_feedback_2.append(Velocity_actual_rpm(2))
-        velocity_feedback_3.append(Velocity_actual_rpm(3))
-        velocity_feedback = np.array([velocity_feedback_1,velocity_feedback_2,velocity_feedback_3])        
-
-        torque_feedback_1.append(Torque_actual(1))
-        torque_feedback_2.append(Torque_actual(2))
-        torque_feedback_3.append(Torque_actual(3))
-        torque_feedback = np.array([torque_feedback_1,torque_feedback_2,torque_feedback_3])        
-
-
-
-        # position_reads_homing.append( Position_absolute_read(1))
-        # velocity_reads_1.append(Velocity_actual_rpm(1))
-        # torque_read.append(Torque_actual(1))
-        
-
-            
-        if -Home_Value-current_position[0]>0 or -Home_Value-current_position[1]>0 or -Home_Value-current_position[2]>0:
-            print("Arrived!")
-            break
-
-            
-    Motion_z_endeffector(0)
-    # Motion_z_endeffector(0)
-    Offset()
-    # kinematic_forward( position_feedback , velocity_feedback , 0)
-    
-    # Motion_z_endeffector(0)
-    # offset_new = Offset(1)
-    # plt.figure(1)
-    # plt.plot(position_reads_homing)
-    # plt.figure(2)
-    # plt.plot(velocity_reads_1)
-    # plt.figure(3)
-    # plt.plot(torque_read)
-
-    return position_feedback, velocity_feedback, torque_feedback
-
-
-
 def _is_point_inside_triangle(P):
 
     # Set vertices for the triangle
@@ -732,7 +649,7 @@ def _is_point_inside_triangle(P):
     return (u >= 0) and (v >= 0) and (u + v <= 1)
 
     
-def goto_xyz(final_xyz, duration):
+def Goto_xyz(final_xyz, duration):
     
     global answer2 
 
@@ -822,7 +739,8 @@ def trajectory_4567(time_map,time_shift,start_time): #return value within 0 , 1
     s=-20*(tau**7)+70*(tau**6)-84*(tau**5)+35*(tau**4)
     return s
 
-  
+#----------------------------------------------------------------------------------------------------------------------------
+ 
 e= (1/math.tan(np.deg2rad(30))) * 20
 f= (1/math.tan(np.deg2rad(30))) * 26
 re = 59.5
@@ -891,7 +809,7 @@ def Forward(theta1, theta2, theta3):
 
 # Inverse kinematics
 
-def angle_yz(x0, y0, z0, theta=None):
+def _angle_yz(x0, y0, z0, theta=None):
     y1 = -0.5*0.57735*f # f/2 * tg 30
     y0 -= 0.5*0.57735*e # shift center to edge
     # z = a + b*y
@@ -912,17 +830,17 @@ def Inverse(x0, y0, z0):
     theta1 = 0
     theta2 = 0
     theta3 = 0
-    status = angle_yz(x0,y0,z0)
+    status = _angle_yz(x0,y0,z0)
 
     if status[0] == 0:
         theta1 = status[1]
-        status = angle_yz(x0*cos120 + y0*sin120,
+        status = _angle_yz(x0*cos120 + y0*sin120,
                                    y0*cos120-x0*sin120,
                                    z0,
                                    theta2)
     if status[0] == 0:
         theta2 = status[1]
-        status = angle_yz(x0*cos120 - y0*sin120,
+        status = _angle_yz(x0*cos120 - y0*sin120,
                                    y0*cos120 + x0*sin120,
                                    z0,
                                    theta3)
@@ -1387,7 +1305,7 @@ def spiral_motion(center,radi,starting_height,ending_height,n,period):
 
 
 # =================================================================================================
-# -- FK ---------------------------------------------------------------------------------------
+# -- FK -------------------------------------------------------------------------------------------
 # =================================================================================================
 
 
@@ -1576,7 +1494,7 @@ def kinematic_forward( theta1_feedback , theta1_dot_feedback , theta1_ddot_feedb
 
 
 # =================================================================================================
-# -- IK ---------------------------------------------------------------------------------------
+# -- IK -------------------------------------------------------------------------------------------
 # =================================================================================================
 
 
@@ -1711,10 +1629,8 @@ def kinematic_inverse (desired_trajectory):
 
 
 
-
-
 # =================================================================================================
-# -- tests ---------------------------------------------------------------------------------------
+# -- tests ----------------------------------------------------------------------------------------
 # =================================================================================================
 
 
@@ -1894,15 +1810,17 @@ def circle_test():
     plt.plot(torque_feedback[2])
 
 
-
-
-
 # =================================================================================================
-# -- main ---------------------------------------------------------------------------------------
+# -- main function --------------------------------------------------------------------------------
 # =================================================================================================
 
 def main():
     pass
+
+# =================================================================================================
+# -------------------------------------------------------------------------------------------------
+# =================================================================================================
+
 
 if __name__=="__main__":
     main()
