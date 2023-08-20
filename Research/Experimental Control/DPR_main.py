@@ -26,8 +26,7 @@ import keyboard
 
 
 max_tries = 20  ### maximum tries of driver for reading encoder position
-Gear_ratio = 50
-  ####################### important------check before run
+Gear_ratio = 50 ####################### important------check before run
 Rated_torque = 2.68  ### Motor Rated Torque
 encoder_resolution = 10000  #unit: inc
 L1= 0.305  ### Upper Arm (actuated link) length
@@ -59,7 +58,12 @@ Actuator3_serial = serial.Serial(port='COM5',baudrate=38400,parity='N',stopbits=
 # -- driver functions -----------------------------------------------------------------------------
 # =================================================================================================
 
-
+def Close_Serial():
+    Actuator1_serial.close()
+    Actuator2_serial.close()
+    Actuator3_serial.close()
+    
+    
 def chks_calculation(value) :
     
     value =  -1*sum(value)  
@@ -240,9 +244,21 @@ def Target_torque (ID,Target_Torque_Nm):
 
         
 #----------------------------------------------------------------------------------------------------------------------------
+global answer2
+
+answer2 = 0
+
 def Enable_all_drivers(mode):
     ## Torque mode ==> mode = 4
     ## Speed Mode ==> mode = -3
+    
+    global answer2
+    
+    answer1 = input("is robot in home position? (Y for yes)")
+    
+    if answer1.upper() != "Y":
+        return
+    
     Drive_enable(1)
     Drive_enable(2)
     Drive_enable(3)
@@ -253,6 +269,11 @@ def Enable_all_drivers(mode):
     Target_speed_rpm(1,0)
     Target_speed_rpm(2,0)
     Target_speed_rpm(3,0)
+    
+    Offset()
+    
+    answer2 = input("are bars removed? (Y for yes)")
+    
 
 #----------------------------------------------------------------------------------------------------------------------------
 def Disable_all_drivers():
@@ -363,10 +384,22 @@ def Position_actual(ID):
 # global offset_pos
 def Offset():
     global offset_pos
-    offset_1 = Position_absolute_read(1)
-    offset_2 = Position_absolute_read(2)
-    offset_3 = Position_absolute_read(3)
+    # offset_1 = Position_absolute_read(1)
+    # offset_2 = Position_absolute_read(2)
+    # offset_3 = Position_absolute_read(3)
+    # offset_1 = -69.19776
+    # offset_2 = -69.19488
+    # offset_3 = -69.16464
+    
+    offset_1 = 25
+    offset_2 = 27
+    offset_3 = 22
+    
+    
     offset_pos = [offset_1, offset_2, offset_3]
+    
+    print("This is offset:", offset_pos)
+    
     # return offset_pos
 
     
@@ -570,7 +603,6 @@ def Read_all_positions():
 #    time.sleep(.008)  
 
 
-
 #----------------------------------------------------------------------------------------------------------------------------
 def Motion_z_endeffector(speed):
     Target_speed_rpm(1,speed)
@@ -589,7 +621,7 @@ def Motion_x_endeffector(speed):
     
 #----------------------------------------------------------------------------------------------------------------------------
 
-    
+
     
 def Homing():
     
@@ -607,10 +639,12 @@ def Homing():
     torque_feedback_3 = []
 
     current_position=[0, 0, 0]
+
+    Home_Value = 69
     # position[0] = 0
     # position_reads_homing.append(position[0])
-    while -78-current_position[0]<0 or -78-current_position[1]<0 or -78-current_position[2]<0:
-        if -78-current_position[0]<-10 or -78-current_position[1]<-10 or -78-current_position[2]<-10:
+    while -Home_Value-current_position[0]<0 or -Home_Value-current_position[1]<0 or -Home_Value-current_position[2]<0:
+        if -Home_Value-current_position[0]<-10 or -Home_Value-current_position[1]<-10 or -Home_Value-current_position[2]<-10:
             
             Motion_z_endeffector(-0.4)
             # Motion_z_endeffector(-0.8)
@@ -647,9 +681,11 @@ def Homing():
         
 
             
-        if -78-current_position[0]>0 or -78-current_position[1]>0 or -78-current_position[2]>0:
+        if -Home_Value-current_position[0]>0 or -Home_Value-current_position[1]>0 or -Home_Value-current_position[2]>0:
             print("Arrived!")
             break
+
+            
     Motion_z_endeffector(0)
     # Motion_z_endeffector(0)
     Offset()
@@ -666,6 +702,125 @@ def Homing():
 
     return position_feedback, velocity_feedback, torque_feedback
 
+
+
+def _is_point_inside_triangle(P):
+
+    # Set vertices for the triangle
+    vertices = np.array([[15, 35], [-35, -5], [25, -33]])
+
+    A, B, C = vertices
+
+    # Calculate the vectors from A to the test point P
+    v0 = C - A
+    v1 = B - A
+    v2 = P - A
+
+    # Calculate dot products
+    dot00 = np.dot(v0, v0)
+    dot01 = np.dot(v0, v1)
+    dot02 = np.dot(v0, v2)
+    dot11 = np.dot(v1, v1)
+    dot12 = np.dot(v1, v2)
+
+    # Calculate barycentric coordinates
+    inv_denom = 1.0 / (dot00 * dot11 - dot01 * dot01)
+    u = (dot11 * dot02 - dot01 * dot12) * inv_denom
+    v = (dot00 * dot12 - dot01 * dot02) * inv_denom
+
+    # Check if the point is inside the triangle
+    return (u >= 0) and (v >= 0) and (u + v <= 1)
+
+    
+def goto_xyz(final_xyz, duration):
+    
+    global answer2 
+
+    # safety
+    if answer2.upper() != "Y":
+        return 
+
+    if not(_is_point_inside_triangle(final_xyz[0:2]) and (final_xyz[2] <= -37) and (final_xyz[2] >= -70)):
+        return 
+    
+    start_time = datetime.datetime.now()
+    
+    # print("Start Time is: ", start_time)
+
+    # init values 
+    current_position    = [0, 0, 0]
+    last_position       = [0, 0, 0]
+    distance            = [0, 0, 0]
+
+    # reading the positions 
+    for i in range(3):
+        current_position[i] = Position_absolute_read(i+1)
+
+        
+    E, current_position[0], current_position[1], current_position[2] = Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))
+        
+    
+    print("Current Position is: ", current_position)
+
+
+    # calculating the distance from the goal
+    for i in range(3):
+        distance[i] = final_xyz[i] - current_position[i]
+        
+    print("distance:", distance)
+        
+    # # print("Distance is: ", distance)
+
+    dtime = 0 
+
+    while dtime<duration:
+
+        # safety 
+        if keyboard.is_pressed('q'):
+            Emergency_stop()
+            Disable_all_drivers()
+            print("Loop terminated by user.")
+            break
+
+
+
+
+        # checking the passed time 
+        last_time = datetime.datetime.now()
+        dtime = (last_time - start_time).total_seconds()
+
+        if dtime>=duration:
+            Motion_z_endeffector(0)
+            break
+
+        # trajectory 
+        tau = dtime/duration
+        s = trajectory_4567(duration, 0, start_time)
+
+        for i in range(3): 
+            last_position[i] = s*distance[i] + current_position[i]
+
+        in1 = Position_absolute_read(1)
+        in2 = Position_absolute_read(2)
+        in3 = Position_absolute_read(3)
+
+        feedback = [in1, in2, in3]
+
+        system_input = implement_PID(last_position, feedback)
+        
+        print("system input:", system_input)
+
+        Target_speed_rpm(1, system_input[0])
+        Target_speed_rpm(2, system_input[1])
+        Target_speed_rpm(3, system_input[2])
+
+
+def trajectory_4567(time_map,time_shift,start_time): #return value within 0 , 1
+    last_time=datetime.datetime.now()
+    dtime=(last_time-start_time).total_seconds()
+    tau=(dtime-time_shift)/time_map
+    s=-20*(tau**7)+70*(tau**6)-84*(tau**5)+35*(tau**4)
+    return s
 
   
 e= (1/math.tan(np.deg2rad(30))) * 20
@@ -893,9 +1048,9 @@ class PID:
         
 
 pids=[]
-kp = 0.25
-ki = 0.15
-kd = 0.005
+kp = 0.1
+ki = 0.01
+kd = 0.01
 #3 pids for 3 angles
 
 positionReadFailed=0
@@ -908,6 +1063,12 @@ def implement_PID(set_point_coord,feedback):
     controllerOutput = []
     #converting xyz coord to angle by inverse kinematics
     E,theta1,theta2,theta3=Inverse(set_point_coord[0],set_point_coord[1],set_point_coord[2])
+    
+    # theta1 = set_point_coord[0]
+    # theta2 = set_point_coord[1]
+    # theta3 = set_point_coord[2]
+    
+    
     #system input is the return value of controller
     # print("thetaas : 1: {}, 2: {}, 3: {} \n".format(theta1,theta2,theta3))
     pid1.DefineSetpoint(theta1)
@@ -938,9 +1099,9 @@ def implement_PID_torque(set_point_coord,feedback):
     
     
     
-    pid1.DefineSetpoint(theta1)
-    pid2.DefineSetpoint(theta2)
-    pid3.DefineSetpoint(theta3)
+    # pid1.DefineSetpoint(theta1)
+    # pid2.DefineSetpoint(theta2)
+    # pid3.DefineSetpoint(theta3)
     
 #    in1=Pos_Actual_r(1)
 #    in2=Pos_Actual_r(2)
@@ -1741,7 +1902,7 @@ def circle_test():
 # =================================================================================================
 
 def main():
-    pass 
+    pass
 
 if __name__=="__main__":
     main()
