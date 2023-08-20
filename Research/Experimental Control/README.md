@@ -6,7 +6,8 @@ The Driver model is: Kinco AC Servo FD-422
 Overview:  
 - Imports
 - Constant Definition
-- Serial Communication Configuration  
+- Serial Communication Configuration
+- Driver Functions  
 
 ## Imports
 ---------
@@ -57,13 +58,19 @@ For more information on each parameter refer to: [pySerial](https://pyserial.rea
 ## Driver Functions 
 ---------
 
-`chks_calculation(value)`
+`Close_serial(value)`
+
+Closes serial communcation. 
+
+</br>
+
+`Chks_calculation(value)`
 
 Calculates a checksum value from a list of integers 
 
 </br>
 
-`conv_to_hex(value)` 
+`Conv_to_hex(value)` 
 
 Converts an integer value to a list of four bytes in hexadecimal format.
 
@@ -99,7 +106,7 @@ Sets the operation mode for an actuator.
 
 `Current_mode(ID)` 
 
-retrieves current mode data from an actuator.
+Retrieves current mode data from an actuator.
 
 | Mode | Speed | Torque |
 |------|-------|--------|
@@ -109,25 +116,28 @@ retrieves current mode data from an actuator.
 
 `Target_speed_rpm(ID, Speed_rpm)` 
 
-sets the target speed for an actuator in RPM.
+Sets the target speed for an actuator in RPM.
 
 </br>
 
 `Torque_speed_limit(ID, max_current, max_speed)` 
 
-sets torque and speed limits for an actuator.
+Sets torque and speed limits for an actuator.
 
 </br>
 
 `Target_torque(ID, Target_Torque_Nm)` 
 
-sets the target torque for an actuator in Nm.
+Sets the target torque for an actuator in Nm.
 
 </br>
 
 `Enable_all_drivers(mode)` 
 
-enables all drivers and sets their operation mode.
+1. Asks if the Delta Robot is in home place (must input "Y" to continue) 
+2. Enables all drivers and sets their operation mode.
+3. Sets the offset
+4. Asks if it is safe for the Delta Robot to move (must input "Y" to be able to move) 
 
 | Mode | Speed | Torque |
 |------|-------|--------|
@@ -137,37 +147,41 @@ enables all drivers and sets their operation mode.
 
 `Disable_all_drivers()` 
 
-disables all drivers.
+Disables all drivers.
 
 </br>
 
 `Emergency_stop()` 
 
-stops all actuators. This function feeds the code snippet mentioned above for the interrupt. 
+Sets every motor speed to zero thus stopping all of the actuators. This function feeds the code snippet mentioned above for the interrupt. 
 
 </br>
 
 `Position_convert(value)` 
 
-converts position data from bytes to degrees.
+Converts position data from bytes to degrees.
 
 </br>
 
 `Velocity_convert(value)` 
 
-converts velocity data from bytes to RPM.
+Converts velocity data from bytes to RPM.
 
 </br>
 
 `Torque_convert(value)` 
 
-converts torque data from bytes to Nm.
+Converts torque data from bytes to Nm.
 
 </br>
 
-`Position_actual(ID)` 
+`Position_actual(ID)`
 
-reads the angles from an actuator.
+Reads the angles from an actuator. 
+
+**NOTE: the recieved angles are relative to the first time the robot's actuators are enabled everytime the robot is turned on.**
+
+**Meaning that when you turned on the robot and enable all drivers, at that point the angles are zero, and every angle will be determined in relation to that initial angle**
 
 </br>
 
@@ -207,13 +221,15 @@ moves the end effector in the X direction.
 
 </br>
 
----------
+`_is_point_inside_triangle(P)` 
 
-`Homing()` 
+A helper function to determine if a point is in safe workspace (X, Y direction) or not.
 
-Performs homing for the actuators. When the drivers are enabled, the Homing will cause the robot End Effector to go up a certain distance to make the upper arms stand horizontally. then we set that traveled distance as `offset` and from there one, when we read the positions we use the function ` Position_absolute_read` to subtract the offset from it
+</br>
 
----------
+`Goto_xyz(final_xyz, duration)`
+
+Goes to the given point.
 
 </br>
 
@@ -225,10 +241,56 @@ Calculates the forward kinematics
 
 `Inverse`
 
-Calculated the inverse kinematics 
-
-
+Calculated the inverse kinematics. (uses the helper function `_angle_yz`)
 
 </br>
+
+
+
+## PID control
+---------
+
+`Class: PID`
+
+This class implements a PID controller. It is used to control systems with feedback and adjust a control input to maintain a desired setpoint. The class contains the following methods:
+
+`__init__(self, Kp, Ki, Kd, setPoint=0, SampleTime=60)`
+
+The constructor method initializes the PID controller with the given constants (Kp, Ki, Kd) and optional parameters. setPoint is the desired value that the system aims to achieve, and SampleTime is the time interval at which the controller computes its output.
+
+`Compute(self, feedback)`
+
+This method computes the control output based on the feedback value from the system. It calculates the proportional, integral, and derivative terms and combines them to produce the PID control output.
+
+`Compute_torque_pid(self, feedback)`
+
+Similar to the Compute method, but tailored for a specific torque-based PID control scenario.
+
+`SetSampleTime(self, newSampleTime)`
+
+Updates the sample time of the PID controller and adjusts the Ki and Kd constants accordingly.
+
+`SetOutputLimits(self, minOut, maxOut)`
+
+Sets the output limits of the PID controller to prevent excessive control outputs.
+
+`DefineSetpoint(self, coord)`
+
+Sets the desired setpoint for the PID controller.
+
+`set_PID_constants(self, Kp, Ki, Kd)`
+
+Allows you to change the PID constants after the controller has been initialized.
+
+---------
+
+`implement_PID(set_point_coord, feedback)`
+
+This function takes a setpoint coordinate and feedback values as input and calculates the control outputs for three PID controllers using the Inverse Kinematics and the provided PID instances (pid1, pid2, pid3).
+
+`implement_PID_torque(set_point_coord, feedback)`
+
+Similar to implement_PID, but tailored for torque-based PID control.
+
 
 
