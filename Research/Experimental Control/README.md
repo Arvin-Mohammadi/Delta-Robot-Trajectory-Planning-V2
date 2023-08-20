@@ -1,3 +1,66 @@
+# Control Manual
+---------
+
+The steps to use the robot are: 
+1. Homing
+2. Enable Drivers 
+
+## 1. Homing
+---------
+place the robot at home with the bars installed (as illustrated in the following images) 
+
+![Untitled-2](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/06fe1085-7e7c-45a7-a0ab-360f40d02973)
+
+## 2. Enable Drivers 
+---------
+
+Use the function `Enable_all_drivers(-3)` to enable all of the drivers in speed mode. This function also sets the offset which is for each motor as explained below: 
+
+1. Motor1: 25 degree
+2. Motor2: 27 degree
+3. Motor3: 22 degree
+
+**NOTE: Remove the bars after enabling. Do Not Move The Robot**
+
+
+## 2.5. Read Data
+---------
+
+use each of the following lines of code to read the actual angles being read from the actuators, the calculated angles with offset applied to them, and FK, and IK of the robot: 
+
+```
+Position_actual(1)
+
+Position_actual(2)
+
+Position_actual(3)
+
+Position_absolute_read(1)
+
+Position_absolute_read(2)
+
+Position_absolute_read(3)
+
+Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))
+
+Inverse(Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))[1], Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))[2], Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))[3])
+```
+
+## 3. Move
+---------
+
+After homing, enabling the drivers and removing the bars, it's ok to move the robot using the function `Goto_xyz(final_xyz, duration)`. In the Home position the coordinates should be [0, 0, -37], you can read this using the following code: 
+
+```
+Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))
+```
+
+You can move the robot to a position where each of the upper arms are horizontal using the following line: 
+
+```
+Goto_xyz([0, 0, -48], 8)
+```
+
 # Driver Communication Documentation
 ---------
 
