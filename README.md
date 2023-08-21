@@ -525,14 +525,7 @@ $$
 
 I wish it was as easy as this though. since we have three motors we have to synchronize them first and then we can generate the velocity profile.
 
-------
-
-**Motor Synchronization**
-
-
-
-
-### 2.3 - Results
+### 2.3 - Visual Results
 ------ 
 3D Animation for results of the sampled data of generated trajectories.
 
@@ -544,19 +537,7 @@ https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509
 
 https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/b941c628-c7fa-4237-bbe9-e208a2699d5c
 
-## 3 - SIMULATION
-------
-The platform I want to use for simulating the DPR is ROS. Of course as always there are a couple of challenges along the way. So let's deal with them one by one. Here's [my research](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/ROS/README.md) about this topic. Since simulation with ROS seems really difficult because delta robot is a parallel robot, we're going to switch to simulink. But first, let's calculate the safe workspace.
-
-### 3.1 - Safe Workspace
-------
-In the inverse kinematics, if you go beyond a certain angle in each of the motors, then the robot is going to be morphed and broken, so we can't go beyond those points. Whether or not the the robot can't go to a certain point, is determined through a calculation in the [delta robot inverse kinematics python file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/delta_robot.py). if the given point isn't reachable then we get the error "non existing point". So the reachable workspace will be calculated with the use of that error in [this file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/workspace.py)
-
-![reachable wokrspace](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/reachable_workspace.png)
-
-As can be seen from the generated picture, this is not the workspace we want to calculate, since it includes dangerous points in 3D space for the robot to be in. joint limits define the range within which a robot's joints can safely move without causing damage or compromising its operation. These limits are typically set based on the mechanical design and capabilities of the robot, taking into account factors such as joint structure, motor capabilities, and the intended range of motion. Seemingly the criteria isn't simply "if the robot can reach that point or not". 
-
-## 4 - EXPERIMENTAL 
+## 3 - EXPERIMENTAL 
 ------
 In this section I'm going down a more practical approach. The following is the DPR I'll be working with at the [TaarLab](https://taarlab.com/)
 
