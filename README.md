@@ -20,20 +20,7 @@ Overview:
         - Higher Order Polynomials
         - Cubic-Spline
         - Improved Cubic-Spline 
-        - Multi-Point Trapezoidal
-        - PSO
-- Simulation
-    - Safe work-space
 - Experimental
-    - ...
-
-------
-
-Incomplete sections: 
-- Improved Cubic spline
-- Particle Swarm Optimization (PSO)
-- Multi-Point Trapezoidal
-- Safe Workspace
 
 
 ## 1 - INTRODUCTION
