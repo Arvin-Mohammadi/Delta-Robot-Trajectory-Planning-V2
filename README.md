@@ -19,7 +19,8 @@ Overview:
     - multi-point trajectory planning
         - Higher Order Polynomials
         - Cubic-Spline
-        - Improved Cubic-Spline 
+        - Improved Cubic-Spline
+    - Visual Results 
 - Experimental
 
 
