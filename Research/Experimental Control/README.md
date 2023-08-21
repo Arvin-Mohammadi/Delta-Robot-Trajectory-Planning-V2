@@ -23,7 +23,7 @@ Use the function `Enable_all_drivers(-3)` to enable all of the drivers in speed 
 **NOTE: Remove the bars after enabling. Do Not Move The Robot**
 
 
-## 2.5. Read Data
+## 3. Read Data
 ---------
 
 use each of the following lines of code to read the actual angles being read from the actuators, the calculated angles with offset applied to them, and FK, and IK of the robot: 
@@ -46,7 +46,7 @@ Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_
 Inverse(Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))[1], Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))[2], Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))[3])
 ```
 
-## 3. Move
+## 4. Move
 ---------
 
 After homing, enabling the drivers and removing the bars, it's ok to move the robot using the function `Goto_xyz(final_xyz, duration)`. In the Home position the coordinates should be [0, 0, -37], you can read this using the following code: 
