@@ -233,7 +233,7 @@ The code can be found in the [path planning file](https://github.com/ArthasMenet
 ------
 #### This entire sub-section is for when you want to move EE through points P1 to Pn
 
-Multi-Point Trajectory Planning involves generating smooth and coordinated paths for Delta Parallel Robots (DPRs) that include multiple target locations. Unlike point-to-point trajectory planning, which focuses on movements between a single starting point and target location, multi-point trajectory planning considers the optimization of trajectories with multiple intermediate points. This type of trajectory planning is particularly useful for applications where DPRs need to navigate complex paths or perform tasks that require precise motion through multiple waypoints. The goal of multi-point trajectory planning is to determine an optimal trajectory that passes through the specified intermediate points while ensuring smooth and accurate motion of the robot's End-Effector (EE) or joints. This process involves considering various factors, such as geometric path constraints, kinematic and dynamic limitations, and any additional requirements specific to the application.
+Multi-Point Trajectory Planning involves generating smooth and coordinated paths for Delta Parallel Robots (DPRs) that include multiple target locations. 
 
 #### 2.2.1 - Higher Order Polynomials
 ------
