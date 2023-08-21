@@ -133,9 +133,7 @@ This representation allows for smooth and controlled joint variable interpolatio
 
 <ins>**Discussion:**</ins>
 
-The utilization of a fifth-order polynomial, such as the 3-4-5 interpolating polynomial, enables the generation of smooth and continuous trajectories for Delta robots. By incorporating higher-order terms, this polynomial minimizes abrupt changes in position, velocity, and acceleration during the interpolation process. While the 3-4-5 interpolating polynomial offers desirable smoothness and continuity, it is important to note its limitations. One significant drawback is the lack of explicit constraints on jerk, which refers to the rate of change of acceleration. The absence of jerk constraints can result in undesirable mechanical stress and instability, particularly at the start and end points of the trajectory where jerk values may be unbounded. As a result, caution must be exercised when applying the 3-4-5 interpolating polynomial in DPR applications, as uncontrolled jerk may affect the overall performance and quality of robot operations.
-
-The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `point_to_point_345`
+One significant drawback is the lack of explicit constraints on jerk, which refers to the rate of change of acceleration. The absence of jerk constraints can result in undesirable mechanical stress and instability, particularly at the start and end points of the trajectory where jerk values may be unbounded. The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `point_to_point_345`
 
 #### 2.1.2 - 4-5-6-7 Interpolating Polynomial
 ------
@@ -173,8 +171,7 @@ The result of this method is shown in the figure below. As explained, the advant
 
 <ins>**Discussion:**</ins> 
 
-The 4-5-6-7 interpolating polynomial offers an improvement over the 3-4-5 interpolating polynomial by incorporating higher-order terms. This enables a more precise representation of the desired trajectory, leading to enhanced accuracy and control. Additionally, the inclusion of jerk constraints in the interpolation process ensures smoother robot movements, reducing mechanical stress and instability. From all the point-to-point methods, this one proves to be the most reliable.
-
+The 4-5-6-7 interpolating polynomial offers an improvement over the 3-4-5 interpolating polynomial by incorporating higher-order terms.
 The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `point_to_point_4567`
 
 #### 2.1.3 - Trapezoidal method
@@ -224,8 +221,7 @@ Implementing this sequence with a Python script, we can get the results show as 
 
 <ins>**Discussion:**</ins>:
 
-In this method We've taken the maximum difference in $\theta^I$ and $\theta^F$ since there are three motors, and generated a path according to that maximum amount of movement (meaning we set the overall time period according to the longest path that is to be taken). As for the other actuators, we have two options, either minimize the time or use the same time period. According to our need both options are good enough, the diagram is the result of the longest path. This method however, has the same problem of 3-4-5 method, but instead of start and finishing point, the problem is at $T/3$ and $2T/3$.
-
+This method has the same problem of 3-4-5 method, but instead of start and finishing point, the problem is at $T/3$ and $2T/3$.
 The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `trapezoidal_ptp`
 
 
@@ -393,12 +389,6 @@ $$
 Thus we have the velocities and the problem is solved. (for more details go to reference [10] Chapter 4.4). The implementation of this problem is coded in [this python file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_mltp.py) and the results are: 
 
 ![Cubic spline method](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/cubic%20spline%20method.png)
-
-#### note from me
-
-There was a problem with this algorithm in my previous repository that I'm going to explain now. My previous employer defined the problem to be something like: we want to go through a lot of different points in space meaning we want to <ins> be precise while being fast </ins>. not taking into account that this problem definition is not valid. this is a trade-off. you either get high speed and low precision, or you get high precision and low speed. if you want both high speed and high precision there will be an unnaturally high jerk at the start. what he was telling me to do was to define a circle with like 1000 points and then make the interpolation between 1000 points. but that's not the true goal of the robot is it? (unless you're making a painter robot or a 3D printer in which case the process is gonna be slow so that the jerk won't cause a problem) 
-
-the goal is to hit certain points. like {(x1, y1, z1), (x2, y2, z2), ... (x10, y10, z10)} something like that. because in each operation we want our robot to move towards the target, pick the target up, move the target, place the target, get back into first position. that's what? 5 or 6 points to hit? we don't need 1000 constraints.
 
 #### 2.2.3 - Improved Cubic spline 
 ------
