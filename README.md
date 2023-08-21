@@ -79,41 +79,12 @@ The code to Inverse and Forward Kinematics can be found in the [Delta Robot file
 
 <ins>**What is Trajectory Planning:**</ins> 
 
-Trajectory planning is a crucial step in achieving the desired
-movement for a manipulator control system, ensuring the
-generation of reference inputs that conform to the given
-geometric path and comply with the kinematic and dynamic
-constraints of the manipulator [8]. Trajectory planning plays
-a vital role in optimizing the performance and efficiency of
-Delta robots in industrial automation. By generating smooth
-and accurate paths for robot movements, trajectory planning
-algorithms ensure precise and coordinated motion from the
-starting point to the target locations. The goal is to determine
-a trajectory for the joints or the EE, comprising a sequence
-of position, velocity, and acceleration values. The trajectory
-planning algorithm generates a time-based sequence of values,
+The trajectory planning algorithm generates a time-based sequence of values,
 respecting the imposed constraints, to specify the position and
-orientation of the EE.
+orientation of the EE [8].
 
 </br>
 
-<ins>**What Trajectory Plannings We Look Into:**</ins> 
-
-This section focuses on two key aspects of trajectory plan-
-ning: point-to-point and multi-point movements. For point-to-
-point trajectory planning, we explore three distinct algorithms:
-the 5th order polynomial, the 7th order polynomial, and the
-trapezoidal algorithm. These algorithms offer different math-
-ematical representations and methodologies for generating
-smooth paths. Additionally, we delve into multi-point trajec-
-tory planning and investigate the adaptation of the trapezoidal
-algorithm, the utilization of Pythagorean-Hodograph Curves,
-and the application of the Particle Swarm Optimization (PSO)
-algorithm. By examining these trajectory planning approaches,
-we aim to provide a comprehensive understanding of their
-mathematical foundations, implementation considerations, and
-their effectiveness in optimizing the motion of Delta robots in
-industrial automation settings.
 
 ### 2.1 - Point-to-Point Trajectory Planning
 ------
@@ -125,19 +96,10 @@ industrial automation settings.
 Point-to-Point Trajectory Planning refers to the process of
 generating smooth and coordinated paths for delta robots that
 involve moving from a starting point to a single target location.
-It focuses on determining the optimal trajectory that ensures
-precise and controlled movements of the robot’s EE or joints.
-By considering the geometric path, kinematic and dynamic
-constraints, and other factors, point-to-point trajectory plan-
-ning algorithms enable the seamless execution of movements
-from one specific location to another, enhancing the overall
-performance and accuracy of delta robots in industrial automa-
-tion settings
 
 #### 2.1.1 - 3-4-5 Interpolating Polynomial
 ------
 #### This one has a problem of unbounded jerk
-
 
 <ins>**Math:**</ins>
 
