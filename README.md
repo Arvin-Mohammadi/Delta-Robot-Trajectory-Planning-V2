@@ -26,7 +26,7 @@ Overview:
 
 ## 1 - INTRODUCTION
 ------
-#### Here I just tell you some history of the Delta Parallel Robots (DPRs), some of its applications and the edge it has over other rivals, the distadvantages, what ways have been used for its trajectory planning, etc. You know ... an introduction
+**Here I just tell you some history of the Delta Parallel Robots (DPRs), some of its applications and the edge it has over other rivals, the distadvantages, what ways have been used for its trajectory planning, etc. You know ... an introduction**
 
 
 <ins>**History**</ins> 
@@ -74,9 +74,6 @@ The code to Inverse and Forward Kinematics can be found in the [Delta Robot file
 
 ## 2 - TRAJECTORY PLANNING
 ------
-#### Here are the different methods of controlling the trajectory of the robot
-
-
 <ins>**What is Trajectory Planning:**</ins> 
 
 The trajectory planning algorithm generates a time-based sequence of values,
@@ -88,9 +85,6 @@ orientation of the EE [8].
 
 ### 2.1 - Point-to-Point Trajectory Planning
 ------
-#### This entire sub-section is for when you want to move EE from point A to B
-
-
 <ins>**What is Point-to-Point Trajectory Planning:**</ins> 
 
 Point-to-Point Trajectory Planning refers to the process of
@@ -99,8 +93,6 @@ involve moving from a starting point to a single target location.
 
 #### 2.1.1 - 3-4-5 Interpolating Polynomial
 ------
-#### This one has a problem of unbounded jerk
-
 <ins>**Math:**</ins>
 
 When interpolating between given initial and final values of the joint variable $\theta^I$ and $\theta^F$ respectively, the following can be employed:
@@ -137,9 +129,6 @@ One significant drawback is the lack of explicit constraints on jerk, which refe
 
 #### 2.1.2 - 4-5-6-7 Interpolating Polynomial
 ------
-#### For point to point this is a good one
-
-
 <ins>**Math:**</ins> 
 
 If we consider $\theta^I$ and $\theta^F$ to be the given initial and final values of the joint variable, and w ewant to interpolate the values in between, the 4-5-6-7 interpolating polynomial can be employed. The formula below represents the interpolation: 
@@ -176,9 +165,6 @@ The code can be found in the [path planning file](https://github.com/ArthasMenet
 
 #### 2.1.3 - Trapezoidal method
 ------
-#### In concept this isn't a bad method, but if you want to use it in practice i'd recommend S-curve which is an improved version of this
-
-
 <ins>**Math:**</ins>:
 
 Like the previous methods, the goal here is to basically use a trapezoidal diagram as a way to interpolate the velocity profile between the values of $\theta^I$ and $\theta^F$. In this instance we call them $p$ and $p_0$. The trapezoidal diagram is defined as the following formula:
@@ -227,8 +213,6 @@ The code can be found in the [path planning file](https://github.com/ArthasMenet
 
 ### 2.2 - Multi-Point Trajectory Planning
 ------
-#### This entire sub-section is for when you want to move EE through points P1 to Pn
-
 Multi-Point Trajectory Planning involves generating smooth and coordinated paths for Delta Parallel Robots (DPRs) that include multiple target locations. 
 
 #### 2.2.1 - Higher Order Polynomials
@@ -287,8 +271,6 @@ The method is implemented in [this file](https://github.com/ArthasMenethil-A/Del
 
 #### 2.2.2 - Cubic-Spline
 ------
-#### taken from ref[10] chapter 4.4 | It would be a good choice if it weren't for the jerk at the initial and final points, how does one solve that problem? 
-
 When provided with $n+1$ points, it is feasible to construct a unique interpolating polynomial of degree $n$. However, as the number of points increases, the computational burden becomes heavier. To address this, an alternative approach is to utilize n polynomials of degree $p$ instead. The selection of $p$ is based on the desired level of continuity for the spline. For instance, if one aims to achieve continuity of velocities and accelerations at the time instances $t_k$, where the transition between two consecutive segments takes place, a cubic polynomial with degree $p=3$ can be assumed.
 
 $$q(t) = a_0 + a_1t + a_2t^2 + a_3t^3$$
@@ -392,8 +374,6 @@ Thus we have the velocities and the problem is solved. (for more details go to r
 
 #### 2.2.3 - Improved Cubic spline 
 ------
-#### This idea came to me from the ref [5]
-
 **[RESEARCH](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/Improved%20Cubic%20Spline/README.md)**
 
 **first method: intial and final zero acceleration**
@@ -422,9 +402,6 @@ Second Method: [Continous Jerk Profile](https://github.com/ArthasMenethil-A/Delt
 
 #### 2.2.5 - Multi-Point Trapezoidal
 ------
-
-#### the idea for this is from ref [10] - Part 3.2.4
-
 ![Trapezoidal through a sequence of points](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/725a87c9-7c0f-4fbd-94d2-5bf5696a4dca)
 
 We talked about the trapezoidal method in one of the point-to-point methods, but now we want to use it as a multi-point method. we already know about the 3 phases in trapezoidal. Assume that we want to use point-to-point interpolation on multiple points. What's the problem with that? it's the fact that the end effector will stop at all of the points that we want to hit. meaning if we define our points as $P_0, ..., P_n$, and we use point-to-point trajectory planning to go from $P_0$ to $P_1$ and from $P_1$ to $P_2$ and so on and so forth, the end effector will stop at each of the points (in some cases that might be what we want to do but in most cases that highly inefficient). but for now let's implement this for point-to-point trapezoidal. our first goal is to implement something like the figure (a) from the two diagrams about (Reference for picture is ref [10] - Part 3.2.4) - Hence the trapezoidal will reduce to a trianlge for us to hit the max velocity and then immediately enter the deceleration phase. the calculation will look like: 
