@@ -11,8 +11,6 @@ The steps to use the robot are:
 ---------
 place the robot at home with the bars installed (as illustrated in the following images) 
 
-![Untitled-2](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/06fe1085-7e7c-45a7-a0ab-360f40d02973)
-
 ## 2. Enable Drivers 
 ---------
 
