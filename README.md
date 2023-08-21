@@ -34,7 +34,6 @@ Incomplete sections:
 - Particle Swarm Optimization (PSO)
 - Multi-Point Trapezoidal
 - Safe Workspace
-- Experimental
 
 
 ## 1 - INTRODUCTION
@@ -568,6 +567,27 @@ In the following Link You can find the Python code for communicating with the dr
 DISCLAIMER: I did not write most of the following code as it was provided for me, I'm merely writing a documentation for the code and modify slightly if necessary.
 
 [Python Code For Driver Communication](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/tree/main/Research/Experimental%20Control)
+
+### 4.1 Results Of Experimental Movement
+------
+
+**Simple PID Controller**
+
+https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/4031ef55-d1d9-4cfc-96d2-5f0dd77f46f8
+
+**Point to Point: 3-4-5 Interpolation Polynomial (With PID Controller)**
+
+**Point to Point: 4-5-6-7  Interpolation Polynomial (With PID Controller)**
+
+https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/9bec8bc8-47a6-4f03-b223-ca8a47ee2cb2
+
+**Point to Point: Trapezoidal (With PID Controller)**
+
+**Multi-Point: Higher Order Polynomials**
+
+**Multi-Point: Cubic Spline**
+
+**Joy-Stick Mode**
 
 ## 5 - REFERENCES 
 ------
