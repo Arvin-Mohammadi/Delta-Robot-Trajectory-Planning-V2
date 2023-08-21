@@ -4,8 +4,7 @@
 The steps to use the robot are: 
 1. Homing
 2. Enable Drivers
-
-2.5. Read Data
+3. Read Data
 4. Move
 
 ## 1. Homing
