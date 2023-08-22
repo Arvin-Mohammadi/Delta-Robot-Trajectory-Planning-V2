@@ -26,9 +26,6 @@ Overview:
 
 ## 1 - INTRODUCTION
 ------
-**Here I just tell you some history of the Delta Parallel Robots (DPRs), some of its applications and the edge it has over other rivals, the distadvantages, what ways have been used for its trajectory planning, etc. You know ... an introduction**
-
-
 <ins>**History**</ins> 
 
 DPRs, part of the third generation of industrial robots, have evolved since the 1950s. Their parallel kinematic structure and high-speed capabilities make them ideal for precise tasks, particularly in pick-and-place operations. This article sheds light on trajectory planning for DPRs, focusing on smooth motion for the End-Effector while minimizing deviations [1].
