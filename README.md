@@ -34,7 +34,7 @@ DPRs, part of the third generation of industrial robots, have evolved since the 
 
 <ins>**Control Demystified**</ins> 
 
-Industrial robots come in four flavors: remote-controlled, sequence-controlled, controllable track, and adaptive control. We'll delve into controllable track robots, which strike a balance between predefined paths and adaptable behavior [2].
+Industrial robots come in four classes: remote-controlled, sequence-controlled, controllable track, and adaptive control. We'll delve into controllable track robots, which strike a balance between predefined paths and adaptable behavior [2].
 
 </br>
 
