@@ -67,19 +67,53 @@ Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_
 Inverse(Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))[1], Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))[2], Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))[3])
 ```
 
-## 4. Move
----------
-
-After homing, enabling the drivers and removing the bars, it's ok to move the robot using the function `Goto_xyz(final_xyz, duration)`. In the Home position the coordinates should be [0, 0, -37], you can read this using the following code: 
+Upon running the following command 
 
 ```
 Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))
 ```
 
-You can move the robot to a position where each of the upper arms are horizontal using the following line: 
+
+
+
+
+## 4. Move
+---------
+You can move the robot using the following commands: 
 
 ```
-Goto_xyz([0, 0, -48], 8)
+Goto_xyz(final_xyz, duration)
+
+EE_manual_controller(speed=0.1)
+```
+
+### 4.1. Goto_xyz(speed=0.1)
+---------
+
+using the following line of code
+
+```
+Goto_xyz([0, 0, -48.898], 8)
+```
+
+The arms will move to a position in which they are horizontal and they will move from home position to the given position in 8 seconds. 
+
+### 4.2. EE_manual_controller(speed=0.1)
+---------
+
+Using the following line of code: 
+
+```
+EE_manual_controller(0.3)
+```
+
+You enter a mode where the robot end effector can be used manually. the controls are listed as followed: 
+
+```
+q -> exit the loop and function
+w, s -> controls the robot in z direction
+left arrow, right arrow -> controls the robot in x direction
+up arrow, down arrow -> controls the robot in y direction
 ```
 
 # Driver Communication Documentation
