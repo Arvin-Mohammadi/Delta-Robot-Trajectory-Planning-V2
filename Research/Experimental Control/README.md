@@ -13,6 +13,25 @@ place the robot at home with the bars installed (as illustrated in the following
 
 ![Untitled-2](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/0c8caf18-c60a-43c3-9634-6a259409d8db)
 
+in the code file in the function `Offset()` we have: 
+
+```
+def Offset():
+    global offset_pos
+
+    offset_1 = 25
+    offset_2 = 27
+    offset_3 = 22
+
+    offset_pos = [offset_1, offset_2, offset_3]
+    
+    print("This is offset:", offset_pos)
+    
+```
+
+The arguments `offset_1`, `offset_2` and `offset_3` will depend on the starting position of the robot. The values 25, 27 and 22 are given with the position illustrated above in mind (mind the offset value sign)
+
+
 ## 2. Enable Drivers 
 ---------
 
