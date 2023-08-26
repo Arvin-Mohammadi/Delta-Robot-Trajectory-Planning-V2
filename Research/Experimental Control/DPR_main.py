@@ -17,7 +17,18 @@ from numpy import linalg as LA
 import matplotlib.pyplot as plt
 from scipy.optimize import fsolve
 import datetime
+import pygame
 import keyboard
+import sys 
+
+from pygame import K_UP 
+from pygame import K_DOWN 
+from pygame import K_LEFT 
+from pygame import K_RIGHT 
+from pygame import K_SPACE
+from pygame import K_w 
+from pygame import K_q 
+from pygame import K_s 
 
 
 # =================================================================================================
@@ -36,6 +47,8 @@ R = 0.13   ### base radious
 r1 = L1/2 ### geometric center of actuated link
 r2 = L2/2 ### geometric center of parallelogram link
 
+global IS_MOVING
+IS_MOVING = 0
 
 ## INTERRUPT CODE 
 # if keyboard.is_pressed('q'):
@@ -326,16 +339,22 @@ def Torque_convert(value)  :
 
 #----------------------------------------------------------------------------------------------------------------------------
 def Position_actual(ID):
+
     Up_master_send = [ID, 0x40, 0x63, 0x60, 0x0, 0x0, 0x0, 0x0, 0x0]
     Up_master_send.append(Chks_calculation(Up_master_send))
     Up_master_send = bytearray(Up_master_send)
     num_of_tries = 0
     
     if ID == 1 :
-        Actuator1_serial.flushInput()        
+
+        Actuator1_serial.flushInput()       
+
         Actuator1_serial.write(Up_master_send)
+
         Up_slave_response = list(Actuator1_serial.read(10))
+
         while len(Up_slave_response) !=10 :
+
             Up_slave_response = list(Actuator1_serial.read(10))
             print("Unable to read position data from Driver={}".format(ID))
             num_of_tries = num_of_tries + 1
@@ -344,10 +363,24 @@ def Position_actual(ID):
                 break
             
     elif ID == 2 :
-        Actuator2_serial.flushInput()        
+
+        print("reading ID==2")
+
+        Actuator2_serial.flushInput()      
+
+        print("flushed input")
+
         Actuator2_serial.write(Up_master_send)
+
+        print("serial write finsihed")
+
         Up_slave_response = list(Actuator2_serial.read(10))
+
+        print("serial read finished")
+
         while len(Up_slave_response) !=10 :
+
+            print("entered while loop")
             Up_slave_response = list(Actuator2_serial.read(10))
             print("Unable to read position data from Driver={}".format(ID))
             num_of_tries = num_of_tries + 1
@@ -356,10 +389,24 @@ def Position_actual(ID):
                 break       
             
     elif ID == 3 :
-        Actuator3_serial.flushInput()        
+
+        print("reading ID==3")
+
+        Actuator3_serial.flushInput()   
+
+        print("flushed input")
+       
         Actuator3_serial.write(Up_master_send)
+
+        print("serial write finsihed")
+
         Up_slave_response = list(Actuator3_serial.read(10))
+
+        print("serial read finished")
+
         while len(Up_slave_response) !=10 :
+
+            print("entered while loop")
             Up_slave_response = list(Actuator3_serial.read(10))
             print("Unable to read position data from Driver={}".format(ID))
             num_of_tries = num_of_tries + 1
@@ -367,13 +414,15 @@ def Position_actual(ID):
                 print("Max Tries Unable to read position data from Driver={}".format(ID))
                 break
             
-    
+    print("the function is about to end")
         
     if ( len(Up_slave_response)!=10 ):
         return -333333
     position_deg = Position_convert(Up_slave_response)
     # while abs(position_deg) > (5000/Gear_ratio) :
         # return -333333
+
+    print("the function ended")
 
     return position_deg 
     
@@ -387,14 +436,16 @@ def Offset():
     # offset_1 = Position_absolute_read(1)
     # offset_2 = Position_absolute_read(2)
     # offset_3 = Position_absolute_read(3)
-    # offset_1 = -69.19776
-    # offset_2 = -69.19488
-    # offset_3 = -69.16464
+
     
-    offset_1 = 25
-    offset_2 = 27
-    offset_3 = 22
+    offset_1 = -68
+    offset_2 = -67.8816
+    offset_3 = -67.93704000000001
     
+    # offset_1 = 25
+    # offset_2 = 27
+    # offset_3 = 22
+
     
     offset_pos = [offset_1, offset_2, offset_3]
     
@@ -618,7 +669,21 @@ def Motion_x_endeffector(speed):
     Target_speed_rpm(1,speed)
     Target_speed_rpm(2,speed)
     Target_speed_rpm(3,-1*speed)
+
+def Motion_theta1(speed):
+    Target_speed_rpm(1, speed)
+    Target_speed_rpm(2, 0)
+    Target_speed_rpm(3, 0)
     
+def Motion_theta2(speed):
+    Target_speed_rpm(1, 0)
+    Target_speed_rpm(2, speed)
+    Target_speed_rpm(3, 0)
+
+def Motion_theta3(speed):
+    Target_speed_rpm(1, 0)
+    Target_speed_rpm(2, 0)
+    Target_speed_rpm(3, speed)
 #----------------------------------------------------------------------------------------------------------------------------
 
 def _is_point_inside_triangle(P):
@@ -653,12 +718,12 @@ def Goto_xyz(final_xyz, duration):
     
     global answer2 
 
-    # safety
-    if answer2.upper() != "Y":
-        return 
+    # # safety
+    # if answer2.upper() != "Y":
+    #     return 
 
-    if not(_is_point_inside_triangle(final_xyz[0:2]) and (final_xyz[2] <= -37) and (final_xyz[2] >= -70)):
-        return 
+    # if not(_is_point_inside_triangle(final_xyz[0:2]) and (final_xyz[2] <= -37) and (final_xyz[2] >= -70)):
+    #     return 
     
     start_time = datetime.datetime.now()
     
@@ -668,22 +733,15 @@ def Goto_xyz(final_xyz, duration):
     current_position    = [0, 0, 0]
     last_position       = [0, 0, 0]
     distance            = [0, 0, 0]
-
-    # reading the positions 
-    for i in range(3):
-        current_position[i] = Position_absolute_read(i+1)
-
         
     E, current_position[0], current_position[1], current_position[2] = Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))
-        
-    
-    print("Current Position is: ", current_position)
 
+    print("Current Position is: ", current_position)
 
     # calculating the distance from the goal
     for i in range(3):
         distance[i] = final_xyz[i] - current_position[i]
-        
+    
     print("distance:", distance)
         
     # # print("Distance is: ", distance)
@@ -691,6 +749,8 @@ def Goto_xyz(final_xyz, duration):
     dtime = 0 
 
     while dtime<duration:
+
+        # print("enter loop")
 
         # safety 
         if keyboard.is_pressed('q'):
@@ -700,36 +760,55 @@ def Goto_xyz(final_xyz, duration):
             break
 
 
-
+        # print("safety is passed")
 
         # checking the passed time 
         last_time = datetime.datetime.now()
         dtime = (last_time - start_time).total_seconds()
 
+        # print("time is calced")
+
         if dtime>=duration:
             Motion_z_endeffector(0)
+            Motion_z_endeffector(0)
             break
+
+
+        # print("time finish is checked")
+
 
         # trajectory 
         tau = dtime/duration
         s = trajectory_4567(duration, 0, start_time)
 
+        # print("some calculations are done")
+
         for i in range(3): 
             last_position[i] = s*distance[i] + current_position[i]
+
+        # print("some more calculations are done")
 
         in1 = Position_absolute_read(1)
         in2 = Position_absolute_read(2)
         in3 = Position_absolute_read(3)
 
+        # print("Position are read")
+
         feedback = [in1, in2, in3]
 
         system_input = implement_PID(last_position, feedback)
+
+        # print("PID is doing its job")
         
-        print("system input:", system_input)
+        # print("system input:", system_input)
 
         Target_speed_rpm(1, system_input[0])
         Target_speed_rpm(2, system_input[1])
         Target_speed_rpm(3, system_input[2])
+
+
+        # print("here is FK:", Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3)))
+        # print("here is the speed", system_input)
 
 
 def trajectory_4567(time_map,time_shift,start_time): #return value within 0 , 1
@@ -738,6 +817,98 @@ def trajectory_4567(time_map,time_shift,start_time): #return value within 0 , 1
     tau=(dtime-time_shift)/time_map
     s=-20*(tau**7)+70*(tau**6)-84*(tau**5)+35*(tau**4)
     return s
+
+#----------------------------------------------------------------------------------------------------------------------------
+def EE_manual_controller(movement_speed=0.1):
+    pygame.init()
+
+    # Set up the display
+    screen = pygame.display.set_mode((400, 300))
+    pygame.display.set_caption("DPR EE Manual Controller")
+
+    # Keep track of key states
+    key_up_pressed = False
+    key_down_pressed = False
+    key_left_pressed = False
+    key_right_pressed = False
+    key_w_pressed = False
+    key_s_pressed = False
+    key_q_pressed = False
+
+    is_key_pressed =    key_up_pressed or key_down_pressed or key_left_pressed or key_right_pressed \
+                        or key_w_pressed or key_s_pressed
+
+    running = True
+
+    while running:
+        for event in pygame.event.get():
+
+            # checking if any key is pressed 
+            is_key_pressed =    key_up_pressed or key_down_pressed or key_left_pressed or key_right_pressed \
+                                or key_w_pressed or key_s_pressed
+
+            if event.type == pygame.KEYDOWN and event.key == K_q:
+                Motion_z_endeffector(0)
+                pygame.quit()
+                sys.exit()
+                return 
+            if event.type == pygame.KEYDOWN and event.key == K_SPACE:
+                print(Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3)))
+            elif event.type == pygame.KEYDOWN and not is_key_pressed:
+                
+                if event.key == K_UP:
+                    print("key up is pressed")
+                    Motion_y_endeffector(movement_speed)
+                    key_up_pressed = True
+                elif event.key == K_DOWN:
+                    print("key down is pressed")
+                    Motion_y_endeffector(-movement_speed)
+                    key_down_pressed = True
+                elif event.key == K_LEFT:
+                    print("key left is pressed")
+                    Motion_x_endeffector(movement_speed)
+                    key_left_pressed = True
+                elif event.key == K_RIGHT:
+                    print("key right is pressed")
+                    Motion_x_endeffector(-movement_speed)
+                    key_right_pressed = True
+                elif event.key == K_w:
+                    print("key w is pressed")
+                    Motion_z_endeffector(-movement_speed)
+                    key_w_pressed = True
+                elif event.key == K_s:
+                    print("key s is pressed")
+                    Motion_z_endeffector(movement_speed)
+                    key_s_pressed = True
+
+            elif event.type == pygame.KEYUP:
+                if event.key == K_UP and not (is_key_pressed and not key_up_pressed):
+                    print("key up is released")
+                    Motion_z_endeffector(0)
+                    key_up_pressed = False
+                elif event.key == K_DOWN and not (is_key_pressed and not key_down_pressed):
+                    print("key down is released")
+                    Motion_z_endeffector(0)
+                    key_down_pressed = False
+                elif event.key == K_LEFT and not (is_key_pressed and not key_left_pressed):
+                    print("key left is released")
+                    Motion_z_endeffector(0)
+                    key_left_pressed = False
+                elif event.key == K_RIGHT and not (is_key_pressed and not key_right_pressed):
+                    print("key right is released")
+                    Motion_z_endeffector(0)
+                    key_right_pressed = False
+                elif event.key == K_w and not (is_key_pressed and not key_w_pressed):
+                    print("key w is released")
+                    Motion_z_endeffector(0)
+                    key_w_pressed = False
+                elif event.key == K_s and not (is_key_pressed and not key_s_pressed):
+                    print("key s is released")
+                    Motion_z_endeffector(0)
+                    key_s_pressed = False
+
+    pygame.quit()
+
 
 #----------------------------------------------------------------------------------------------------------------------------
  
