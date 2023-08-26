@@ -348,9 +348,7 @@ def Position_actual(ID):
     if ID == 1 :
 
         Actuator1_serial.flushInput()       
-
         Actuator1_serial.write(Up_master_send)
-
         Up_slave_response = list(Actuator1_serial.read(10))
 
         while len(Up_slave_response) !=10 :
@@ -364,23 +362,12 @@ def Position_actual(ID):
             
     elif ID == 2 :
 
-        print("reading ID==2")
-
         Actuator2_serial.flushInput()      
-
-        print("flushed input")
-
         Actuator2_serial.write(Up_master_send)
-
-        print("serial write finsihed")
-
         Up_slave_response = list(Actuator2_serial.read(10))
-
-        print("serial read finished")
 
         while len(Up_slave_response) !=10 :
 
-            print("entered while loop")
             Up_slave_response = list(Actuator2_serial.read(10))
             print("Unable to read position data from Driver={}".format(ID))
             num_of_tries = num_of_tries + 1
@@ -390,23 +377,12 @@ def Position_actual(ID):
             
     elif ID == 3 :
 
-        print("reading ID==3")
-
         Actuator3_serial.flushInput()   
-
-        print("flushed input")
-       
         Actuator3_serial.write(Up_master_send)
-
-        print("serial write finsihed")
-
         Up_slave_response = list(Actuator3_serial.read(10))
-
-        print("serial read finished")
 
         while len(Up_slave_response) !=10 :
 
-            print("entered while loop")
             Up_slave_response = list(Actuator3_serial.read(10))
             print("Unable to read position data from Driver={}".format(ID))
             num_of_tries = num_of_tries + 1
@@ -414,7 +390,6 @@ def Position_actual(ID):
                 print("Max Tries Unable to read position data from Driver={}".format(ID))
                 break
             
-    print("the function is about to end")
         
     if ( len(Up_slave_response)!=10 ):
         return -333333
@@ -422,7 +397,6 @@ def Position_actual(ID):
     # while abs(position_deg) > (5000/Gear_ratio) :
         # return -333333
 
-    print("the function ended")
 
     return position_deg 
     
@@ -744,13 +718,9 @@ def Goto_xyz(final_xyz, duration):
     
     print("distance:", distance)
         
-    # # print("Distance is: ", distance)
-
     dtime = 0 
 
     while dtime<duration:
-
-        # print("enter loop")
 
         # safety 
         if keyboard.is_pressed('q'):
@@ -760,55 +730,33 @@ def Goto_xyz(final_xyz, duration):
             break
 
 
-        # print("safety is passed")
-
         # checking the passed time 
         last_time = datetime.datetime.now()
         dtime = (last_time - start_time).total_seconds()
-
-        # print("time is calced")
 
         if dtime>=duration:
             Motion_z_endeffector(0)
             Motion_z_endeffector(0)
             break
 
-
-        # print("time finish is checked")
-
-
         # trajectory 
         tau = dtime/duration
         s = trajectory_4567(duration, 0, start_time)
 
-        # print("some calculations are done")
-
         for i in range(3): 
             last_position[i] = s*distance[i] + current_position[i]
-
-        # print("some more calculations are done")
 
         in1 = Position_absolute_read(1)
         in2 = Position_absolute_read(2)
         in3 = Position_absolute_read(3)
 
-        # print("Position are read")
-
         feedback = [in1, in2, in3]
 
         system_input = implement_PID(last_position, feedback)
 
-        # print("PID is doing its job")
-        
-        # print("system input:", system_input)
-
         Target_speed_rpm(1, system_input[0])
         Target_speed_rpm(2, system_input[1])
         Target_speed_rpm(3, system_input[2])
-
-
-        # print("here is FK:", Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3)))
-        # print("here is the speed", system_input)
 
 
 def trajectory_4567(time_map,time_shift,start_time): #return value within 0 , 1
