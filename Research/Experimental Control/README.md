@@ -35,7 +35,7 @@ The arguments `offset_1`, `offset_2` and `offset_3` will depend on the starting 
 ## 2. Enable Drivers 
 ---------
 
-Use the function `Enable_all_drivers(-3)` to enable all of the drivers in speed mode. This function also sets the offset which is for each motor as explained below: 
+Use the function `Enable_all_drivers(-3)` to enable all of the drivers in instantaneous speed mode. This function also sets the offset which is for each motor as values:  
 
 1. Motor1: 25 degree
 2. Motor2: 27 degree
