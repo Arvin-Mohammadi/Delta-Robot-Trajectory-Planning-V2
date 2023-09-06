@@ -9,14 +9,33 @@ The steps to use the robot are:
 
 ## 1. Homing
 ---------
-place the robot at home with the bars installed (as illustrated in the following images) 
+Place the robot at home position (as illustrated in the following images) 
 
 ![Untitled-2](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/0c8caf18-c60a-43c3-9634-6a259409d8db)
+
+in the code file in the function `Offset()` we have: 
+
+```
+def Offset():
+    global offset_pos
+
+    offset_1 = 25
+    offset_2 = 27
+    offset_3 = 22
+
+    offset_pos = [offset_1, offset_2, offset_3]
+    
+    print("This is offset:", offset_pos)
+    
+```
+
+The arguments `offset_1`, `offset_2` and `offset_3` will depend on the starting position of the robot. The values 25, 27 and 22 are given with the position illustrated above in mind (mind the offset value sign)
+
 
 ## 2. Enable Drivers 
 ---------
 
-Use the function `Enable_all_drivers(-3)` to enable all of the drivers in speed mode. This function also sets the offset which is for each motor as explained below: 
+Use the function `Enable_all_drivers(-3)` to enable all of the drivers in instantaneous speed mode. This function also sets the offset which is for each motor as values:  
 
 1. Motor1: 25 degree
 2. Motor2: 27 degree
@@ -48,19 +67,53 @@ Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_
 Inverse(Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))[1], Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))[2], Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))[3])
 ```
 
-## 4. Move
----------
-
-After homing, enabling the drivers and removing the bars, it's ok to move the robot using the function `Goto_xyz(final_xyz, duration)`. In the Home position the coordinates should be [0, 0, -37], you can read this using the following code: 
+Upon running the following command 
 
 ```
 Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))
 ```
 
-You can move the robot to a position where each of the upper arms are horizontal using the following line: 
+
+
+
+
+## 4. Move
+---------
+You can move the robot using the following commands: 
 
 ```
-Goto_xyz([0, 0, -48], 8)
+Goto_xyz(final_xyz, duration)
+
+EE_manual_controller(speed=0.1)
+```
+
+### 4.1. Goto_xyz(speed=0.1)
+---------
+
+using the following line of code
+
+```
+Goto_xyz([0, 0, -48.898], 8)
+```
+
+The arms will move to a position in which they are horizontal and they will move from home position to the given position in 8 seconds. 
+
+### 4.2. EE_manual_controller(speed=0.1)
+---------
+
+Using the following line of code: 
+
+```
+EE_manual_controller(0.3)
+```
+
+You enter a mode where the robot end effector can be used manually. the controls are listed as followed: 
+
+```
+q -> exit the loop and function
+w, s -> controls the robot in z direction
+left arrow, right arrow -> controls the robot in x direction
+up arrow, down arrow -> controls the robot in y direction
 ```
 
 # Driver Communication Documentation
