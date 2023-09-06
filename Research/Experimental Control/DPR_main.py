@@ -687,8 +687,9 @@ def _is_point_inside_triangle(P):
     # Check if the point is inside the triangle
     return (u >= 0) and (v >= 0) and (u + v <= 1)
 
-    
-def Goto_xyz(final_xyz, duration):
+
+# final_xyz = [x_final, y_final, z_final]
+def Goto_xyz(final_xyz, duration, trajectory='4567'):
     
     global answer2 
 
@@ -726,7 +727,7 @@ def Goto_xyz(final_xyz, duration):
         if keyboard.is_pressed('q'):
             Emergency_stop()
             Disable_all_drivers()
-            print("Loop terminated by user.")
+            print("Loop terminated by user!")
             break
 
 
@@ -741,7 +742,12 @@ def Goto_xyz(final_xyz, duration):
 
         # trajectory 
         tau = dtime/duration
-        s = trajectory_4567(duration, 0, start_time)
+        if trajectory=='4567':
+            s = trajectory_4567(duration, 0, start_time)
+        elif trajectory=='345':
+            s = trajectory_345(duration, 0, start_time)
+        elif trajectory=='trapezoidal':
+            s = trajectory_trapezoidal(duration, 0, start_time)
 
         for i in range(3): 
             last_position[i] = s*distance[i] + current_position[i]
@@ -766,7 +772,124 @@ def trajectory_4567(time_map,time_shift,start_time): #return value within 0 , 1
     s=-20*(tau**7)+70*(tau**6)-84*(tau**5)+35*(tau**4)
     return s
 
+
+def trajectory_345(time_map, time_shift, start_time):
+    last_time = datetime.datetime.now()
+    dtime = (last_time - start_time).total_seconds()
+    tau = (dtime - time_shift)/time_map
+    s = 6*(tau**5) - 15*(tau**4) + 10*(tau**3)
+    return s 
+
+def trajectory_trapezoidal(time_map, time_shift, start_time):
+    last_time = datetime.datetime.now()
+    dtime = (last_time - start_time).total_seconds()
+    tau = (dtime - time_shift)/time_map
+
+    # acceleration = 4.5 and v_max = 1.5 and T = 1 
+
+    if tau<=1/3 and tau>=0:
+        s = 2.25*tau**2
+    elif tau<=2/3 and tau>=1/3:
+        s = 1.5*tau - 0.25 
+    elif tau<=1 and tau>=2/3:
+        s = - 1.25 + 4.5*tau - 2.25*tau**2
+
+    return s 
+
 #----------------------------------------------------------------------------------------------------------------------------
+
+# path = [[x_1, y_1, z_1], [x_2, y_2, z_2]]
+def mltp_3point(path, duration):
+
+    global answer2 
+ 
+    start_time = datetime.datetime.now()
+    
+    # print("Start Time is: ", start_time)
+
+    # init values 
+    current_position    = [0, 0, 0]
+    last_position       = [0, 0, 0]
+    distance            = [0, 0, 0]
+
+    E, current_position[0], current_position[1], current_position[2] = Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))
+
+    print("Current Position is: ", current_position)
+
+    # calculating the distance from the goal
+    for i in range(3):
+        distance[i] = path[1][i] - current_position[i]
+    
+    print("distance:", distance)
+        
+    dtime = 0 
+
+
+    while dtime<duration:
+
+        # safety 
+        if keyboard.is_pressed('q'):
+            Emergency_stop()
+            Disable_all_drivers()
+            print("Loop terminated by user!")
+            break
+
+
+        # checking the passed time 
+        last_time = datetime.datetime.now()
+        dtime = (last_time - start_time).total_seconds()
+
+        if dtime>=duration:
+            Motion_z_endeffector(0)
+            Motion_z_endeffector(0)
+            break
+
+
+        # trajectory 
+        tau = dtime/duration
+        for i in range(3): 
+            last_position[i] = trajectory_3point(duration, 0, start_time, [current_position[i], path[0][i]], path[1][i])*distance[i] + current_position[i]
+ 
+        in1 = Position_absolute_read(1)
+        in2 = Position_absolute_read(2)
+        in3 = Position_absolute_read(3)
+
+        feedback = [in1, in2, in3]
+
+        system_input = implement_PID(last_position, feedback)
+
+        Target_speed_rpm(1, system_input[0])
+        Target_speed_rpm(2, system_input[1])
+        Target_speed_rpm(3, system_input[2])
+
+
+# points = [q0, q1, q2] and not normalized
+def trajectory_3point(time_map, time_shift, start_time, points):
+
+    [q0, q1, q2] = points 
+
+    q1 = (q1-q0)/(q2-q0)
+
+    last_time = datetime.datetime.now()
+    dtime = (last_time - start_time).total_seconds()
+    tau = (dtime - time_shift)/time_map
+
+    # acceleration = 4.5 and v_max = 1.5 and T = 1 
+
+    a4 = 256*q1 - 93
+    a5 = -1024*q1 + 428 
+    a6 = 1536*q1 - 698
+    a7 = -1024*q1 + 492
+    a8 = 256*q1 - 128
+
+    s = a8*tau**8 + a7*tau**7 + a6*tau**6 + a5*tau**5 + a4*tau**4
+
+    return s 
+
+#----------------------------------------------------------------------------------------------------------------------------
+
+
+
 def EE_manual_controller(movement_speed=0.1):
     pygame.init()
 
@@ -1165,8 +1288,6 @@ def implement_PID_torque(set_point_coord,feedback):
 # =================================================================================================
 
 
-
-
 def circle_motion(center,radi,height,n,period):  #position and lengths in cm -- time in seconds
     first_time=datetime.datetime.now()
     dtime=0
@@ -1287,647 +1408,6 @@ def circle_motion(center,radi,height,n,period):  #position and lengths in cm -- 
     # Disable_all_drivers()
     
     return position_feedback, velocity_feedback, torque_feedback, desired_path, Controller_history, torque_cmd_his
-
-    
-
-
-        # position_reads_homing.append( Position_absolute_read(1))
-        # velocity_reads_1.append(Velocity_actual_rpm(1))
-        # torque_read.append(Torque_actual(1))
-        
-
-
-
-    # Motion_z_endeffector(0)
-
-    # kinematic_forward( position_feedback , velocity_feedback , 0)
-    
-    # Motion_z_endeffector(0)
-    # offset_new = Offset(1)
-    # plt.figure(1)
-    # plt.plot(position_reads_homing)
-    # plt.figure(2)
-    # plt.plot(velocity_reads_1)
-    # plt.figure(3)
-    # plt.plot(torque_read)
-
-
-def spiral_motion(center,radi,starting_height,ending_height,n,period):
-    pitch=(ending_height-starting_height)/n
-    e,x,y,z=Forward(Position_absolute_read(1),Position_absolute_read(1),Position_absolute_read(1))
-    first_time=datetime.datetime.now()
-    z_velocity=pitch/period
-    dtime=0
-    
-    
-    
-    first_time=datetime.datetime.now()
-    dtime=0
-    
-    position_feedback_1 = []
-    position_feedback_2 = []
-    position_feedback_3 = []
-    
-    velocity_feedback_1 = []
-    velocity_feedback_2 = []
-    velocity_feedback_3 = []
-    
-    Controller1_history = []
-    Controller2_history = []
-    Controller3_history = []
-
-    
-    torque_feedback_1 = []
-    torque_feedback_2 = []
-    torque_feedback_3 = []
-    
-    torque_cmd_his_1 = []
-    torque_cmd_his_2 = []
-    torque_cmd_his_3 = []
-        
-    x_des = []
-    y_des = []
-    z_des = []
-    
-    while not z==ending_height and dtime<n*period :
-        current_time=datetime.datetime.now()
-        dtime=(current_time-first_time).total_seconds()
-        
-        px=radi*np.cos(np.pi*2/period*dtime)+center[0] 
-        py=radi*np.sin(np.pi*2/period*dtime)+center[1]
-        pz=starting_height+dtime*z_velocity
-        
-        
-        x_des.append(px)
-        y_des.append(py)
-        z_des.append(pz)
-        
-        desired_path = np.array([x_des, y_des, z_des])
-        
-        
-        in1 = Position_absolute_read(1)        
-        in2 = Position_absolute_read(2)        
-        in3 = Position_absolute_read(3)
-
-
-        position_feedback_1.append(in1)
-        position_feedback_2.append(in2)
-        position_feedback_3.append(in3)
-        position_feedback = np.array([position_feedback_1,position_feedback_2,position_feedback_3])
-
-
-        feedback=[in1,in2,in3]
-        system_input=implement_PID([px,py,pz],feedback) 
-        
-        Target_speed_rpm(1,system_input[0])
-        Target_speed_rpm(2,system_input[1])
-        Target_speed_rpm(3,system_input[2])
-
-        Controller1_history.append(system_input[0])
-        Controller2_history.append(system_input[1])
-        Controller3_history.append(system_input[2])
-        Controller_history = np.array([Controller1_history, Controller2_history, Controller3_history])  
-        
-        torque_control = implement_PID_torque([px,py,pz],feedback) 
-
-        
-        torque_cmd_his_1.append(torque_control[0])
-        torque_cmd_his_2.append(torque_control[1])
-        torque_cmd_his_3.append(torque_control[2])
-        torque_cmd_his = np.array([torque_cmd_his_1, torque_cmd_his_2, torque_cmd_his_3])
-        
-
-
-        velocity_feedback_1.append(Velocity_actual_rpm(1))
-        velocity_feedback_2.append(Velocity_actual_rpm(2))
-        velocity_feedback_3.append(Velocity_actual_rpm(3))
-        velocity_feedback = np.array([velocity_feedback_1,velocity_feedback_2,velocity_feedback_3])        
-
-        torque_feedback_1.append(Torque_actual(1))
-        torque_feedback_2.append(Torque_actual(2))
-        torque_feedback_3.append(Torque_actual(3))
-        torque_feedback = np.array([torque_feedback_1,torque_feedback_2,torque_feedback_3])  
-        
-
-
-        e,x,y,z=Forward(in1,in2,in3)
-        
-        if z==ending_height or dtime==n*period:
-            print("End Of Spiral!")
-            Motion_z_endeffector(0)
-            Motion_z_endeffector(0)
-            break
-    Motion_z_endeffector(0)
-    Motion_z_endeffector(0)        
-    return position_feedback, velocity_feedback, torque_feedback, desired_path, Controller_history, torque_cmd_his
-
-
-
-# =================================================================================================
-# -- FK -------------------------------------------------------------------------------------------
-# =================================================================================================
-
-
-def kinematic_forward( theta1_feedback , theta1_dot_feedback , theta1_ddot_feedback):
-    
-    psi = np.zeros((1,3))
-    psi[0,0] = 0                ### angle of first limb base-fixed frame
-    psi[0,1] = 2*(np.pi/3)      ### angle of second limb base-fixed frame
-    psi[0,2] = -2*(np.pi/3)     ### angle of third limb base-fixed frame
-    
-    
-    phi_forw = np.zeros((3,1))
-    theta2_forw = np.zeros((3,1))
-    phi_dot_forw = np.zeros((3,1))
-    theta2_dot_forw = np.zeros((3,1))
-
-
-        
-    ## Rotation Matrices
-    # rot_02g = np.zeros((3,3))
-    # Rot_0_to_global_all = np.zeros((3,9)) ### rotation matrices for every limb
-    Rot_1_to_0 = np.zeros((3,9))
-    Rot_phi_to_1 = np.zeros((3,9))
-    Rot_2_to_phi = np.zeros((3,9))
-    Rot_2_to_0 = np.zeros((3,9))
-
-    L1_vector_forw = np.zeros((3,1)) ### in the arm coordinate system
-    L2_vector_forw = np.zeros((3,1))
-
-    # S2 = np.zeros((3,3))
-    # s_actuator = [0 , 0 , 0 , 0 , -1 , 0]  ### 6x1
-
-    cross_L2L1 = np.zeros((3,3))
-    cross_S2S1 = np.zeros((3,3))
-
-#    phi_ddot = np.zeros((3,1))
-#    theta2_ddot =  np.zeros((3,1))
-    J_theta1 = np.zeros((3,3))
-    p_ddot_d_l2 = np.zeros((3,1))
-    J_P_ddot = np.zeros((3,3))
-    x_o = np.zeros((3,1))
-    y_o = np.zeros((3,1))
-    z_o = np.zeros((3,1))
-    O = np.zeros((3,3))
-    B = np.zeros((3,1))
-    A = np.zeros((3,3))
-    
-    J_theta1_forw = np.zeros((3,3))
-    
-    Rot_0_to_global = np.array([ [ np.cos(psi[0,0]) , np.sin(psi[0,0]) , 0 , np.cos(psi[0,1]) , np.sin(psi[0,1]) , 0 , np.cos(psi[0,2]) , np.sin(psi[0,2]) , 0 ]
-                               ,[-np.sin(psi[0,0]) , np.cos(psi[0,0]) , 0 ,-np.sin(psi[0,1]) , np.cos(psi[0,1]) , 0 ,-np.sin(psi[0,2]) , np.cos(psi[0,2]) , 0 ] 
-                               ,[ 0 , 0 , 1 , 0 , 0 , 1 , 0 , 0 , 1] ]).reshape(3,9)
-    
-    for i in range(3):
-        
-        x_o[i] = (R-r) + L1*np.cos(theta1_feedback[i])
-        y_o[i] = 0
-        z_o[i] = L1*np.sin(theta1_feedback[i])
-        
-        rot_02g = Rot_0_to_global[:, 3*i:3*i+3]   ## 3x3
-        O[:,i] = np.matmul(rot_02g , np.array([[x_o[i,0]] , [y_o[i,0]] , [z_o[i,0]]])).reshape(1,3)  ##3x3
-    #---------------------------------------------------------------------------
-    O1O3 = (O[:,2] - O[:,0]).reshape(3,1) ## 3x1
-    O1O2 = (O[:,1] - O[:,0]).reshape(3,1) ## 3x1
-    
-    d = np.cross (O1O2.reshape(1,3),O1O3.reshape(1,3)).reshape(3,1) ## 3x1
-    d = d/np.linalg.norm(d) 
-    
-    cos_alpha = np.power(np.linalg.norm(O1O3),2) / (2*L2*np.linalg.norm(O1O3)) ;
-    cos_beta = np.power(np.linalg.norm(O1O2),2) / (2*L2*np.linalg.norm(O1O2))
-    
-    O1O13 = (cos_alpha*L2) * (O1O3/np.linalg.norm(O1O3))
-    O1O12 = (cos_beta*L2) * (O1O2/np.linalg.norm(O1O2))
-    
-    O13M13 = np.sqrt(L2**2 - np.power(np.linalg.norm(O1O13),2)) * np.cross(d.T , (O1O13/np.linalg.norm(O1O13)).T ).reshape(3,1)
-    O12M12 = np.sqrt(L2**2 - np.power(np.linalg.norm(O1O12),2)) * np.cross(d.T , (O1O12/np.linalg.norm(O1O12)).T ).reshape(3,1)
-   
-    M13N13 = (-2*O13M13).reshape(3,1)
-    M12N12 = (-2*O12M12).reshape(3,1)
-    
-    M13 = O[:,0].reshape(3,1) + O1O13.reshape(3,1) + O13M13.reshape(3,1)
-    M12 = O[:,0].reshape(3,1) + O1O12.reshape(3,1) + O12M12.reshape(3,1)
-    
-    k13 = (( -M13[1,0] + M12[1,0] ) * M12N12[0,0] + ( M13[0,0] - M12[0,0] ) * M12N12[1,0] ) / ( M13N13[1,0] * M12N12[0,0] - M12N12[1,0] * M13N13[0,0] )
-    P13 = (M13.reshape(3,1) + k13 * M13N13.reshape(3,1)) ## 3x1
-    h = np.sqrt(L2**2 - np.linalg.norm(P13 - O[:,0].reshape(3,1))**2)
-    P_feedback = P13 - h*d ## 3x1
-    P_feedback [1][0] = - P_feedback [1][0]
-
-    for i in range(3):
-         rot_02g = Rot_0_to_global[:,3*i:3*i+3]
-         Q = np.matmul(rot_02g, P_feedback) + np.array([[r-R] , [0] , [0]])
-         L = np.linalg.norm(Q)
-
-         phi_forw[i,0] = np.arccos(Q[1,0]/L2)
-         theta2_forw[i,0] = np.arccos( (L**2 - L2**2 - L1**2)/(2*L2*L1*np.sin(phi_forw[i,0])))
-         
-         L1_vector_forw = L1 * np.array( [ [np.cos(theta1_feedback[i])] , [0] , [np.sin(theta1_feedback[i])] ] )
-         L2_vector_forw = L2 * np.array([ np.sin(phi_forw[i,0])*np.cos(theta1_feedback[i]+theta2_forw[i]) , np.cos(phi_forw[i]) , np.sin(theta1_feedback[i]+theta2_forw[i])] )
-         
-         s1_forw = np.array([0 , -1 , 0]).reshape(3,1)  ### Screw 1 : 3x1
-         s2_forw = np.array([ -np.sin(theta1_feedback[i]+theta2_forw[i]) , [0] , np.cos(theta1_feedback[i]+theta2_forw[i])] )
-        
-         cross_l2l1_forw = np.cross(L2_vector_forw.reshape(1,3),L1_vector_forw.reshape(1,3))
-         cross_s2s1_forw = np.cross(s2_forw.reshape(1,3),s1_forw.reshape(1,3))
-        
-
-         ### upper link jacobian for 1 arm = J_1i_theta
-         J_1_forw = np.matmul(rot_02g.T , -L2_vector_forw/(np.dot(cross_l2l1_forw.reshape(3), s1_forw.reshape(3))))  ## 3x1
-         ### upper link jacobian for 3 arms = J_theta1
-         J_theta1_forw[i,:] = J_1_forw.reshape(3)  ##3x3
-    
-    P_dot_feedback = np.matmul(np.linalg.inv(J_theta1_forw) , theta1_dot_feedback)
-        
-        
-#----------------------------------------------------------------------------------------------------------------------------
-  #       ### this is the upper link jacobian made by identification
-  #       # B[i,0] = -np.dot(cross_l2l1,s1)
-  #       # A[i,:] = np.matmul(l2.T,rot_02g)       
-  # J_angular2linear = np.matmul(np.linalg.inv(A) , np.array([[B[0,0],0,0],[0,B[1,0],0],[0,0,B[2,0]]]))
-#----------------------------------------------------------------------------------------------------------------------------
-  
-    for i in range(3):
-        
-         rot_02g = Rot_0_to_global[:,3*i:3*i+3] 
-         L1_vector_forw = L1 * np.array( [ [np.cos(theta1_feedback[i])] , [0] , [np.sin(theta1_feedback[i])] ] )     
-         L2_vector_forw = L2 * np.array([ np.sin(phi_forw[i,0])*np.cos(theta1_feedback[i]+theta2_forw[i]) , np.cos(phi_forw[i]) , np.sin(theta1_feedback[i]+theta2_forw[i])] )
-         
-         s1_forw = np.array([0 , -1 , 0]).reshape(3,1)  ### Screw 1 : 3x1
-         s2_forw = np.array([ -np.sin(theta1_feedback[i]+theta2_forw[i]) , [0] , np.cos(theta1_feedback[i]+theta2_forw[i])] )
-         
-         cross_l2l1_forw = np.cross(L2_vector_forw.reshape(1,3),L1_vector_forw.reshape(1,3))
-         cross_s2s1_forw = np.cross(s2_forw.reshape(1,3),s1_forw.reshape(1,3))
-  #       l1 = l1_vector[:,i]
-  #       l2 = l2_vector[:,i]
-  #       s2 = S2[:,i]
-  #       cross_l2l1 = cross_L2L1[:,i]
-  #       cross_s2s1 = cross_S2S1[:,i]
-         p_dot =np.matmul(rot_02g, P_dot_feedback)
-         # phi_dot_forw(m,k) = -(s1_forw.' * p_dot)/(dot(cross_s2s1_forw,L2_vector_forw));
-                               
-         phi_dot_forw[i,0] = -np.matmul(s1_forw.T,p_dot)/np.dot(cross_s2s1_forw.reshape(3),L2_vector_forw.reshape(3))
-         theta2_dot_forw[i,0] = -((np.matmul(L1_vector_forw.T,p_dot) + np.dot(cross_l2l1_forw.reshape(3),s2_forw.reshape(3))/np.dot(cross_s2s1_forw.reshape(3),L2_vector_forw.reshape(3)) * np.matmul(s1_forw.T,p_dot)) / -np.dot(cross_l2l1_forw.reshape(3),s1_forw.reshape(3)))
-         
-        
-         
-         # p_ddot_d_l2[i,0] = - np.dot(cross_l2l1_forw.reshape(3),s1_forw.reshape(3))*theta1_ddot_feedback[i] - (np.dot((L1_vector_forw*theta1_dot_feedback[i]**2).reshape(3),L2_vector_forw.reshape(3)) + 2*theta2_dot_forw[i,0]*phi_dot_forw[i,0]*np.dot(s1_forw.reshape(3),s2_forw.reshape(3))*np.cos(phi_forw[i])*L2**2 + (np.sin(phi_forw[i])**2 * theta2_dot_forw[i]**2 + phi_dot_forw[i]**2)*L2**2 )
-        
-         # J_P_ddot[i,:] = np.matmul(L2_vector_forw.T , rot_02g).reshape(3)
-     
-    # P_ddot_feedback = np.matmul(np.linalg.inv(J_P_ddot) , p_ddot_d_l2)
-    
-    
-    return P_feedback, P_dot_feedback
-
-
-
-
-#%%
-    
-
-
-
-
-
-# theta1_feedback = np.array([-76 , -77 , -78]).T
-# theta1_dot_feedback = np.array([0 , 0 , 0]).T
-# theta1_ddot_feedback = np.array([0 , -0 , 0]).T
-# P_ee, P_dot_ee = kinematic_forward( theta1_feedback , theta1_dot_feedback , theta1_ddot_feedback)
-# print(kinematic_forward( theta1_feedback , theta1_dot_feedback , theta1_ddot_feedback))
-# test_forward = kinematic_forward( theta1_feedback , theta1_dot_feedback , theta1_ddot_feedback)
-
-
-# # accel = np.array([np.zeros(157) , np.zeros(157) ,np.zeros(157) ])
-# # P_feedback = np.array([np.zeros(157) , np.zeros(157) ,np.zeros(157) ])
-# # P_dot_feedback = np.array([np.zeros(157) , np.zeros(157) ,np.zeros(157) ])
-# a = []
-# # a.append(kinematic_forward(np.array([position_feedback[:,i]]).T, np.array(velocity_feedback[:,i]).T, np.array(accel[:,i]).T))
-
-# # for i in range(1,len(position_feedback)):
-# #     # theta = 
-# #     P_feedback = np.array([np.zeros(157) , np.zeros(157) ,np.zeros(157) ])
-    
-# #     P_feedback[:,i], P_dot_feedback[:,i] = kinematic_forward(np.array([position_feedback[:,i]]).T, np.array(velocity_feedback[:,i]).T, np.array(accel[:,i]).T)
-    
-
-
-# =================================================================================================
-# -- IK -------------------------------------------------------------------------------------------
-# =================================================================================================
-
-
-
-
-# t1 = time.time()
-
-def kinematic_inverse (desired_trajectory):
-        
-        x_des = desired_trajectory[0][0]
-        y_des = desired_trajectory[0][1]
-        z_des = desired_trajectory[0][2]
-        
-        xd_des = desired_trajectory[1][0]
-        yd_des = desired_trajectory[1][1]
-        zd_des = desired_trajectory[1][2]
-        
-        xdd_des = desired_trajectory[2][0]
-        ydd_des = desired_trajectory[2][1]
-        zdd_des = desired_trajectory[2][2]
-        
-        # print(x_des, y_des, zdd_des, ydd_des)
-        psi = np.zeros((1,3))
-        psi[0,0] = 0                ### angle of first limb base-fixed frame
-        psi[0,1] = 2*(np.pi/3)      ### angle of second limb base-fixed frame
-        psi[0,2] = -2*(np.pi/3)     ### angle of third limb base-fixed frame
-
-        phi_inverse = np.zeros((3,1))
-        theta1_inverse = np.zeros((3,1))
-        theta2_inverse = np.zeros((3,1))
-        phi_dot_inverse = np.zeros((3,1))
-        theta1_dot_inverse = np.zeros((3,1))
-        theta2_dot_inverse = np.zeros((3,1))
-        phi_ddot_inverse = np.zeros((3,1))
-        theta1_ddot_inverse = np.zeros((3,1))
-        theta2_ddot_inverse = np.zeros((3,1))
-
-## Rotation Matrices
-        rot_02g = np.zeros((3,3))
-        Rot_0_to_global_all = np.zeros((3,9)) ### rotation matrices for every limb
-        Rot_1_to_0_all = np.zeros((3,9))
-        Rot_phi_to_1_all = np.zeros((3,9))
-        Rot_2_to_phi_all = np.zeros((3,9))
-        Rot_2_to_0_all = np.zeros((3,9))
-        
-        L1_vector = np.zeros((3,3)) ### in the arm coordinate system
-        L2_vector = np.zeros((3,3))
-
-        s1 = np.array([0 , -1 , 0]).reshape(3,1)  ### Screw 1 : 3x1
-        S2 = np.zeros((3,3))
-        s_actuator = [0 , 0 , 0 , 0 , -1 , 0]  ### 6x1
-        
-        P_ee = np.zeros((3,3))
-        V_ee = np.zeros((3,3))
-        A_ee = np.zeros((3,3))
-        q = np.zeros((3,3))
-        
-        J_theta1 = np.zeros((3,3))
-        J_theta2 = np.zeros((3,3))
-        J_phi = np.zeros((3,3))
-        
-        cross_L2L1 = np.zeros((3,3))
-        cross_S2S1 = np.zeros((3,3))
-        
-        Rot_0_to_global = np.array([ [ np.cos(psi[0,0]) , np.sin(psi[0,0]) , 0 , np.cos(psi[0,1]) , np.sin(psi[0,1]) , 0 , np.cos(psi[0,2]) , np.sin(psi[0,2]) , 0 ]
-                                ,[-np.sin(psi[0,0]) , np.cos(psi[0,0]) , 0 ,-np.sin(psi[0,1]) , np.cos(psi[0,1]) , 0 ,-np.sin(psi[0,2]) , np.cos(psi[0,2]) , 0 ] 
-                                ,[ 0 , 0 , 1 , 0 , 0 , 1 , 0 , 0 , 1] ]).reshape(3,9)
-        # print(Rot_0_to_global)
-        for i in range(3):
-            
-            rot_02g = Rot_0_to_global[:, 3*i:3*i+3]   ## 3x3
-            # print(np.array([x_des , y_des , z_des]))
-            # print(np.matmul(rot_02g, np.array([x_des , y_des , z_des])))
-            # print(rot_02g)
-            P_ee[:,i] = np.matmul(rot_02g , np.array([ x_des , y_des , z_des ])).reshape(3)
-            # print(P_ee[:,i])
-            V_ee[:,i] = np.matmul(rot_02g , np.array([ xd_des , yd_des , zd_des ])).reshape(3)
-            A_ee[:,i] = np.matmul(rot_02g , np.array([ xdd_des , ydd_des , zdd_des ])).reshape(3)
-                                  
-            
-            q[:,i] = np.array(np.array([P_ee[:,i]]).reshape(3,1) + np.array([[r-R] , [0] , [0]])).reshape(3) # 3x1
-
-            qx = q[0,i] # 1x1
-            qy = q[1,i] # 1x1
-            qz = q[2,i] # 1x1
-            
-#             # Equation 5- Paralellogram Angle
-            phi_inverse[i,0] = np.arccos(qy/L2) # 1x1
-            # print(phi_inverse)
-            a = (qx+L1)**2 + qz**2 - (L2*np.sin(phi_inverse[i,0]))**2  # 1x1  
-            b = -4*L1*qz  # b is defined as b prime in delta equation
-            c=(qx-L1)**2 + qz**2 - (L2*np.sin(phi_inverse[i,0]))**2 # 1x1
-            
-            if b**2 < 4*a*c:
-                ti = 0
-                print("out of work space")
-            else:
-                ti =(-b-(np.sqrt(b**2-4*(a*c))))/(2*a)  # 1x1
-            
-#             # Equation 7- The planar angle between upper and lower link
-            theta2_inverse[i,0] = np.arccos((qx**2 + qy**2 + qz**2 - L2**2 - L1**2)/(2*L1*L2*np.sin(phi_inverse[i,0])))  # 1x1
-            # print(theta2_inverse)
-#             # Equation 14- Actuated Link Angle (theta1)
-            theta1_inverse[i,0] = 2*np.arctan(ti) # 1x1  
-#             print(theta1_inverse)
-# #             # in the arm coordinate system
-            L1_vector = L1 * np.array( [ [np.cos(theta1_inverse[i])] , [0] , [np.sin(theta1_inverse[i])] ] )
-            L2_vector = L2 * np.array([ np.sin(phi_inverse[i,0])*np.cos(theta1_inverse[i]+theta2_inverse[i]) , np.cos(phi_inverse[i]) , np.sin(theta1_inverse[i]+theta2_inverse[i])] )
-         
-            s1 = np.array([0 , -1 , 0]).reshape(3,1)  ## Screw 1 : 3x1
-            s2 = np.array([ -np.sin(theta1_inverse[i]+theta2_inverse[i]) , [0] , np.cos(theta1_inverse[i]+theta2_inverse[i])] )
-            
-            cross_l2l1 = np.cross(L2_vector.reshape(1,3), L1_vector.reshape(1,3))
-            cross_s2s1 = np.cross(s2.reshape(1,3), s1.reshape(1,3))
-            
-            # J_theta1_i  = (-(1*L2_vector.T)/(np.dot(cross_l2l1,s1)))
-            
-            J_theta1[i,:] = (-(1*L2_vector.T)/(np.dot(cross_l2l1,s1)))  ## 1x3
-#             J_theta2[i,:] = -1*(L1_vector.T + ((np.dot(cross_l2l1,s2))/(np.dot(cross_s2s1,L2_vector)))* s1.T)/(-np.dot(cross_l2l1,s1))  ## 1x3
-#             J_phi[i,:] = -(1*s1.T)/(np.dot(cross_s2s1,L2_vector))  ## 1x3
-            
-            # J_x = np.linalg.inv(J_theta1)
-#             phi_dot_inverse[i] = -np.matmul(s1.T, V_ee[:,i])/np.dot(cross_s2s1.reshape(3), L2_vector.reshape(3))
-#             theta2_dot_inverse[i] = -((np.matmul(L1_vector.T, V_ee[:,i]) + np.dot(cross_l2l1.reshape(3), s2.reshape(3))/np.dot(cross_s2s1.reshape(3), L2_vector.reshape(3)) * np.matmul(s1.T, V_ee[:,i])) / -np.dot(cross_l2l1.reshape(3), s1.reshape(3)))
-#             theta1_dot_inverse[i] = -np.matmul(L2_vector.T , V_ee[:,i])/np.dot(cross_l2l1,s1)  ## 1x1
-   
-#             # phi_ddot_inverse[i] = ( np.dot(s1 , A_ee[:,i] + L2_vector*(0*np.cos(phi_inverse[i])*(theta2_dot_inverse[i])**2 + phi_dot_inverse[i]**2) + (L1_vector * (theta1_dot_inverse[i]**2) + 0 ))) / (np.dot(L2_vector,-cross_s2s1))   ## 1x1
-# #             # theta1_ddot_inverse[i] = -( np.dot((A_ee[:,i] + L1_vector*(theta1_dot_inverse[i]**2)), L2_vector) + (2*theta2_dot_inverse[i]*phi_dot_inverse[i]*np.dot(s1,s2)*np.cos(phi_inverse[i])*L2**2) + (((np.sin(phi_inverse[i]))**2*theta2_dot_inverse[i]**2 + phi_dot_inverse[i]**2)*L2**2 )) / (np.dot(cross_l2l1,s1))  ## 1x1
-# #             # theta2_ddot_inverse[i] = ( np.dot( L1_vector ,  A_ee[:,i] + L2_vector*(phi_dot_inverse[i]**2) - (2*theta2_dot_inverse[i]*phi_dot_inverse[i] * np.cross(s1,np.cross(s2,L2_vector)))) + L2*np.sin(phi_inverse[i])*L1*np.cos(theta2_inverse[i])*(theta2_dot_inverse[i]**2) + (L1*theta1_dot_inverse[i])**2 + phi_ddot_inverse[i]*np.dot(s2,-cross_l2l1) ) / (np.dot(s1,cross_l2l1))  ## 1x1
-            
-        return theta1_inverse, J_theta1
-
-
-
-# =================================================================================================
-# -- tests ----------------------------------------------------------------------------------------
-# =================================================================================================
-
-
-def circle_test():
-
-    #%%
-    # Operation_mode(1,4)
-    # Operation_mode(2,4)
-    # Operation_mode(3,4)
-
-    # Operation_mode(1,-3)
-    # Operation_mode(2,-3)
-    # Operation_mode(3,-3)
-
-
-    position_feedback, velocity_feedback, torque_feedback, desired_path, Controller_history, torque_cmd_his = circle_motion([0,0],15,-65,2,15) #arguments: center,minor_axis,major_axis,height,n,period
-    # Target_torque(1, 0)
-    # Target_torque(2, 0)
-    # Target_torque(3, 0)
-
-    # position_feedback, velocity_feedback, torque_feedback, desired_path, Controller_history, torque_cmd_his = spiral_motion([0,0],20,-64,-64,3,3) #arguments: center,minor_axis,major_axis,height,n,period
-     # arguments: center,radi,starting_height,ending_height,n,period
-    Motion_z_endeffector(0)
-    Motion_z_endeffector(0)
-    # e,x,y,z = Forward(position_feedback[0],position_feedback[1],position_feedback[2])
-
-    x_feedback = []
-    y_feedback = []
-    z_feedback = []
-    size = len(position_feedback[0])
-
-    for i in range(size):
-
-        # x_ee_des = x_des[i,0]
-        # y_ee_des = y_des[i,0]
-        # z_ee_des = z_des[i,0]
-        # kinema = kinematic_inverse(xi,yi,zi,0,0,0,0,0,0)
-        kinema_new = Forward( position_feedback[0,i],position_feedback[1,i],position_feedback[2,i] )
-        # print(kinema[:,0])
-        x_feedback.append(kinema_new[1])
-        y_feedback.append(kinema_new[2])
-        z_feedback.append(kinema_new[3])
-
-    x_feedback = np.asarray(x_feedback).reshape(size,1)
-    y_feedback = np.asarray(y_feedback).reshape(size,1)
-    z_feedback = np.asarray(z_feedback).reshape(size,1)
-
-    # plt.plot(t1, T, label = 'Input Torque')
-    #             plt.plot(t1, torque_measured, label = 'Measured Torque')
-               
-    #             plt.grid()
-    #             plt.show()
-
-
-
-    #%%
-
-    plt.figure(1)
-    plt.title("desired and actual path")
-    thetaact1 = plt.subplot(3,1,1)
-    plt.plot(x_feedback)  
-    plt.plot(desired_path[0])
-
-    thetaact2 = plt.subplot(3,1,2)
-    plt.plot(y_feedback)
-    plt.plot(desired_path[1])
-      
-    thetaact3 = plt.subplot(3,1,3)
-    plt.plot(-z_feedback)  
-    plt.plot(-desired_path[2])
-
-    plt.figure(2)
-    plt.title("desired and actual path")
-    plt.plot(x_feedback,y_feedback)
-    plt.plot(desired_path[0], desired_path[1])
-    plt.legend()
-    plt.xlabel('time')
-    plt.ylabel('torque')
-
-
-    plt.figure(3)
-    plt.title("desired and actual path")
-    thetaact1 = plt.subplot(3,1,1)
-    plt.plot(torque_feedback[0], label = 'Torque Exerted')  
-    plt.plot(torque_cmd_his[0])
-
-    thetaact2 = plt.subplot(3,1,2)
-    plt.plot(torque_feedback[1])  
-    plt.plot(torque_cmd_his[1])
-      
-    thetaact3 = plt.subplot(3,1,3)
-    plt.plot(torque_feedback[2])  
-    plt.plot(torque_cmd_his[2])
-
-    plt.title("torque feedback")
-
-
-    plt.figure(4)
-    thetaact1 = plt.subplot(3,1,1)
-    plt.plot(velocity_feedback[0])  
-    plt.plot(Controller_history[0])  
-
-    thetaact2 = plt.subplot(3,1,2)
-    plt.plot(velocity_feedback[1])
-    plt.plot(Controller_history[1])  
-
-    thetaact3 = plt.subplot(3,1,3)
-    plt.plot(velocity_feedback[2])
-    plt.plot(Controller_history[2])  
-    plt.title("velocity feedback and commanded")
-
-
-    plt.figure(5)
-    thetaact1 = plt.subplot(3,1,1)
-    plt.plot(torque_cmd_his[0])
-
-    thetaact2 = plt.subplot(3,1,2)
-    plt.plot(torque_cmd_his[1])
-      
-    thetaact3 = plt.subplot(3,1,3)
-    plt.plot(torque_cmd_his[2])
-    plt.title("commaded torque")
-
-
-    #%%
-    size = len(position_feedback[0])
-    error_x = []
-    error_y = []
-    error_z = []
-    for i in range(size): 
-        error_x.append(x_feedback[i]-desired_path[0,i])
-        error_y.append(y_feedback[i]-desired_path[1,i])
-        error_z.append(z_feedback[i]-desired_path[2,i])
-
-    error_x = np.asarray(error_x).reshape(size,1)
-    error_y = np.asarray(error_y).reshape(size,1)
-    error_z = np.asarray(error_z).reshape(size,1)
-
-    plt.figure()
-    errorx = plt.subplot(3,1,1)
-    plt.plot(error_x)
-
-    errory = plt.subplot(3,1,2)
-    plt.plot(error_y)
-
-    errory = plt.subplot(3,1,3)
-    plt.plot(error_z)
-
-
-
-    #%%
-        
-    # position_feedback, velocity_feedback, torque_feedback = Homing()
-
-    plt.figure(1)  
-    theta_act_1 = plt.subplot(311)
-    plt.plot(position_feedback[0])
-    theta_act_2 = plt.subplot(312)
-    plt.plot(position_feedback[1])
-    theta_act_3 = plt.subplot(313)
-    plt.plot(position_feedback[2])
-
-    plt.figure(2)
-    theta__dot_act_1 = plt.subplot(311)
-    plt.plot(velocity_feedback[0])
-    theta__dot_act_2 = plt.subplot(312)
-    plt.plot(velocity_feedback[1])
-    theta__dot_act_3 = plt.subplot(313)
-    plt.plot(velocity_feedback[2])
-
-    plt.figure(3)
-    torque_act_1 = plt.subplot(311)
-    plt.plot(torque_feedback[0])
-    torque_act_2 = plt.subplot(312)
-    plt.plot(torque_feedback[1])
-    torque_act_3 = plt.subplot(313)
-    plt.plot(torque_feedback[2])
-
 
 # =================================================================================================
 # -- main function --------------------------------------------------------------------------------
