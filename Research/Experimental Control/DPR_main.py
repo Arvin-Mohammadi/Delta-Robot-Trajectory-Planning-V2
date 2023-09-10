@@ -726,10 +726,8 @@ def Goto_xyz(final_xyz, duration, trajectory='4567'):
         # safety 
         if keyboard.is_pressed('q'):
             Emergency_stop()
-            Disable_all_drivers()
             print("Loop terminated by user!")
             break
-
 
         # checking the passed time 
         last_time = datetime.datetime.now()
@@ -802,35 +800,108 @@ def trajectory_trapezoidal(time_map, time_shift, start_time):
 def mltp_3point(path, duration):
 
     global answer2 
- 
-    start_time = datetime.datetime.now()
-    
-    # print("Start Time is: ", start_time)
 
     # init values 
     current_position    = [0, 0, 0]
     last_position       = [0, 0, 0]
-    distance            = [0, 0, 0]
 
     E, current_position[0], current_position[1], current_position[2] = Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))
 
     print("Current Position is: ", current_position)
 
-    # calculating the distance from the goal
-    for i in range(3):
-        distance[i] = path[1][i] - current_position[i]
-    
-    print("distance:", distance)
-        
-    dtime = 0 
+    # path should be: [[x0, y0, z0], [x1, y1, z1], [x2, y2, z2]]
+    path = current_position + path 
 
+    print("This  is path:", path)
+
+    start_time = datetime.datetime.now()
+    dtime = 0 
 
     while dtime<duration:
 
         # safety 
         if keyboard.is_pressed('q'):
             Emergency_stop()
-            Disable_all_drivers()
+            print("Loop terminated by user!")
+            break
+
+        # checking the passed time 
+        last_time = datetime.datetime.now() 
+        dtime = (last_time - start_time).total_seconds()
+
+        if dtime >= duration: 
+            Motion_z_endeffector(0)
+            Motion_z_endeffector(0)
+            break 
+
+        # trajectory 
+        for i in range(3):
+             last_position[i] = trajectory_3point(time, path[:][i])
+
+
+        in1 = Position_absolute_read(1)
+        in2 = Position_absolute_read(2)
+        in3 = Position_absolute_read(3)
+
+        feedback = [in1, in2, in3]
+
+        system_input = implement_PID(last_position, feedback)
+
+        Target_speed_rpm(1, system_input[0])
+        Target_speed_rpm(2, system_input[1])
+        Target_speed_rpm(3, system_input[2])
+
+
+
+# points = [q0, q1, q2] and not normalized
+def trajectory_3point(time, points):
+
+    [q0, q1, q2] = points 
+
+    last_time = datetime.datetime.now()
+    dtime = (last_time - start_time).total_seconds()
+
+    # acceleration = 4.5 and v_max = 1.5 and T = 1 
+
+    a0 = q0 
+    a4 = 256*q1 - 163*q0 - 93*q2 
+    a5 = 596*q0 - 1024*q1 + 428*q2 
+    a6 = 1536*q1 - 838*q0 - 698*q2
+    a7 = 532*q0 - 1024*q1 + 492*q2 
+    a8 = 256*q1 - 128*q0 - 128*q2 
+
+    s = a8*dtime**8 + a7*dtime**7 + a6*dtime**6 + a5*dtime**5 + a4*dtime**4 + a0
+
+    return s 
+
+#----------------------------------------------------------------------------------------------------------------------------
+
+# path = [[x1, y1, z1], [x2, y2,z2], ... [xn, yn, zn]]
+def mltp_cubic_spline(path, duration):
+
+    global answer2
+
+    # init values 
+    current_position    = [0, 0, 0]
+    last_position       = [0, 0, 0]
+
+    E, current_position[0], current_position[1], current_position[2] = Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))
+
+    print("Current Position is: ", current_position)
+
+    # the path should become: [[x0, y0, z0], [x1, y1, z1], ... [xn, yn, zn]]
+    path = current_position + path 
+
+    print("This is the path:", path)
+        
+    start_time = datetime.datetime.now()
+    dtime = 0 
+
+    while dtime<duration:
+        
+        # safety 
+        if keyboard.is_pressed('q'):
+            Emergency_stop()
             print("Loop terminated by user!")
             break
 
@@ -839,16 +910,15 @@ def mltp_3point(path, duration):
         last_time = datetime.datetime.now()
         dtime = (last_time - start_time).total_seconds()
 
+
         if dtime>=duration:
             Motion_z_endeffector(0)
             Motion_z_endeffector(0)
             break
 
 
-        # trajectory 
-        tau = dtime/duration
         for i in range(3): 
-            last_position[i] = trajectory_3point(duration, 0, start_time, [current_position[i], path[0][i]], path[1][i])*distance[i] + current_position[i]
+            last_position[i] = trajectory_cubic_spline(time, path[:][i])
  
         in1 = Position_absolute_read(1)
         in2 = Position_absolute_read(2)
@@ -863,28 +933,8 @@ def mltp_3point(path, duration):
         Target_speed_rpm(3, system_input[2])
 
 
-# points = [q0, q1, q2] and not normalized
-def trajectory_3point(time_map, time_shift, start_time, points):
-
-    [q0, q1, q2] = points 
-
-    q1 = (q1-q0)/(q2-q0)
-
-    last_time = datetime.datetime.now()
-    dtime = (last_time - start_time).total_seconds()
-    tau = (dtime - time_shift)/time_map
-
-    # acceleration = 4.5 and v_max = 1.5 and T = 1 
-
-    a4 = 256*q1 - 93
-    a5 = -1024*q1 + 428 
-    a6 = 1536*q1 - 698
-    a7 = -1024*q1 + 492
-    a8 = 256*q1 - 128
-
-    s = a8*tau**8 + a7*tau**7 + a6*tau**6 + a5*tau**5 + a4*tau**4
-
-    return s 
+def trajectory_cubic_spline(time, points):
+    pass 
 
 #----------------------------------------------------------------------------------------------------------------------------
 
