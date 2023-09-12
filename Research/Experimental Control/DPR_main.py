@@ -811,6 +811,7 @@ def mltp_3point(path, duration):
 
     # path should be: [[x0, y0, z0], [x1, y1, z1], [x2, y2, z2]]
     path = current_position + path 
+    path_transpose = path.T
 
     print("This  is path:", path)
 
@@ -831,12 +832,11 @@ def mltp_3point(path, duration):
 
         if dtime >= duration: 
             Motion_z_endeffector(0)
-            Motion_z_endeffector(0)
             break 
 
         # trajectory 
         for i in range(3):
-             last_position[i] = trajectory_3point(time, path[:][i])
+             last_position[i] = _trajectory_3point(time, path_transpose[i])
 
 
         in1 = Position_absolute_read(1)
@@ -854,7 +854,7 @@ def mltp_3point(path, duration):
 
 
 # points = [q0, q1, q2] and not normalized
-def trajectory_3point(time, points):
+def _trajectory_3point(time, points):
 
     [q0, q1, q2] = points 
 
@@ -877,64 +877,73 @@ def trajectory_3point(time, points):
 #----------------------------------------------------------------------------------------------------------------------------
 
 # path = [[x1, y1, z1], [x2, y2,z2], ... [xn, yn, zn]]
-def mltp_cubic_spline(path, duration):
+# def mltp_cubic_spline(path, duration):
 
-    global answer2
+#     global answer2
 
-    # init values 
-    current_position    = [0, 0, 0]
-    last_position       = [0, 0, 0]
+#     # init values 
+#     current_position    = [0, 0, 0]
+#     last_position       = [0, 0, 0]
 
-    E, current_position[0], current_position[1], current_position[2] = Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))
+#     E, current_position[0], current_position[1], current_position[2] = Forward(Position_absolute_read(1), Position_absolute_read(2), Position_absolute_read(3))
 
-    print("Current Position is: ", current_position)
+#     print("Current Position is: ", current_position)
 
-    # the path should become: [[x0, y0, z0], [x1, y1, z1], ... [xn, yn, zn]]
-    path = current_position + path 
-
-    print("This is the path:", path)
+#     # the path should become: [[x0, y0, z0], [x1, y1, z1], ... [xn, yn, zn]]
+#     path = current_position + path 
+#     path_transpose = path.T
+#     n = path.shape[0]
+    
+#     print("This is the path:", path, "\nn=", n)
         
-    start_time = datetime.datetime.now()
-    dtime = 0 
+#     start_time = datetime.datetime.now()
+#     dtime = 0 
 
-    while dtime<duration:
+#     while dtime<duration:
         
-        # safety 
-        if keyboard.is_pressed('q'):
-            Emergency_stop()
-            print("Loop terminated by user!")
-            break
+#         # safety 
+#         if keyboard.is_pressed('q'):
+#             Emergency_stop()
+#             print("Loop terminated by user!")
+#             break
+
+#         # checking the passed time 
+#         last_time = datetime.datetime.now()
+#         dtime = (last_time - start_time).total_seconds()
 
 
-        # checking the passed time 
-        last_time = datetime.datetime.now()
-        dtime = (last_time - start_time).total_seconds()
+#         if dtime>=duration:
+#             Motion_z_endeffector(0)
+#             break
 
-
-        if dtime>=duration:
-            Motion_z_endeffector(0)
-            Motion_z_endeffector(0)
-            break
-
-
-        for i in range(3): 
-            last_position[i] = trajectory_cubic_spline(time, path[:][i])
+#         for i in range(3): 
+#             last_position[i] = _trajectory_cubic_spline(time, path_transpose[i], duration)
  
-        in1 = Position_absolute_read(1)
-        in2 = Position_absolute_read(2)
-        in3 = Position_absolute_read(3)
+#         in1 = Position_absolute_read(1)
+#         in2 = Position_absolute_read(2)
+#         in3 = Position_absolute_read(3)
 
-        feedback = [in1, in2, in3]
+#         feedback = [in1, in2, in3]
 
-        system_input = implement_PID(last_position, feedback)
+#         system_input = implement_PID(last_position, feedback)
 
-        Target_speed_rpm(1, system_input[0])
-        Target_speed_rpm(2, system_input[1])
-        Target_speed_rpm(3, system_input[2])
+#         Target_speed_rpm(1, system_input[0])
+#         Target_speed_rpm(2, system_input[1])
+#         Target_speed_rpm(3, system_input[2])
 
 
-def trajectory_cubic_spline(time, points):
-    pass 
+# def _trajectory_cubic_spline(time, points, duration):
+
+#     # the number of points 
+#     n = points.shape[0]
+#     T = duration
+
+#     # calculating coefficient matrix 
+#     coeff = CubicSplineCoeff(points, T)
+
+
+#     return s 
+
 
 #----------------------------------------------------------------------------------------------------------------------------
 
