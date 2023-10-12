@@ -2,10 +2,13 @@
 ------
 <ins>**A word from me:**</ins> 
 
-I was really excited about creating a controller for DPR, and I must say, it was quite a challenging task. However, I became pretty obsessive about finding a solution and felt driven to share it with others as an open-source framework. I hope you'll find it helpful.
+I was really excited about creating a complete guide for Trajectory Planning for DPR, and I must say, it was quite a challenging task. However, I became pretty obsessive about finding a solution and felt driven to share it with others as an open-source ... thing. I hope you'll find it helpful.
 
 If you need to ask any questions, here's my email: 
 arvin1844m@gmail.com
+
+And here are some of my Articles regarding these research: 
+...WIP...
 
 ![delta_robot_urdf](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/delta_robot_urdf.PNG)
 
@@ -28,13 +31,7 @@ Overview:
 ------
 <ins>**History**</ins> 
 
-DPRs, part of the third generation of industrial robots, have evolved since the 1950s. Their parallel kinematic structure and high-speed capabilities make them ideal for precise tasks, particularly in pick-and-place operations. This article sheds light on trajectory planning for DPRs, focusing on smooth motion for the End-Effector while minimizing deviations [1].
-
-</br>
-
-<ins>**Control Demystified**</ins> 
-
-Industrial robots come in four classes: remote-controlled, sequence-controlled, controllable track, and adaptive control. We'll delve into controllable track robots, which strike a balance between predefined paths and adaptable behavior [2].
+Delta Parallel Robots (DPR) are part of the third generation of industrial robots, have evolved since the 1950s. Their parallel kinematic structure and high-speed capabilities make them ideal for precise tasks, particularly in pick-and-place operations. This article (or something like an article) sheds light on trajectory planning for DPRs, focusing on smooth motion for the End-Effector while minimizing deviations [1].
 
 </br>
 
@@ -43,6 +40,8 @@ Industrial robots come in four classes: remote-controlled, sequence-controlled, 
 The trajectory-planning problem of a DPR can be tackled [3][4][5][6][7]
 using various algorithms.
 - 5th and 7th order polynomials
+- Cubic Splines
+- Higher Order polynomials
 - 4th, 6th, and 7th order B-Spline
 - Lame’s Curve
 - Pythagorean-Hodograph Curves
@@ -54,13 +53,7 @@ using various algorithms.
 
 <ins>**Importance**</ins> 
 
-Efficient trajectory planning is vital for Delta robot success. Smooth paths for the end-effector while respecting jerk constraints ensure precise movement, avoiding mechanical stress. Our quest is to master controlled jerk profiles for optimal Delta robot utilization.
-
-</br>
-
-<ins>**Goal**</ins> 
-
-Our aim is to explore trajectory planning algorithms for Delta robots, such as multi-point trapezoidal methods and higher-order polynomials. By comparing these algorithms, we seek to find the best solutions for generating accurate trajectories while considering jerk limitations. This research provides fresh insights for Delta robot applications.
+Efficient trajectory planning is vital for DPRs successfuly managing their tasks. Smooth paths for the End-Effector (EE) while respecting jerk constraints ensure precise movement, avoiding mechanical stress. Our ambition is to find a good path generated for different applications. 
 
 </br>
 
