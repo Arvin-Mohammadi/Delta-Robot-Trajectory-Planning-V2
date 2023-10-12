@@ -57,6 +57,8 @@ Efficient trajectory planning is vital for DPRs successfuly managing their tasks
 
 </br>
 
+<ins>**FK and IK**</ins> 
+
 The code to Inverse and Forward Kinematics can be found in the [Delta Robot file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/delta_robot.py). And Here's the [source](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/FK%20and%20IK/Inverse%20Kinematics%20(Delta%20Robot).pdf) of the code.
 
 ![a delta robot](https://howtorobot.com/sites/default/files/2021-09/delta-robot.jpg)
@@ -64,22 +66,19 @@ The code to Inverse and Forward Kinematics can be found in the [Delta Robot file
 
 ## 2 - TRAJECTORY PLANNING
 ------
-<ins>**What is Trajectory Planning:**</ins> 
-
-The trajectory planning algorithm generates a time-based sequence of values,
+Trajectory planning generates a time-based sequence of values,
 respecting the imposed constraints, to specify the position and
-orientation of the EE [8].
+orientation of the EE at any given time [8].
 
 </br>
 
-
 ### 2.1 - Point-to-Point Trajectory Planning
 ------
-<ins>**What is Point-to-Point Trajectory Planning:**</ins> 
-
 Point-to-Point Trajectory Planning refers to the process of
-generating smooth and coordinated paths for delta robots that
-involve moving from a starting point to a single target location.
+generating smooth and coordinated paths that
+involves moving from a starting point to a single target location.
+
+</br>
 
 #### 2.1.1 - 3-4-5 Interpolating Polynomial
 ------
