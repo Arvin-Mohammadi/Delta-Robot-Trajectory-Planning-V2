@@ -116,6 +116,8 @@ This representation allows for smooth and controlled joint variable interpolatio
 
 One significant drawback is the lack of explicit constraints on jerk, which refers to the rate of change of acceleration. The absence of jerk constraints can result in undesirable mechanical stress and instability, particularly at the start and end points of the trajectory where jerk values may be unbounded. The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `point_to_point_345`
 
+</br>
+
 #### 2.1.2 - 4-5-6-7 Interpolating Polynomial
 ------
 <ins>**Math:**</ins> 
@@ -151,6 +153,8 @@ The result of this method is shown in the figure below. As explained, the advant
 
 The 4-5-6-7 interpolating polynomial offers an improvement over the 3-4-5 interpolating polynomial by incorporating higher-order terms.
 The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `point_to_point_4567`
+
+</br>
 
 #### 2.1.3 - Trapezoidal method
 ------
@@ -199,10 +203,13 @@ Implementing this sequence with a Python script, we can get the results show as 
 This method has the same problem of 3-4-5 method, but instead of start and finishing point, the problem is at $T/3$ and $2T/3$.
 The code can be found in the [path planning file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_ptp.py) in the function `trapezoidal_ptp`
 
+</br>
 
 ### 2.2 - Multi-Point Trajectory Planning
 ------
-Multi-Point Trajectory Planning involves generating smooth and coordinated paths for Delta Parallel Robots (DPRs) that include multiple target locations. 
+Multi-Point Trajectory Planning involves generating a path that include multiple target locations. 
+
+</br>
 
 #### 2.2.1 - Higher Order Polynomials
 ------
