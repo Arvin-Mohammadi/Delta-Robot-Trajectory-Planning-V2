@@ -57,7 +57,7 @@ Efficient trajectory planning is vital for DPRs successfuly managing their tasks
 
 </br>
 
-The code to Inverse and Forward Kinematics can be found in the [Delta Robot file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/delta_robot.py).
+The code to Inverse and Forward Kinematics can be found in the [Delta Robot file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/delta_robot.py). And Here's the [source](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/FK%20and%20IK/Inverse%20Kinematics%20(Delta%20Robot).pdf) of the code.
 
 ![a delta robot](https://howtorobot.com/sites/default/files/2021-09/delta-robot.jpg)
 [reference for the image](https://howtorobot.com/expert-insight/delta-robots)
