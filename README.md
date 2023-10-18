@@ -25,6 +25,7 @@ Overview:
         - Improved Cubic-Spline
     - Visual Results 
 - Experimental
+- References
 
 
 ## 1 - INTRODUCTION
