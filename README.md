@@ -385,12 +385,7 @@ that adds up to $5n+1$ constants. and since if we have n polynomials with the or
 First Method: Setting initial and final acceleration to zero
 Second Method: [Continous Jerk Profile](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/Improved%20Cubic%20Spline/README.md)
 
-#### 2.2.4 - Particle Swarm Optimization (PSO)
-------
-
-**[RESEARCH](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/PSO/README.md)**
-
-#### 2.2.5 - Multi-Point Trapezoidal
+#### 2.2.4 - Multi-Point Trapezoidal
 ------
 ![Trapezoidal through a sequence of points](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/725a87c9-7c0f-4fbd-94d2-5bf5696a4dca)
 
