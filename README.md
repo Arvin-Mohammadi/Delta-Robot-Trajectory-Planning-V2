@@ -445,6 +445,8 @@ https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509
 ------
 In this section I'll be implementing the theories studied in the previous section on the Delta Parallel Robot developed at the [Human and Robot Interaction Laboratory - University of Tehran](https://taarlab.com/)
 
+![285589538-140d367c-5eec-4489-b82d-ee53d1928131](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/bbb83b9f-8481-4c98-9988-98b24bf3ba7c)
+
 <a name="section-references"></a>
 ## References
 ------
