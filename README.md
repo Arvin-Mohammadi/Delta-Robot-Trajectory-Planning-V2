@@ -2,7 +2,7 @@
 ------
 <ins>**A word from me:**</ins> 
 
-I was really excited about creating a complete guide for Trajectory Planning for DPR, and I must say, it was quite a challenging task. However, I became pretty obsessive about finding a solution and felt driven to share it with others as an open-source ... thing. I hope you'll find it helpful.
+This repository is dedicated to studying the different trajectory planning methods (theory + practical) 
 
 If you need to ask any questions, here's my email: 
 arvin1844m@gmail.com
@@ -13,7 +13,7 @@ And here are some of my Articles regarding these research:
 ![delta_robot_urdf](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/delta_robot_urdf.PNG)
 
 Overview: 
-- Introduction
+- [Introduction](#section-introduction)
 - Trajectory Planning 
     - point-to-point trajectory planning  
         - 3-4-5 interpolating polynomial
@@ -27,8 +27,8 @@ Overview:
 - Experimental
 - References
 
-
-## 1 - INTRODUCTION
+<a name="section-introduction"></a>
+## 1 - Introduction
 ------
 <ins>**History**</ins> 
 
