@@ -18,8 +18,8 @@ Overview:
         - Improved Cubic-Spline
         - Multi-point Trapezoidal
     - Visual Results 
-- [Experimental Implementation](section-experimental-implementation)
-- [References](section-references)
+- [Experimental Implementation](#section-experimental-implementation)
+- [References](#section-references)
 
 <a name="section-introduction"></a>
 ## 1 - Introduction
