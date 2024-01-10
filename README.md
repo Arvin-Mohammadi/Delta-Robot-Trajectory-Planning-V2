@@ -443,7 +443,7 @@ https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509
 <a name="section-experimental-implementation"></a>
 ## 3 - Experimental Implementation
 ------
-In this section I'll be implementing the theories studied in the previous section on the Delta Parallel Robot developed at the [Human and Robot Interaction Laboratory - University of Tehran](https://taarlab.com/)
+In this section I'll be implementing the theories studied in the previous section on the Delta Parallel Robot developed at the [Human and Robot Interaction Laboratory - University of Tehran](https://taarlab.com/). The code of controlling the Delta Parallel Robot can be found in [This Link](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/tree/main/Research/Experimental%20Control)
 
 ![285589538-140d367c-5eec-4489-b82d-ee53d1928131](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/bbb83b9f-8481-4c98-9988-98b24bf3ba7c)
 
