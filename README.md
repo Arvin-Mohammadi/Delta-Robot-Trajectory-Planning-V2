@@ -21,7 +21,7 @@ Overview:
 - References
 
 <a name="section-introduction"></a>
-## 1 - INTRODUCTION
+## 1 - Introduction
 ------
 <ins>**History**</ins> 
 
@@ -58,7 +58,7 @@ a full report on kinematics of the robot can be found in the following link: [Th
 [reference for the image](https://howtorobot.com/expert-insight/delta-robots)
 
 <a name="section-trajectory-planning"></a>
-## 2 - TRAJECTORY PLANNING
+## 2 - Theoretical Analysis of Trajectory Plannig Methods
 ------
 Trajectory planning generates a time-based sequence of values,
 respecting the imposed constraints, to specify the position and
@@ -74,7 +74,7 @@ involves moving from a starting point to a single target location.
 
 </br>
 
-#### 2.1.1 - 3-4-5 Interpolating Polynomial
+#### 3-4-5 Interpolating Polynomial
 ------
 <ins>**Math:**</ins>
 
@@ -112,7 +112,7 @@ One significant drawback is the lack of explicit constraints on jerk, which refe
 
 </br>
 
-#### 2.1.2 - 4-5-6-7 Interpolating Polynomial
+#### 4-5-6-7 Interpolating Polynomial
 ------
 <ins>**Math:**</ins> 
 
@@ -150,7 +150,7 @@ The code can be found in the [path planning file](https://github.com/ArthasMenet
 
 </br>
 
-#### 2.1.3 - Trapezoidal method
+#### Trapezoidal method
 ------
 <ins>**Math:**</ins>:
 
@@ -205,7 +205,7 @@ Multi-Point Trajectory Planning involves generating a path that include multiple
 
 </br>
 
-#### 2.2.1 - Higher Order Polynomials
+#### Higher Order Polynomials
 ------
 <ins>**Math**</ins>
 
@@ -259,7 +259,7 @@ Using this method isn't all that appreciated anyways because for the larger numd
 
 The method is implemented in [this file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/path_planning_mltp.py) in the function `higher_order_poly_3pt`
 
-#### 2.2.2 - Cubic-Spline
+#### Cubic-Spline
 ------
 When provided with $n+1$ points, it is feasible to construct a unique interpolating polynomial of degree $n$. However, as the number of points increases, the computational burden becomes heavier. To address this, an alternative approach is to utilize n polynomials of degree $p$ instead. The selection of $p$ is based on the desired level of continuity for the spline. For instance, if one aims to achieve continuity of velocities and accelerations at the time instances $t_k$, where the transition between two consecutive segments takes place, a cubic polynomial with degree $p=3$ can be assumed.
 
@@ -362,7 +362,7 @@ Thus we have the velocities and the problem is solved. (for more details go to r
 
 ![Cubic spline method](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/cubic%20spline%20method.png)
 
-#### 2.2.3 - Improved Cubic spline 
+#### Improved Cubic spline 
 ------
 **[RESEARCH](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/Improved%20Cubic%20Spline/README.md)**
 
@@ -385,7 +385,7 @@ that adds up to $5n+1$ constants. and since if we have n polynomials with the or
 First Method: Setting initial and final acceleration to zero
 Second Method: [Continous Jerk Profile](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/Improved%20Cubic%20Spline/README.md)
 
-#### 2.2.4 - Multi-Point Trapezoidal
+#### Multi-Point Trapezoidal
 ------
 ![Trapezoidal through a sequence of points](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/725a87c9-7c0f-4fbd-94d2-5bf5696a4dca)
 
@@ -427,50 +427,22 @@ $$
 
 I wish it was as easy as this though. since we have three motors we have to synchronize them first and then we can generate the velocity profile.
 
-### 2.3 - Visual Results
+### 2.3 - Visualizing The Theoretical Results
 ------ 
 3D Animation for results of the sampled data of generated trajectories.
 
-#### 2.3.1 - 4-5-6-7 interpolating polynomial 
+#### 4-5-6-7 interpolating polynomial 
 
-https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/ec3256be-25d6-479c-86f5-d363633df996
+https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/5d727f31-c0f7-4de2-ac1f-8201ebe33d0e
 
-#### 2.3.2 - cubic spline results
+#### cubic spline results
 
 https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/b941c628-c7fa-4237-bbe9-e208a2699d5c
 
-## 3 - EXPERIMENTAL 
+<a name="section-trajectory-planning"></a>
+## 3 - Experimental Implementation
 ------
-In this section I'm going down a more practical approach. The following is the DPR I'll be working with at the [TaarLab](https://taarlab.com/)
-
-![photo_2023-08-17_12-25-01](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/80417591-e84b-4690-b07d-fb5bd21e1917)
-
-In the following Link You can find the Python code for communicating with the drivers. 
-
-DISCLAIMER: I did not write most of the following code as it was provided for me, I'm merely writing a documentation for the code and modify slightly if necessary.
-
-[Python Code For Driver Communication](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/tree/main/Research/Experimental%20Control)
-
-### 4.1 Results Of Experimental Movement
-------
-
-**Simple PID Controller**
-
-https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/4031ef55-d1d9-4cfc-96d2-5f0dd77f46f8
-
-**Point to Point: 3-4-5 Interpolation Polynomial (With PID Controller)**
-
-**Point to Point: 4-5-6-7  Interpolation Polynomial (With PID Controller)**
-
-https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/9bec8bc8-47a6-4f03-b223-ca8a47ee2cb2
-
-**Point to Point: Trapezoidal (With PID Controller)**
-
-**Multi-Point: Higher Order Polynomials**
-
-**Multi-Point: Cubic Spline**
-
-**Joy-Stick Mode**
+In this section I'll be implementing the theories studied in the previous section on the Delta Parallel Robot developed at the [Human and Robot Interaction Laboratory - University of Tehran](https://taarlab.com/)
 
 ## 5 - REFERENCES 
 ------
