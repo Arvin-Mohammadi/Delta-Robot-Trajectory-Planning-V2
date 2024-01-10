@@ -7,18 +7,19 @@ If you need to ask any questions you can reach me via email, linked-in, and etc.
 
 Overview: 
 - [Introduction](#section-introduction)
-- Trajectory Planning 
+- [Theoretical Analysis of Trajectory Plannig Methods](#section-trajectory-planning)
     - point-to-point trajectory planning  
         - 3-4-5 interpolating polynomial
         - 4-5-6-7 interpolating polynomial
-        - Trapezoidal method
+        - Point-to-Point Trapezoidal method
     - multi-point trajectory planning
         - Higher Order Polynomials
         - Cubic-Spline
         - Improved Cubic-Spline
+        - Multi-point Trapezoidal
     - Visual Results 
-- Experimental
-- References
+- [Experimental Implementation](section-experimental-implementation)
+- [References](section-references)
 
 <a name="section-introduction"></a>
 ## 1 - Introduction
@@ -439,12 +440,13 @@ https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509
 
 https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/assets/69509720/b941c628-c7fa-4237-bbe9-e208a2699d5c
 
-<a name="section-trajectory-planning"></a>
+<a name="section-experimental-implementation"></a>
 ## 3 - Experimental Implementation
 ------
 In this section I'll be implementing the theories studied in the previous section on the Delta Parallel Robot developed at the [Human and Robot Interaction Laboratory - University of Tehran](https://taarlab.com/)
 
-## 5 - REFERENCES 
+<a name="section-references"></a>
+## References
 ------
 [1] doi: /10.1007/978-3-030-03538-9 23 </br>
 [2] doi: 10.32629/jai.v5i1.505 </br>
