@@ -1,6 +1,5 @@
 <div style="text-align: center;"> 
 # A Full guide to Delta Parallel Robot Trajectory Planning
-------
 </div>
 <ins>**A word from me:**</ins> This repository is dedicated to studying the different trajectory planning methods (theory + practical). If you need to ask any questions you can reach me via email, linked-in, and etc. (all the information are in my github home page).
 
