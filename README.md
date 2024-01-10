@@ -21,18 +21,17 @@ Overview:
 - References
 
 <a name="section-introduction"></a>
-## 1 - Introduction
+## 1 - INTRODUCTION
 ------
 <ins>**History**</ins> 
 
-Delta Parallel Robots (DPR) are part of the third generation of industrial robots, have evolved since the 1950s. Their parallel kinematic structure and high-speed capabilities make them ideal for precise tasks, particularly in pick-and-place operations. This article (or something like an article) sheds light on trajectory planning for DPRs, focusing on smooth motion for the End-Effector while minimizing deviations [1].
+Delta Parallel Robots (DPR) are part of the third generation of industrial robots, have evolved since the 1950s. Their parallel kinematic structure and high-speed capabilities make them ideal for precise tasks, particularly in pick-and-place operations. This repository studies trajectory planning for DPRs, focusing on smooth motion for the End-Effector while minimizing deviations [1].
 
 </br>
 
 <ins>**Algorithms**</ins> 
 
-The trajectory-planning problem of a DPR can be tackled [3][4][5][6][7]
-using various algorithms.
+The trajectory-planning problem of a DPR can be tackled using various algorithms [3][4][5][6][7].
 - 5th and 7th order polynomials
 - Cubic Splines
 - Higher Order polynomials
@@ -40,8 +39,8 @@ using various algorithms.
 - Lame’s Curve
 - Pythagorean-Hodograph Curves
 - Particle Swarm Optimization (PSO)
-- butterfly optimization algorithm
 - Trapezoidal Algorithm
+- Adept Cycle 
 
 </br>
 
@@ -51,13 +50,14 @@ Efficient trajectory planning is vital for DPRs successfuly managing their tasks
 
 </br>
 
-<ins>**FK and IK**</ins> 
+<ins>**Forward and Inverse Kinematics**</ins> 
 
-The code to Inverse and Forward Kinematics can be found in the [Delta Robot file](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/python/delta_robot.py). And Here's the [source](https://github.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/blob/main/Research/FK%20and%20IK/Inverse%20Kinematics%20(Delta%20Robot).pdf) of the code.
+a full report on kinematics of the robot can be found in the following link: [The Following Link]()
 
 ![a delta robot](https://howtorobot.com/sites/default/files/2021-09/delta-robot.jpg)
 [reference for the image](https://howtorobot.com/expert-insight/delta-robots)
 
+<a name="section-trajectory-planning"></a>
 ## 2 - TRAJECTORY PLANNING
 ------
 Trajectory planning generates a time-based sequence of values,
