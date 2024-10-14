@@ -2,7 +2,7 @@
 ------
 
 <p align="center">
-    <a href="https://github.com/Arvin-Mohammadi/Delta-Robot-Trajectory-Planning-V3">HERE IS THE NEWEST VERSION</a>
+    <a href="https://github.com/Arvin-Mohammadi/Delta-Robot-Trajectory-Planning-V3">THIS LINK IS THE NEWEST VERSION</a>
 </p>
 
 ![delta_robot_urdf](https://raw.githubusercontent.com/ArthasMenethil-A/Delta-Robot-Trajectory-Planning/main/raw_images/delta_robot_urdf.PNG)
